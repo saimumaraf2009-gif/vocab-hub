@@ -268,3 +268,15 @@ input:focus,select:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3
 .preview-midnight{background:linear-gradient(135deg,#060607 62%,#ff1f2d 63%)}
 .preview-paper{background:linear-gradient(135deg,#f6f3f2 62%,#d70f20 63%)}
 .preview-paper i,.preview-paper b{background:#0e0e10}
+
+/* Session setup and learner profile */
+.setup-backdrop{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.76);backdrop-filter:blur(10px);display:grid;place-items:center;padding:18px}
+.setup-panel{width:min(100%,460px);position:relative;background:var(--card);border:1px solid var(--bd);border-radius:24px;padding:30px;box-shadow:var(--shadow);display:grid;gap:16px}
+.setup-panel h2{font-size:1.55rem}.setup-panel label,.profile-fields label{display:grid;gap:7px;font-size:.86rem;font-weight:700;color:var(--tx2)}
+.setup-panel select,.profile-fields input{width:100%;padding:13px 14px;border:1px solid var(--bd);border-radius:12px;background:var(--el);color:var(--tx)}
+.setup-close{position:absolute;right:16px;top:12px;border:0;background:transparent;font-size:27px;cursor:pointer;color:var(--tx2)}
+.setup-available{font-size:.82rem;color:var(--tx2)}.setup-start{width:100%;padding:14px}
+.profile-editor{padding:22px;margin:18px 0}.profile-edit-head{display:flex;align-items:center;gap:18px;margin-bottom:22px}
+.profile-avatar{width:92px;height:92px;object-fit:cover;border-radius:50%;border:3px solid var(--ac);background:var(--el)}
+.profile-upload{display:inline-flex;margin-top:8px;cursor:pointer}.profile-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:14px}
+@media(max-width:600px){.setup-panel{padding:24px 20px}.profile-fields{grid-template-columns:1fr}.profile-avatar{width:76px;height:76px}}

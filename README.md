@@ -8,6 +8,10 @@ A local-first English–Bengali vocabulary learning studio. Open `index.html` di
 - Added **Powered by Shahed's English Hub** — by Md. Shahedul Islam, English Department, Chittagong University — in the sidebar, page footer and About page, with portrait.
 - Fill-in-the-blank and Synonym games fall back to all levels when a level has no example/synonym data (Expert).
 
+## Session setup & profile update
+- Open a practice/game first, then choose difficulty and question count in the setup panel. Speed challenges ask for duration.
+- Profile supports editable name, school/college and an uploaded profile photo (up to 2 MB), saved locally in this browser.
+
 ## What's included
 - 529 vocabulary entries, five difficulty levels, per-game level selector, level journey dashboard.
 - Practice, revision, XP, achievements, themes, backup and restore.

@@ -20,3 +20,12 @@ The five-level metadata is an editorial first-pass classification of the existin
 
 ## Data and privacy
 Progress is stored in this browser on this device. Use Settings → Backup & restore before clearing browser data. No account, cloud sync or server is included.
+
+
+## Branding & portraits
+- Created by: Moshiur Rahman Araf
+- Powered by: Shahed's English Hub — by Md. Shahedul Islam, English Department, Chittagong University
+- Add portraits using the exact filenames and instructions in `ADD_PHOTOS_BN.md`.
+
+## Vocabulary/game data fix
+The embedded vocabulary used by the game engine now includes the same difficulty metadata as `data/vocabulary.json`. This prevents the level selector from finding zero words when the game starts. All 529 supplied entries are retained.

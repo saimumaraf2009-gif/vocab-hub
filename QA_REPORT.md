@@ -1,13 +1,7 @@
-# VocabHub 2.0 QA Report
+# VocabHub 2.1 QA Report
 
-- Vocabulary entries in supplied dataset: 529
-- Unique IDs: 529
-- Difficulty distribution: {1: 42, 2: 235, 3: 122, 4: 94, 5: 36}
-- Embedded game vocabulary and `data/vocabulary.json` use the same classified word records.
-- Game level selector filters the embedded vocabulary by `difficulty`.
-- All five levels are open; every game card has a level selector.
-- Study Paths navigation and Dashboard section removed.
-- Creator attribution: Moshiur Rahman Araf.
-- Powered by attribution: Shahed's English Hub — Md. Shahedul Islam, English Department, Chittagong University.
-- Actual portraits were not supplied; exact JPG filenames and instructions are included in `ADD_PHOTOS_BN.md`.
-- Local-first storage retained.
+- Vocabulary entries: 529; difficulty distribution {1: 42, 2: 235, 3: 122, 4: 94, 5: 36}
+- Tested in Chromium with simulated old saved data (no difficulty fields): all 7 game modes x 5 levels start correctly.
+- Fill / Synonym at Level 5 use an all-level fallback (no example or synonym data exists for Expert words).
+- "Study paths" removed from dashboard, hero and navigation.
+- Powered-by credit (sidebar, footer, About) renders on desktop and mobile; photo auto-detects jpg/jpeg/png/webp.

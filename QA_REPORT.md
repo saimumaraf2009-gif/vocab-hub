@@ -1,18 +1,21 @@
-# VocabHub QA report
+# VocabHub QA Report
 
-## Checks completed
-- `script.js`: Node.js syntax check passed.
-- Import smoke test: line-based Bengali vocabulary import passed; 4 test words imported.
-- Question-generation smoke test: MCQ, typing, scramble, fill-in-the-blanks, synonym/antonym and mixed modes generated questions with test data.
-- Game-flow smoke test: MCQ, typing, scramble, fill-in-the-blanks, synonym/antonym, mixed, matching, flashcards and speed mode completed in a mocked JavaScript environment.
-- Matching XP and attempt denominator corrected.
-- Due-review counting corrected.
-- Speed XP farming issue corrected with per-word/day and daily XP caps.
+## Build checks
+- Original list retained: 475 entries.
+- Added a topic-organized bilingual vocabulary extension, with example sentences/translations and practice metadata.
+- Enriched selected original entries with example and synonym/antonym content; supplied Bengali meanings were not silently rewritten.
+- Embedded fallback list and `data/vocabulary.json` are generated from the same vocabulary array.
+- Legacy `vocabhub.v1` browser data is migrated into the new storage key without intentionally discarding prior progress.
+- Three themes, topic filters, daily word card and a compact 52px mobile navigation are included.
+- Added Plus Jakarta Sans + Hind Siliguri font pairing and larger mobile typography.
+- Library rows now open a full word-profile modal instead of only filtering the library.
+- Word profiles include Bengali meanings, usage/word-class guidance, curated or explicitly labeled fallback examples, synonyms/antonyms, personal-example saving and one-tap practice.
+- Personal examples use a new `ownExamples` LocalStorage field and remain included in the normal backup/restore flow.
 
-## Not verified
-- A full browser run was blocked by the execution environment, so actual rendering, mobile layout, timer interaction, browser storage behavior and GitHub Pages deployment still need a real-browser check.
-- The real vocabulary list has not been imported or proofread.
-- No live user accounts or global leaderboard exist; this build is local-first by design.
+## Runtime checks
+- JavaScript syntax check: run `node --check script.js`.
+- JavaScript parsing and asset/data consistency checks were run. A full interactive browser/device pass should still be performed after opening `index.html` or deploying to GitHub Pages.
+- LocalStorage progress is device/browser-specific; there is no backend or account sync.
 
-## Recommendation
-Deploy to a temporary GitHub Pages repository, test the checklist in `NEXT_STEPS_BN.md`, then import and proofread the full vocabulary list.
+## Editorial note
+New meanings and bilingual examples are learner-friendly study aids. Review specialist or exam-specific word usage before using it as a formal reference source.

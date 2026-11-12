@@ -35,3 +35,11 @@ Tap-to-place Word scramble · word progress (learned / percent) in Practice & Ar
 
 ## What's new in 2.5
 Richer optional profile (class, location, goal, bio, favourite category) · homepage footer shows only the creator's name · Guided Meaning Example and user-written examples removed · Practice (learning) and Arcade (games) no longer share modes: Matching moved to Practice, Word builder moved to Arcade, duplicate Flashcard sprint removed · larger animated Next button · Frequency polygon of session accuracy in Analytics · word-profile cards for IPA, syllables, definition, forms, collocations, usage, mistakes, origin and related expressions appear automatically when a word has that data (the bundled 529 words are unchanged).
+
+
+## Vocabulary enrichment package
+- The 529 original entries, IDs, Bengali meanings, difficulty levels and existing metadata are retained.
+- Added dictionary lookup links (Cambridge, Oxford Learner's Dictionaries and Etymonline) to every entry.
+- Added General American IPA from the CMU Pronouncing Dictionary wherever the exact headword was available (516/529 entries).
+- The word-profile modal now displays IPA and dictionary reference links. Existing practice, Arcade, XP, levels, themes and local-first progress architecture are retained.
+- **Research limitation:** lookup links are references, not proof that each entry has been checked. English definitions, new collocations, word forms, grammar patterns, etymologies and common mistakes have not been individually researched for all 529 entries. Thirteen headwords had no exact CMU pronunciation match and therefore have no IPA field. These gaps are intentionally not filled with guesses.

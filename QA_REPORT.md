@@ -1,7 +1,11 @@
-# VocabHub 2.3 QA Report
+# QA Report — VocabHub v2.4
 
-- Vocabulary entries: 529; difficulty distribution {1: 42, 2: 235, 3: 122, 4: 94, 5: 36}
-- Tested in Chromium with simulated old saved data (no difficulty fields): all 7 game modes x 5 levels start correctly.
-- Fill / Synonym at Level 5 use an all-level fallback (no example or synonym data exists for Expert words).
-- "Study paths" removed from dashboard, hero and navigation.
-- Powered-by credit (sidebar, footer, About) renders on desktop and mobile; photo auto-detects jpg/jpeg/png/webp.
+- [x] JavaScript syntax validation (`node --check script.js`)
+- [x] Bundled vocabulary count verified: 529 entries
+- [x] Existing achievement criteria and storage keys retained
+- [x] Achievement cards now show unlocked state/date or locked progress
+- [x] Analytics extended with performance, weekly, difficulty, category, mastery, and activity metrics
+- [x] Responsive desktop/mobile styles added; dark and light theme variables reused
+- [ ] Browser interaction test: open the site and verify locally stored historical data on the target device
+
+Note: VocabHub stores progress in the browser's localStorage. This ZIP does not erase or migrate existing browser data.

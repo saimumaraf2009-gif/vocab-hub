@@ -428,3 +428,8 @@ select{appearance:none;-webkit-appearance:none;padding-right:36px!important;back
 .creator-card.name-only{text-align:center;justify-content:center;grid-template-columns:1fr}
 .profile-bio{grid-column:1/-1}.profile-bio textarea,.profile-fields select{width:100%;min-height:44px;background:var(--el);color:var(--tx);border:1px solid var(--bd);border-radius:11px;padding:10px;font:inherit}
 .freq-poly{width:100%;height:auto;display:block}.fp-axis{stroke:var(--bd);stroke-width:1}.fp-line{fill:none;stroke:#ff1f2d;stroke-width:2.5;stroke-linejoin:round}.fp-dot{fill:#ff1f2d}.fp-t{fill:var(--tx);opacity:.7;font-size:10px}
+
+.freq-poly{max-width:400px;margin:0 auto;background:radial-gradient(circle at 50% 0,rgba(0,255,240,.08),transparent 70%);border-radius:14px}
+.freq-poly .fp-axis{stroke:rgba(0,255,240,.35)}
+.freq-poly .fp-line{stroke:#00f5ff;stroke-width:2.2;filter:drop-shadow(0 0 3px #00f5ff) drop-shadow(0 0 8px #00f5ff) drop-shadow(0 0 14px #ff2bd6)}
+.freq-poly .fp-dot{fill:#ff2bd6;filter:drop-shadow(0 0 4px #ff2bd6) drop-shadow(0 0 9px #ff2bd6)}

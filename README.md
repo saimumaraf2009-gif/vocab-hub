@@ -43,3 +43,11 @@ Richer optional profile (class, location, goal, bio, favourite category) · home
 - Added General American IPA from the CMU Pronouncing Dictionary wherever the exact headword was available (516/529 entries).
 - The word-profile modal now displays IPA and dictionary reference links. Existing practice, Arcade, XP, levels, themes and local-first progress architecture are retained.
 - **Research limitation:** lookup links are references, not proof that each entry has been checked. English definitions, new collocations, word forms, grammar patterns, etymologies and common mistakes have not been individually researched for all 529 entries. Thirteen headwords had no exact CMU pronunciation match and therefore have no IPA field. These gaps are intentionally not filled with guesses.
+
+
+## Vocabulary data source
+
+The primary vocabulary source is the GitHub-hosted JSON file:
+`https://raw.githubusercontent.com/saimumaraf2009-gif/vocab-hub/main/vocabulary.json`
+
+On startup, VocabHub renders the saved/bundled vocabulary immediately, then attempts to refresh from GitHub. If the network is unavailable (or the page is opened using `file://`), the saved/bundled vocabulary remains available. A refresh replaces matching vocabulary content from GitHub, retains local-only words and enrichment metadata, and does not reset learning progress (review records, sessions, favourites, achievements, settings, etc.).

@@ -1,3 +1,5 @@
+> ✅ v2.3-এ বাস্তবায়িত: Memory Flip, Hangman, True/False Blitz, Odd One Out, Word Ladder, Sentence Builder, Boss Battle, Daily Challenge। বাকি: Listen & Pick, Crossword Mini, Pair Duel।
+
 # VocabHub — নতুন গেমের পরিকল্পনা
 
 বর্তমান গেম: Word matching · Word scramble · Speed challenge · Flashcard sprint।

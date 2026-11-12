@@ -1,4 +1,4 @@
-# VocabHub 2.2
+# VocabHub 2.3
 
 A local-first English–Bengali vocabulary learning studio. Open `index.html` directly or publish the folder with GitHub Pages.
 
@@ -29,3 +29,6 @@ Progress is stored in this browser on this device. Use Settings → Backup & res
 
 ## What's new in 2.2
 Tap-to-place Word scramble · word progress (learned / percent) in Practice & Arcade · no repeats until every word in a level has appeared once · Exam history page · theme-coloured line icons for every mode · a single Speed challenge with selectable duration · Founder & Creator credit across the site and on the home page. See NEXT_STEPS_BN.md and GAME_IDEAS_BN.md.
+
+## What's new in 2.3
+8 new games (Memory flip, Hangman, True/False blitz, Odd one out, Sentence builder, Word ladder, Daily challenge, Boss battle) · Word builder replaces typing · modern dropdowns · Mistakes tab with mistakes exam · Category progress removed.

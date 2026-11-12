@@ -1,53 +1,45 @@
-# VocabHub 2.5
+# VocabHub 2.6
 
-A local-first English–Bengali vocabulary learning studio. Open `index.html` directly or publish the folder with GitHub Pages.
+A local-first English–Bengali vocabulary learning studio. Open `index.html` directly or publish the folder with GitHub Pages, Netlify, or another static host.
 
-## What's new in 2.1
-- Fixed: games reported "not enough words" because the bundled word list had no difficulty metadata. All 529 words now carry their level, and previously saved browser data is repaired automatically.
-- Removed the "Explore topics" button, the "Popular study paths" dashboard section and the "Study paths" navigation item.
-- Added **Powered by Shahed's English Hub** — by Md. Shahedul Islam, English Department, Chittagong University — in the sidebar, page footer and About page, with portrait.
-- Fill-in-the-blank and Synonym games fall back to all levels when a level has no example/synonym data (Expert).
+## What's new in 2.6 — vocabulary review
+- Reviewed all **529 original headwords** for Bengali meaning, part of speech, synonyms and antonyms.
+- Corrected mistranslations and unclear meanings; retained multiple Bengali senses where useful.
+- Added part-of-speech labels and at least two relevant synonyms for every entry.
+- Added antonyms where a reliable opposite exists. An empty antonym list is intentional for words without a natural direct opposite; the data does not invent one merely to fill the field.
+- Preserved all 529 original IDs, categories, difficulty levels, IPA, reference links, and existing example sentences.
+- Updated the vocabulary in all three runtime locations: `vocabulary.json`, `data/vocabulary.json`, and the embedded offline fallback in `script.js`.
+- Existing saved browser vocabulary is refreshed from the bundled reviewed entries at startup. Learner progress, favourites, sessions, achievements, and locally added words remain intact.
+- Hosted copies refresh from the project-root `vocabulary.json`; direct `file://` opening and offline use the embedded fallback.
 
-## Session setup & profile update
-- Open a practice/game first, then choose difficulty and question count in the setup panel. Speed challenges ask for duration.
-- Profile supports editable name, school/college and an uploaded profile photo (up to 2 MB), saved locally in this browser.
+**Editorial limitation:** this is an editorial review pass, not a native lexicographer's sign-off or a complete word-by-word audit against Cambridge/Oxford. Reference links are supplied for further verification. A word can have different Bengali equivalents in different contexts; the entry gives the main learning sense(s) selected for this collection. Empty antonyms are deliberate where no good direct opposite exists.
 
 ## What's included
-- 529 vocabulary entries, five difficulty levels, per-game level selector, level journey dashboard.
+- 529 vocabulary entries across five difficulty levels.
 - Practice, revision, XP, achievements, themes, backup and restore.
-- Creator: Moshiur Rahman Araf, Founder & Creator.
+- Word profile with pronunciation (where available), Bengali meanings, part of speech, synonyms, antonyms and dictionary references.
+- Practice modes, matching, word games, analytics and local-first progress tracking.
+- Existing creator and partner branding, photos, design, and learning progress architecture are retained.
+
+## Files to publish
+Upload the **contents** of `VocabHub-Premium/` to the static site host. Keep the following files at the same relative locations:
+- `index.html`
+- `script.js`
+- `style.css`
+- `vocabulary.json` (canonical hosted data source)
+- `data/vocabulary.json` (maintained bundled data copy)
+- `assets/` (logos, icons and portraits)
+
+If your current host/repository serves the site from a nested folder, place `vocabulary.json` beside `index.html` and `script.js` in that folder as shown above.
 
 ## Photos
-Put your portraits in `assets/photos/`:
-- `araf.jpg` — Moshiur Rahman Araf
-- `shahed.jpg` — Md. Shahedul Islam
-
-`.jpg`, `.jpeg`, `.png` and `.webp` are all accepted. Without a photo, a placeholder (`araf.svg` / `shahed.svg`) is shown.
+Put portraits in `assets/photos/` named `araf.jpg` and `shahed.jpg`. `.jpg`, `.jpeg`, `.png` and `.webp` are accepted; placeholders are used if a portrait is not present.
 
 ## Data and privacy
-Progress is stored in this browser on this device. Use Settings → Backup & restore before clearing browser data.
+Learning progress is stored in this browser on this device. Use Settings → Backup & restore before clearing browser data. The vocabulary can refresh from the local project-root JSON file when hosted, while `file://` and offline sessions use the embedded fallback.
 
-## What's new in 2.2
-Tap-to-place Word scramble · word progress (learned / percent) in Practice & Arcade · no repeats until every word in a level has appeared once · Exam history page · theme-coloured line icons for every mode · a single Speed challenge with selectable duration · Founder & Creator credit across the site and on the home page. See NEXT_STEPS_BN.md and GAME_IDEAS_BN.md.
-
-## What's new in 2.3
-8 new games (Memory flip, Hangman, True/False blitz, Odd one out, Sentence builder, Word ladder, Daily challenge, Boss battle) · Word builder replaces typing · modern dropdowns · Mistakes tab with mistakes exam · Category progress removed.
-
-## What's new in 2.5
-Richer optional profile (class, location, goal, bio, favourite category) · homepage footer shows only the creator's name · Guided Meaning Example and user-written examples removed · Practice (learning) and Arcade (games) no longer share modes: Matching moved to Practice, Word builder moved to Arcade, duplicate Flashcard sprint removed · larger animated Next button · Frequency polygon of session accuracy in Analytics · word-profile cards for IPA, syllables, definition, forms, collocations, usage, mistakes, origin and related expressions appear automatically when a word has that data (the bundled 529 words are unchanged).
-
-
-## Vocabulary enrichment package
-- The 529 original entries, IDs, Bengali meanings, difficulty levels and existing metadata are retained.
-- Added dictionary lookup links (Cambridge, Oxford Learner's Dictionaries and Etymonline) to every entry.
-- Added General American IPA from the CMU Pronouncing Dictionary wherever the exact headword was available (516/529 entries).
-- The word-profile modal now displays IPA and dictionary reference links. Existing practice, Arcade, XP, levels, themes and local-first progress architecture are retained.
-- **Research limitation:** lookup links are references, not proof that each entry has been checked. English definitions, new collocations, word forms, grammar patterns, etymologies and common mistakes have not been individually researched for all 529 entries. Thirteen headwords had no exact CMU pronunciation match and therefore have no IPA field. These gaps are intentionally not filled with guesses.
-
-
-## Vocabulary data source
-
-The primary vocabulary source is the GitHub-hosted JSON file:
-`https://raw.githubusercontent.com/saimumaraf2009-gif/vocab-hub/main/vocabulary.json`
-
-On startup, VocabHub renders the saved/bundled vocabulary immediately, then attempts to refresh from GitHub. If the network is unavailable (or the page is opened using `file://`), the saved/bundled vocabulary remains available. A refresh replaces matching vocabulary content from GitHub, retains local-only words and enrichment metadata, and does not reset learning progress (review records, sessions, favourites, achievements, settings, etc.).
+## Previous updates
+- **2.5:** richer optional profile, learning / arcade separation, updated word-profile cards, improved analytics and responsive styling.
+- **2.4:** achievements and analytics improvements.
+- **2.3:** additional vocabulary games, mistake tracking and practice refinements.
+- **2.2:** matching, exam history, word progress and game improvements.

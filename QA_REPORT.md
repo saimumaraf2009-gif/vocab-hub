@@ -24,3 +24,17 @@
 - A word without a clear lexical antonym has an empty `ant` array intentionally.
 - Only the existing 73 entries that already had example sentences retain examples. New example sentences were not invented as part of this meaning/synonym/antonym task.
 - Full interactive browser testing and live deployment still require publishing the folder to the user's hosting service.
+
+
+## VocabHub 2.10 — two-section library integration
+- [x] Confirmed the supplied Class XI–XII text contains 429 numbered entries across 15 units.
+- [x] Matched 64 source entries to existing library words; added 365 genuinely new entries.
+- [x] Confirmed 894 unique word IDs in the final database.
+- [x] Confirmed section membership: With Clues = 529; English 1st Paper (Class XI–XII) = 429; 64 words are shared.
+- [x] Preserved source Bengali meanings, POS, synonym/antonym lists, example sentences, translations, unit numbers and unit titles for all 365 new entries.
+- [x] Kept existing difficulty classifications for the original library and shared entries; assigned Intermediate as the default difficulty for the 365 new entries.
+- [x] Synchronized `vocabulary.json`, `data/vocabulary.json` and the embedded offline `BUNDLED_WORDS` data (all identical).
+- [x] Removed the library's topic/category filter and added All sections / With Clues / Class XI–XII section filtering.
+- [x] Added section, difficulty and question-count/duration/pair-count controls to practice and arcade setup.
+- [x] Added section-scoped round tracking so a word is not repeated within that section's round until eligible words have appeared.
+- [x] `node --check script.js` passed.

@@ -1,6 +1,13 @@
-# VocabHub 2.6
+# VocabHub 2.10
 
 A local-first English–Bengali vocabulary learning studio. Open `index.html` directly or publish the folder with GitHub Pages, Netlify, or another static host.
+
+## What's new in 2.10 — two-section library and session filters
+- Consolidated the library into exactly two vocabulary sections: **With Clues** (the existing 529 words) and **English 1st Paper (Class XI–XII) — 2018 Key Words** (429 source-list words).
+- The 64 overlapping words belong to both sections; the 365 new entries were added from the supplied unit-wise text file, preserving its Bengali meanings, parts of speech, synonyms, antonyms, examples, translations and unit labels.
+- The library defaults to **All sections** and can filter to either section. Previous topic/category filters are removed from the library.
+- Practice and arcade setup now includes section, difficulty and question-count (or challenge-duration/pair-count) choices. Section-aware rounds avoid repeating a word until the selected section's round is complete.
+- New Class XI–XII entries default to Intermediate difficulty so they can be practised immediately; existing difficulty assignments are retained for overlapping words.
 
 ## What's new in 2.6 — vocabulary review
 - Reviewed all **529 original headwords** for Bengali meaning, part of speech, synonyms and antonyms.

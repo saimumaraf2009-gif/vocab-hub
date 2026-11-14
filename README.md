@@ -1,4 +1,4 @@
-# VocabHub 2.11.1
+# VocabHub 2.15
 
 A local-first English–Bengali vocabulary learning studio. Open `index.html` directly or publish the folder with GitHub Pages, Netlify, or another static host.
 
@@ -64,3 +64,11 @@ Learning progress is stored in this browser on this device. Use Settings → Bac
 
 ## 2.14
 Unit browsing for the 2026 book (and 2018 key words), premium dropdowns, mobile menu fix (drawer moved outside #nav), home-page promos for every tab. See UPDATE_2_14_BN.md.
+
+
+## What's new in 2.15 — Medical Admission Vocabulary
+- Added **Medical Admission Vocabulary** as a separate Library section, with 109 word/phrase profiles derived from the supplied answered question document.
+- Added 111 source-linked vocabulary questions grouped into Word Meaning, Synonym–Antonym, Idioms–Phrases and Spelling–Word Forms.
+- Added a Medical Admission question-practice page and quiz-game entry points from Practice and Arcade.
+- Word profiles show related original question numbers and let learners practise those exact source questions.
+- Original source question numbers, options, answers and supplied explanations are retained. The supplied document contains 111 vocabulary-focused questions selected from a 361-question source bank.

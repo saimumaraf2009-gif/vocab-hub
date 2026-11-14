@@ -652,3 +652,39 @@ select:focus-visible{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px va
 @media(prefers-reduced-motion:reduce){.promo-tile,.unit-card,.eft-chip{transition:none}.promo-tile:hover,.unit-card:hover,.eft-chip:hover{transform:none}}
 
 .setup-backdrop{place-items:start center}.setup-panel{margin:auto}
+
+
+/* Medical Admission vocabulary section and source-linked question practice */
+.medical-promo{display:flex;flex-direction:column;gap:7px;margin:14px 0 20px;padding:20px 22px;border:1px solid var(--bd);background:linear-gradient(120deg,rgba(87,126,255,.10),rgba(32,201,151,.07));text-decoration:none;color:inherit}
+.medical-promo b{font-size:1.08rem}.medical-promo small{color:var(--tx2);font-size:.86rem}.medical-game-promo{border-color:rgba(32,201,151,.28)}
+.medical-intro{display:flex;justify-content:space-between;gap:24px;align-items:center;padding:24px;margin:18px 0}
+.medical-intro h2{margin:8px 0}.medical-intro p{max-width:700px;color:var(--tx2);line-height:1.7}
+.medical-stats{display:grid;grid-template-columns:auto auto;gap:4px 10px;align-items:center;min-width:170px}
+.medical-stats b{font-size:1.5rem;color:var(--ac)}.medical-stats small{color:var(--tx2)}
+.medical-launch{padding:22px;margin-bottom:16px}.medical-launch h2{margin:0 0 16px}
+.medical-launch label{display:inline-flex;flex-direction:column;gap:7px;margin:0 14px 14px 0;color:var(--tx2);font-size:.85rem}
+.medical-launch select{min-width:220px;padding:11px 14px;border:1px solid var(--bd);border-radius:12px;background:var(--card);color:var(--tx)}
+.medical-launch-actions{display:flex;gap:10px;flex-wrap:wrap}
+.medical-category-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.medical-category-card{text-align:left;padding:18px;display:flex;flex-direction:column;gap:9px;color:var(--tx);cursor:pointer}
+.medical-category-card small{color:var(--tx2)}
+.medical-quiz-card{max-width:900px;margin:18px auto;padding:clamp(18px,4vw,34px)}
+.medical-quiz-meta,.medical-quiz-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--tx2);font-size:.85rem}
+.medical-quiz-progress{height:7px;background:var(--bd);border-radius:20px;overflow:hidden;margin:12px 0 26px}
+.medical-quiz-progress i{display:block;height:100%;background:var(--ac);border-radius:20px}
+.medical-quiz-card h2{font-size:clamp(1.15rem,2.5vw,1.55rem);line-height:1.5;margin:12px 0 22px}
+.medical-options{display:grid;gap:10px}
+.medical-option{display:flex;align-items:center;gap:12px;text-align:left;padding:14px 16px;border:1px solid var(--bd);border-radius:14px;background:var(--card);color:var(--tx);cursor:pointer}
+.medical-option b{display:grid;place-items:center;min-width:30px;height:30px;border-radius:9px;background:var(--el);color:var(--tx2)}
+.medical-option:disabled{cursor:default;opacity:1}
+.medical-option.is-correct{border-color:#20b981;background:rgba(32,185,129,.09)}
+.medical-option.is-wrong{border-color:#e45d70;background:rgba(228,93,112,.08)}
+.medical-option-mark{margin-left:auto;color:#20b981;font-weight:800}
+.medical-feedback{padding:15px 17px;border-radius:13px;margin:18px 0;line-height:1.65}
+.medical-feedback p{margin:6px 0 0}.medical-feedback.good{background:rgba(32,185,129,.10)}.medical-feedback.bad{background:rgba(228,93,112,.10)}
+.medical-quiz-footer{margin-top:18px;flex-wrap:wrap}.medical-result{max-width:700px;margin:20px auto;padding:30px;text-align:center}
+.medical-result h2{font-size:2rem;margin:0}.medical-result p{color:var(--tx2)}
+.medical-related-card{margin:18px 0}.medical-ref-list{display:grid;gap:8px;margin:12px 0}
+.medical-ref-link{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;padding:12px 14px;border:1px solid var(--bd);border-radius:12px;background:var(--card);color:var(--tx);cursor:pointer}
+.medical-ref-link span,.medical-ref-link small{color:var(--tx2)}.medical-ref-link small{line-height:1.45}
+@media(max-width:720px){.medical-intro{align-items:flex-start;flex-direction:column}.medical-category-grid{grid-template-columns:1fr}.medical-launch label{display:flex;width:100%;margin-right:0}.medical-launch select{width:100%}.medical-quiz-footer{align-items:flex-start;flex-direction:column}}

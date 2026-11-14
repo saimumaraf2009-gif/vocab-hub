@@ -72,3 +72,6 @@ Unit browsing for the 2026 book (and 2018 key words), premium dropdowns, mobile 
 - Added a Medical Admission question-practice page and quiz-game entry points from Practice and Arcade.
 - Word profiles show related original question numbers and let learners practise those exact source questions.
 - Original source question numbers, options, answers and supplied explanations are retained. The supplied document contains 111 vocabulary-focused questions selected from a 361-question source bank.
+
+## 2.16
+DU IBA Vocabulary section + 155 real IBA MCQs merged on top of the Medical Admission build. See UPDATE_2_16_BN.md and IBA_QUESTION_MAP_BN.md.

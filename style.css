@@ -688,3 +688,24 @@ select:focus-visible{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px va
 .medical-ref-link{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;padding:12px 14px;border:1px solid var(--bd);border-radius:12px;background:var(--card);color:var(--tx);cursor:pointer}
 .medical-ref-link span,.medical-ref-link small{color:var(--tx2)}.medical-ref-link small{line-height:1.45}
 @media(max-width:720px){.medical-intro{align-items:flex-start;flex-direction:column}.medical-category-grid{grid-template-columns:1fr}.medical-launch label{display:flex;width:100%;margin-right:0}.medical-launch select{width:100%}.medical-quiz-footer{align-items:flex-start;flex-direction:column}}
+
+/* ---------- DU IBA (v2.15) ---------- */
+.iba-banner{border-color:color-mix(in srgb,var(--wa) 40%,var(--bd));background:radial-gradient(120% 140% at 0% 0%,color-mix(in srgb,var(--wa) 16%,transparent),transparent 60%),var(--card)}
+.iba-banner .eft-kicker{background:color-mix(in srgb,var(--wa) 16%,transparent);color:var(--wa)}
+.iba-banner .eft-chip i{color:var(--wa)}
+.iba-banner .eft-chip:hover{border-color:var(--wa);background:color-mix(in srgb,var(--wa) 12%,transparent)}
+.iba-banner .eft-units{grid-template-columns:repeat(3,minmax(0,1fr));max-height:340px;overflow:auto;padding-right:2px}
+.iba-fb{margin:0 0 12px;padding:12px 14px;border-radius:14px;border:1px solid color-mix(in srgb,var(--wa) 35%,var(--bd));background:color-mix(in srgb,var(--wa) 8%,transparent)}
+.iba-ref{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.iba-chip{display:inline-flex;align-items:center;padding:4px 10px;border-radius:99px;font-size:10.5px;font-weight:800;letter-spacing:0;background:color-mix(in srgb,var(--wa) 16%,transparent);color:var(--wa);border:1px solid color-mix(in srgb,var(--wa) 30%,transparent)}
+.iba-chip.warn{background:color-mix(in srgb,var(--er) 14%,transparent);color:var(--er);border-color:color-mix(in srgb,var(--er) 30%,transparent)}
+.iba-exp{font-size:12.5px;line-height:1.8;color:var(--tx2);margin:0}
+.iba-map-head{margin-top:30px}
+.iba-where{font-size:11px;line-height:1.7;opacity:.9}
+.iba-ref-card .word-related-list{margin-bottom:10px}
+.iba-q-chip{font-size:11px}
+.iba-lib-note{margin-top:12px}
+.card .big.long{font-size:clamp(15px,2.4vw,19px);line-height:1.75;text-align:left;font-weight:600;letter-spacing:-.01em}
+@media(max-width:640px){.iba-banner .eft-units{grid-template-columns:repeat(2,minmax(0,1fr));max-height:300px}}
+
+.card .big.long{white-space:pre-line}

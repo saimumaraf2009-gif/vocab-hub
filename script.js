@@ -8,8 +8,8 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const sh=a=>{a=[...a];for(let i=a.length;i>1;){const j=Math.random()*i--|0;[a[i],a[j]]=[a[j],a[i]]}return a};
 const short=m=>(m||'').split(' / ')[0];
 const dayOf=t=>{const d=new Date(t);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
-const VOCAB_SECTIONS=[{id:'all',name:'All sections'},{id:'with-clues',name:'With Clues'},{id:'class-xi-xii',name:'English 1st Paper (Class XI–XII) — 2018 Key Words'}];
-const SECTION_LABELS={'with-clues':'With Clues','class-xi-xii':'English 1st Paper (Class XI–XII) — 2018 Key Words'};
+const VOCAB_SECTIONS=[{id:'all',name:'All sections'},{id:'with-clues',name:'With Clues'},{id:'class-xi-xii',name:'English 1st Paper (Class XI–XII) — 2018 Key Words'},{id:'english-for-today-2026',name:'ENGLISH FOR TODAY (Class XI–XII) 2026'}];
+const SECTION_LABELS={'with-clues':'With Clues','class-xi-xii':'English 1st Paper (Class XI–XII) — 2018 Key Words','english-for-today-2026':'ENGLISH FOR TODAY (Class XI–XII) 2026'};
 let ACTIVE_SECTION='all';
 let D=Object.assign({words:null,p:{},ses:[],fav:{},claims:{},ach:{},ownExamples:{},theme:'midnight',goal:20,name:'Learner',sound:true},JSON.parse(localStorage.getItem(K)||localStorage.getItem('vocabhub.v1')||'{}'));
 D.ownExamples=D.ownExamples||{};

@@ -1,6 +1,16 @@
-# VocabHub 2.10
+# VocabHub 2.11.1
 
 A local-first English–Bengali vocabulary learning studio. Open `index.html` directly or publish the folder with GitHub Pages, Netlify, or another static host.
+
+## What's new in 2.11.1 — Smart Revision and mobile navigation
+- Reworked Smart Revision guidance so the three queues are clearly explained: Due for revision, Difficult words, and Learned words.
+- Clarified the spaced-repetition intervals (1, 2, 4, 7, 15, 30 and 60 days) and the two flashcard self-check actions.
+- Fixed revision sessions so their selected queue is not filtered by normal practice round history; due, difficult and learned words can all be reviewed as intended.
+- Fixed the revision-session review counter so correctly recalled due words are counted before their next review date is advanced.
+- Added an accessible mobile slide-in menu with every secondary section, a close button, tap-outside dismissal, Escape-key dismissal and active-page indication.
+- Kept the bottom navigation focused on Home, Practice, Arcade, Library and Profile.
+- Removed the repeated partner promotional badge from the non-home navigation/footer; the homepage remains the promotional placement.
+- Preserved the vocabulary database, word IDs, local learning-progress structure, images and branding assets.
 
 ## What's new in 2.10 — two-section library and session filters
 - Consolidated the library into exactly two vocabulary sections: **With Clues** (the existing 529 words) and **English 1st Paper (Class XI–XII) — 2018 Key Words** (429 source-list words).
@@ -22,7 +32,7 @@ A local-first English–Bengali vocabulary learning studio. Open `index.html` di
 **Editorial limitation:** this is an editorial review pass, not a native lexicographer's sign-off or a complete word-by-word audit against Cambridge/Oxford. Reference links are supplied for further verification. A word can have different Bengali equivalents in different contexts; the entry gives the main learning sense(s) selected for this collection. Empty antonyms are deliberate where no good direct opposite exists.
 
 ## What's included
-- 529 vocabulary entries across five difficulty levels.
+- 894 vocabulary entries across two sections: 529 With Clues entries and 429 Class XI–XII entries, with 64 shared words; five difficulty levels are available.
 - Practice, revision, XP, achievements, themes, backup and restore.
 - Word profile with pronunciation (where available), Bengali meanings, part of speech, synonyms, antonyms and dictionary references.
 - Practice modes, matching, word games, analytics and local-first progress tracking.

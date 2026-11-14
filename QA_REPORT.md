@@ -38,3 +38,15 @@
 - [x] Added section, difficulty and question-count/duration/pair-count controls to practice and arcade setup.
 - [x] Added section-scoped round tracking so a word is not repeated within that section's round until eligible words have appeared.
 - [x] `node --check script.js` passed.
+
+
+## VocabHub 2.11.1 — Smart Revision and mobile UX QA
+- [x] `node --check script.js` passed after the revision queue and navigation changes.
+- [x] Confirmed root `vocabulary.json` and `data/vocabulary.json` remain byte-identical to the supplied 2.10 package (894 entries).
+- [x] Confirmed the embedded `BUNDLED_WORDS` collection remains identical to the canonical vocabulary JSON.
+- [x] Revision queues now bypass regular game round-history filtering; due queue still uses the due-date predicate.
+- [x] Fixed due-review counter ordering in Flashcard Recall.
+- [x] Verified all 16 page IDs are covered by desktop navigation or the mobile primary/drawer navigation.
+- [x] Confirmed the Learning Space / Dashboard topbar heading is not present in the delivered markup.
+- [x] ZIP integrity and extracted file inventory verified.
+- [ ] Full interactive browser/device testing could not be completed in this runtime; check the deployed site on a real phone before public release.

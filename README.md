@@ -60,3 +60,7 @@ Learning progress is stored in this browser on this device. Use Settings → Bac
 - **2.4:** achievements and analytics improvements.
 - **2.3:** additional vocabulary games, mistake tracking and practice refinements.
 - **2.2:** matching, exam history, word progress and game improvements.
+
+
+## 2.14
+Unit browsing for the 2026 book (and 2018 key words), premium dropdowns, mobile menu fix (drawer moved outside #nav), home-page promos for every tab. See UPDATE_2_14_BN.md.

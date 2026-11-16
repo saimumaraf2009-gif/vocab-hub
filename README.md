@@ -1,4 +1,4 @@
-# VocabHub 2.15
+# VocabHub 2.17.3
 
 A local-first English–Bengali vocabulary learning studio. Open `index.html` directly or publish the folder with GitHub Pages, Netlify, or another static host.
 
@@ -75,3 +75,15 @@ Unit browsing for the 2026 book (and 2018 key words), premium dropdowns, mobile 
 
 ## 2.16
 DU IBA Vocabulary section + 155 real IBA MCQs merged on top of the Medical Admission build. See UPDATE_2_16_BN.md and IBA_QUESTION_MAP_BN.md.
+
+
+## What's new in 2.17.3 — CKRUET Vocabulary
+- Added a dedicated **CKRUET** Library section with five focused profiles: Sire, Dame, Advice, Which, and Have something done.
+- Added four source-linked CKRUET questions to a dedicated Practice + Arcade quiz page.
+- References are preserved in exam-session form (`CKRUET'21-22`, `CKRUET'22-23`, `CKRUET'23-24`). The Sire question also retains its KUET 16-17 cross-reference in its source note.
+- Practice and Arcade pages link directly to the CKRUET question set; each profile links back to its related question(s).
+- The supplied question bank explicitly labels four questions as CKRUET. Other RUET/KUET/CUET questions are not reclassified as CKRUET.
+- Where the source supplied only a correct sentence/translation and no distractor options, practice-only distractors were added and are explicitly labelled as generated. The original source wording and answer are preserved.
+- A source note flags the Sire → Dame answer for verification: the usual female counterpart for an animal sire is *dam*.
+- Updated root and `data/vocabulary.json`, plus the embedded offline fallback in `script.js`.
+

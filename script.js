@@ -19,7 +19,14 @@ const IBA_SEC='du-iba',IBA_Q=window.IBA_Q||[],IBA_META=window.IBA_META||{session
 IBA_Q.push(...DU_ABCD_Q); if(!IBA_META.sessions.includes('DU ABCD'))IBA_META.sessions.push('DU ABCD');
 /* HSC Academic source questions share the proven past-question runner. */
 const HSC_Q=window.HSC_Q||[]; HSC_Q.forEach(q=>IBA_Q.push(q)); IBA_TYPES.hsc='HSC English 1st Paper Vocabulary'; if(!IBA_META.sessions.includes('HSC Academic'))IBA_META.sessions.push('HSC Academic');
-const DU_IBA_ADMISSION_Q=IBA_Q.filter(q=>(q.refs||[]).some(r=>/^BBA IBA\b/.test(r)));
+const IBA_ADMISSION_EXCLUDED=new Set(['ibaq-1','ibaq-30','ibaq-93','ibaq-146']);
+const DU_IBA_ADMISSION_Q=IBA_Q.filter(q=>(q.refs||[]).some(r=>/^BBA IBA\b/.test(r))&&!IBA_ADMISSION_EXCLUDED.has(q.id)).map(q=>{
+ const x={...q,opts:[...(q.opts||[])]};
+ if(x.id==='ibaq-54'){x.opts[0]='off';x.a=0;x.exp="সঠিক phrase হলো “pass oneself off as” — অর্থাৎ নিজেকে অন্য পরিচয়ে/অবস্থায় উপস্থাপন করা। মূল অপশনে “off” ছিল না; তাই “out” সংশোধন করা হয়েছে।";}
+ if(x.id==='ibaq-77'){x.a=0;x.exp="Contrive a plan অর্থ পরিকল্পনা উদ্ভাবন/প্রণয়ন করা; এখানে এটি সবচেয়ে যথাযথ।";}
+ if(x.id==='ibaq-20'){x.opts[1]='frequency...adverse';x.exp="Frequency of crimes এবং adverse consequences—দুটি phrase-ই বাক্যের অর্থের সঙ্গে মেলে। মূল অপশনের “averse” বানানটি “adverse” করা হয়েছে।";}
+ return x;
+});
 /* ---------- units inside a section (v2.14) ---------- */
 const EFT26='english-for-today-2026';
 const HSC_SEC='english-1st-hsc-academic';
@@ -394,8 +401,8 @@ function ibaRefHTML(w){const qs=(w.ibaQ||[]).map(n=>IBA_Q.find(q=>q.n===n)).filt
  return`<section class="word-profile-card iba-ref-card"><span class="word-profile-label">DU IBA REFERENCES · ${qs.length}টি প্রশ্নে এসেছে</span><div class="word-related-list">${qs.map(q=>`<span class="word-related-chip iba-q-chip">${esc(q.sess.join(' / '))} · Q${q.n} · ${esc(IBA_TYPES[q.type]||q.type)}</span>`).join('')}</div><p class="word-profile-footnote">সূত্র: ঢাবি IBA ভর্তি প্রশ্নব্যাংক (Vocabulary অংশ)। Q = প্রশ্ন নম্বর।</p><button class="btn" data-word="${esc(w.id)}" onclick="ibaPracticeWord(this.dataset.word)">এই শব্দের IBA প্রশ্নে অনুশীলন ↗</button></section>`}
 /* ---------- unified admission questions home banner ---------- */
 function admissionBanner(){
- const total=DU_IBA_ADMISSION_Q.length+DU_ABCD_Q.length+MEDICAL_QUESTIONS.length;
- return `<section class="eft-banner admission-banner" aria-label="Admission question archive"><div class="eft-copy"><span class="eft-kicker">ADMISSION ARCHIVE · ${total} QUESTIONS</span><h2>Admission Questions</h2><p class="bn">DU IBA, DU A/B/C/D ও Medical ভর্তি পরীক্ষার প্রশ্ন বিশ্ববিদ্যালয়/প্রতিষ্ঠান এবং সাল/সেশন অনুযায়ী সাজানো।</p><div class="row"><button class="btn pri" onclick="go('admission')">Explore all admission questions ↗</button></div></div><div class="eft-units"><span class="eft-chip"><i>01</i><span>DU IBA</span><small>${DU_IBA_ADMISSION_Q.length}</small></span><span class="eft-chip"><i>02</i><span>DU A/B/C/D</span><small>${DU_ABCD_Q.length}</small></span><span class="eft-chip"><i>03</i><span>Medical</span><small>${MEDICAL_QUESTIONS.length}</small></span></div></section>`;
+ const total=DU_IBA_ADMISSION_Q.length+DU_ABCD_ADMISSION_Q.length+MEDICAL_ADMISSION_QUESTIONS.length+CKRUET_ADMISSION_QUESTIONS.length;
+ return `<section class="eft-banner admission-banner" aria-label="Admission question archive"><div class="eft-copy"><span class="eft-kicker">ADMISSION ARCHIVE · ${total} QUESTIONS</span><h2>Admission Questions</h2><p class="bn">DU IBA, DU A/B/C/D, Medical ও CKRUET ভর্তি পরীক্ষার Vocabulary প্রশ্ন বিশ্ববিদ্যালয়/প্রতিষ্ঠান এবং সাল/সেশন অনুযায়ী সাজানো।</p><div class="row"><button class="btn pri" onclick="go('admission')">Explore all admission questions ↗</button></div></div><div class="eft-units"><span class="eft-chip"><i>01</i><span>DU IBA</span><small>${DU_IBA_ADMISSION_Q.length}</small></span><span class="eft-chip"><i>02</i><span>DU A/B/C/D</span><small>${DU_ABCD_ADMISSION_Q.length}</small></span><span class="eft-chip"><i>03</i><span>Medical</span><small>${MEDICAL_ADMISSION_QUESTIONS.length}</small></span><span class="eft-chip"><i>04</i><span>CKRUET</span><small>${CKRUET_ADMISSION_QUESTIONS.length}</small></span></div></section>`;
 }
 
 function admissionGroups(title,items,getRef,renderQ){
@@ -564,10 +571,11 @@ V.ckruet=()=>{
  return `<div class="page-heading"><div><span class="eyebrow">SOURCE-BASED VOCABULARY COLLECTION</span><h1>CKRUET Library &amp; Question Bank</h1><p class="sub">CKRUET এখানে পুরো RUET · KUET · CUET Vocabulary সংকলনের সেকশন-নাম। প্রশ্নের আসল পরীক্ষার রেফারেন্স অপরিবর্তিত রাখা হয়েছে।</p></div><span class="count-tile"><b>${total}</b><small>QUESTIONS</small></span></div><div class="grid stats-grid"><div class="card stat"><b>${total}</b><span>Source questions</span></div><div class="card stat"><b>${profiles}</b><span>CKRUET profiles in Library</span></div><div class="card stat"><b>${cats.length}</b><span>Question categories</span></div></div><div class="card ckruet-controls"><div class="field"><span class="field-label">ক্যাটাগরি</span>${ddHTML('ckruet-category',categoryOptions,CKRUET_RUN.category)}</div><div class="field"><span class="field-label">প্রশ্ন / উত্তর / রেফারেন্স খুঁজুন</span><input id="ckruet-search" placeholder="Search the question bank" value="${esc(CKRUET_RUN.search)}" onchange="ckruetSearch(this.value)"></div><div class="row"><button class="btn pri" onclick="ckruetStart('practice')">Practice · ${pool.length} প্রশ্ন</button><button class="btn" onclick="ckruetStart('game')">Quick game · ১০ প্রশ্ন</button><button class="btn" onclick="ckruetBrowse()">সব প্রশ্ন</button></div></div><div class="library-meta"><span>${CKRUET_RUN.mode==='browse'?pool.length+'টি প্রশ্ন':CKRUET_RUN.questions.length+'টি নির্বাচিত প্রশ্ন'}</span><span>মূল ফাইলের রেফারেন্সসহ</span></div>${body}`;
 };
 
-/* ---------- Medical Admission question bank (source-linked practice + game) ---------- */
+/* ---------- Admission Questions: vocabulary-only archive + interactive MCQ ---------- */
+const MEDICAL_ADMISSION_QUESTIONS=MEDICAL_QUESTIONS.filter(q=>!['med-q32','med-q65'].includes(q.id));
 let MEDICAL_RUN={started:false,mode:'practice',questions:[],index:0,score:0,picked:null,category:'all'};
 function beginMedical(mode='practice',category='all',count=20,refs=null){
- let pool=MEDICAL_QUESTIONS.filter(q=>(category==='all'||q.category===category)&&(!refs||refs.includes(q.id)));
+ let pool=MEDICAL_ADMISSION_QUESTIONS.filter(q=>(category==='all'||q.category===category)&&(!refs||refs.includes(q.id)));
  if(!pool.length){toast('এই ক্যাটাগরিতে প্রশ্ন পাওয়া যায়নি।');return}
  MEDICAL_RUN={started:true,mode,questions:sh(pool).slice(0,Math.min(Number(count)||20,pool.length)),index:0,score:0,picked:null,category};
  go('admission');
@@ -588,43 +596,128 @@ function openAdmissionBank(id){ADMISSION_VIEW={bank:id,folder:null};render()}
 function openAdmissionFolder(id,index){ADMISSION_VIEW={bank:id,folder:index};render()}
 function backAdmissionFolders(){ADMISSION_VIEW.folder=null;render()}
 function backAdmissionHome(){ADMISSION_VIEW={bank:null,folder:null};render()}
+function admissionProfileId(q){
+ const candidates=[...(q.wordIds||[]),...(q.keys||[]),q.target,q.profileTerm].filter(Boolean);
+ for(const c of candidates){
+  const exact=W.find(w=>w.id===c)||W.find(w=>String(w.en||'').toLowerCase()===String(c).toLowerCase());
+  if(exact)return exact.id;
+ }
+ return '';
+}
+function ckruetAdmissionData(q){
+ const p=String(q.prompt||'');
+ if(q.id==='ckruet-q137'){
+  const stem=p.split('⚠️')[0].split('—')[0].trim();
+  return {stem,opts:['in','with','of','on'],answer:'on',exp:"সঠিক dependent preposition হলো 'insist on'। মূল প্রশ্নে সঠিক উত্তরটি অপশনে ছিল না; তাই 'over' সংশোধন করে 'on' করা হয়েছে।"};
+ }
+ if(q.id==='ckruet-q034'){
+  return {stem:'Frugal — choose the odd one out.',opts:['Close-fisted','Economical','Miserly','Confusing'],answer:'Confusing',exp:'Close-fisted, economical ও miserly — তিনটিই frugal-এর সমার্থক। তাই odd one out হলো confusing।'};
+ }
+ let stem=p,tail='';
+ const m=p.match(/^(.*?)\s+[—–-]\s+(.*)$/);
+ if(m){stem=m[1].trim();tail=m[2].trim();}
+ if(!m){
+  let exp=q.explanation||'';
+  const note=(p.match(/\(([^()]*)\)\s*$/)||[])[1]||'';
+  if(!exp&&q.category.includes('Word Forms'))exp=`${q.answer} হলো প্রশ্নে চাওয়া word form।`;
+  else if(!exp&&q.category.includes('Word Usage'))exp=note||`উৎসে দেওয়া সঠিক ব্যবহার: ${q.answer}।`;
+  else if(!exp&&q.category.includes('অনুবাদ'))exp=`উৎসে দেওয়া অনুবাদ: ${q.answer}।`;
+  else if(!exp&&q.category.includes('Idioms'))exp=note||`এই idiom/phrase-এর অর্থ: ${q.answer}।`;
+  else if(!exp&&q.category.includes('Appropriate Prepositions'))exp=`প্রদত্ত বাক্যে প্রয়োজনীয় dependent preposition হলো “${q.answer}”।`;
+  else if(!exp)exp=`উৎসে নির্ধারিত সঠিক উত্তর: ${q.answer}।`;
+  return {stem:p,opts:[],answer:q.answer,exp};
+ }
+ tail=tail.replace(/\s*\([^()]*\)\s*$/,'').trim();
+ const opts=tail.split(/\s*\/\s*/).map(x=>x.trim()).filter(Boolean);
+ const norm=x=>String(x||'').toLowerCase().replace(/[.!?;:]+$/,'').trim();
+ let answer=q.answer;
+ if(q.id==='ckruet-q034')answer='Confusing';
+ if(opts.length>=3&&opts.some(x=>norm(x)===norm(answer))){
+  return {stem,opts,answer,exp:q.explanation||`সঠিক উত্তর: ${answer}। ${q.category.includes('Synonyms')?'এটি মূল শব্দের সমার্থক।':q.category.includes('Antonyms')?'এটি মূল শব্দের বিপরীত অর্থ প্রকাশ করে।':'শব্দ/phrase-এর অর্থ ও প্রসঙ্গের সঙ্গে উত্তরটি মেলে।'}`};
+ }
+ return {stem:p,opts:[],answer:q.answer,exp:q.explanation||`উৎসে নির্ধারিত সঠিক উত্তর: ${q.answer}।`};
+}
+const CKRUET_ADMISSION_QUESTIONS=CKRUET_QUESTIONS
+ .filter(q=>!['Gender, Plural/Singular ও Noun Types','Parts of Speech ও Word Class'].includes(q.category))
+ .map(q=>({...q,...ckruetAdmissionData(q)}));
+const DU_ABCD_ADMISSION_Q=DU_ABCD_Q.filter(q=>{
+ if(q.type==='usage'&&/figure of speech/i.test(q.stem||''))return false;
+ return Array.isArray(q.opts)&&Number.isInteger(q.a)&&q.a>=0&&q.a<q.opts.length;
+});
+function admissionTypeLabel(type){
+ const labels={fill:'Vocabulary in Context',syn:'Synonyms',ant:'Antonyms',idiom:'Idioms & Phrases',usage:'Word Usage',analogy:'Analogy',odd:'Odd One Out',affix:'Word Formation'};
+ return labels[type]||type||'Vocabulary';
+}
+function admissionPick(button,correctIndex){
+ const card=button.closest('.admission-question');
+ if(!card||card.dataset.answered==='1')return;
+ card.dataset.answered='1';
+ const picked=Number(button.dataset.index),correct=picked===correctIndex;
+ card.querySelectorAll('.admission-mcq-option').forEach((b,i)=>{
+  b.disabled=true;
+  if(i===correctIndex)b.classList.add('is-correct');
+  if(i===picked&&!correct)b.classList.add('is-wrong');
+ });
+ const fb=document.createElement('div');
+ fb.className='admission-feedback '+(correct?'good':'bad');
+ const answer=card.dataset.answer||'';
+ const explanation=card.dataset.explanation||'';
+ fb.innerHTML=`<b>${correct?'✓ Correct answer':'✕ Incorrect · Correct answer: '+esc(answer)}</b>${explanation?`<p>${esc(explanation)}</p>`:''}`;
+ if(card.dataset.wordId){
+  fb.insertAdjacentHTML('beforeend',`<button class="btn admission-profile-link" onclick="openWord('${esc(card.dataset.wordId)}')">View Vocabulary Profile ↗</button>`);
+ }
+ card.appendChild(fb);
+}
+function admissionQuestion(title,stem,opts,answer,ref,n,explanation='',wordId='',category=''){
+ const options=Array.isArray(opts)?opts:[];
+ const normAnswer=x=>String(x||'').toLowerCase().replace(/[.!?;:]+$/,'').trim();
+ const correctIndex=typeof answer==='number'?answer:options.findIndex(o=>normAnswer(o)===normAnswer(answer));
+ const answerText=correctIndex>=0?options[correctIndex]:String(answer||'');
+ const mcq=options.length>=2&&correctIndex>=0;
+ return `<article class="admission-question" data-answer="${esc(answerText)}" data-explanation="${esc(explanation||'')}" data-word-id="${esc(wordId||'')}">
+ <div class="admission-question-meta"><b>${esc(title||'Question')}${category?` <span class="admission-category-tag">${esc(category)}</span>`:''}</b><span>${esc(ref||'Source reference unavailable')}</span></div>
+ <p>${esc(stem||'')}</p>
+ ${mcq?`<div class="admission-mcq-options">${options.map((o,i)=>`<button type="button" class="admission-mcq-option" data-index="${i}" onclick="admissionPick(this,${correctIndex})"><b>${String.fromCharCode(65+i)}</b><span>${esc(o)}</span></button>`).join('')}</div>`:
+ `<details class="admission-answer"><summary>Show answer &amp; explanation</summary><p><b>Answer:</b> ${esc(answerText||'উত্তর দেওয়া নেই')}</p>${explanation?`<p>${esc(explanation)}</p>`:''}${wordId?`<button class="btn admission-profile-link" onclick="openWord('${esc(wordId)}')">View Vocabulary Profile ↗</button>`:''}</details>`}
+ </article>`;
+}
 V.admission=()=>{
- const cats=['Word Meaning, Synonym & Antonym','Idioms, Phrases & Proverbs','Spelling & Word Forms'];
  if(MEDICAL_RUN.started){
   const q=MEDICAL_RUN.questions[MEDICAL_RUN.index],done=MEDICAL_RUN.picked!==null,correct=done&&MEDICAL_RUN.picked===q.answer.letter;
   return `<div class="page-heading"><div><span class="eyebrow">MEDICAL ADMISSION · ${MEDICAL_RUN.mode==='game'?'ARCADE CHALLENGE':'PRACTICE SESSION'}</span><h1>${MEDICAL_RUN.mode==='game'?'Medical vocabulary game':'Medical question practice'}</h1><p class="sub">প্রতিটি প্রশ্নের সঙ্গে মূল প্রশ্নব্যাংকের নম্বর ও রেফারেন্স রাখা হয়েছে।</p></div><span class="count-tile"><b>${MEDICAL_RUN.score}</b><small>SCORE</small></span></div>
-  <section class="card medical-quiz-card"><div class="medical-quiz-meta"><span>Question ${MEDICAL_RUN.index+1} / ${MEDICAL_RUN.questions.length}</span><span>Correct ${MEDICAL_RUN.score}</span></div><div class="medical-quiz-progress"><i style="width:${(MEDICAL_RUN.index+1)/MEDICAL_RUN.questions.length*100}%"></i></div><span class="eyebrow">${esc(q.category)}</span><h2>${esc(q.prompt)}</h2><div class="medical-options">${q.options.map(o=>`<button class="medical-option ${done&&o.letter===q.answer.letter?'is-correct':''} ${done&&o.letter===MEDICAL_RUN.picked&& !correct?'is-wrong':''}" ${done?'disabled':''} onclick="medicalAnswer('${o.letter}')"><b>${o.letter}</b><span>${esc(o.text)}</span>${done&&o.letter===q.answer.letter?'<span class="medical-option-mark">✓</span>':''}</button>`).join('')}</div>
-  ${done?`<div class="medical-feedback ${correct?'good':'bad'}"><b>${correct?'Correct answer':'Correct answer: '+q.answer.letter+') '+esc(q.answer.text)}</b><p>${esc(q.explanation)}</p></div>`:''}
+  <section class="card medical-quiz-card"><div class="medical-quiz-meta"><span>Question ${MEDICAL_RUN.index+1} / ${MEDICAL_RUN.questions.length}</span><span>Correct ${MEDICAL_RUN.score}</span></div><div class="medical-quiz-progress"><i style="width:${(MEDICAL_RUN.index+1)/MEDICAL_RUN.questions.length*100}%"></i></div><span class="eyebrow">${esc(q.category)}</span><h2>${esc(q.prompt)}</h2><div class="medical-options">${q.options.map((o,i)=>`<button class="medical-option ${done&&o.letter===q.answer.letter?'is-correct':''} ${done&&o.letter===MEDICAL_RUN.picked&& !correct?'is-wrong':''}" ${done?'disabled':''} onclick="medicalAnswer('${o.letter}')"><b>${String.fromCharCode(65+i)}</b><span>${esc(o.text)}</span>${done&&o.letter===q.answer.letter?'<span class="medical-option-mark">✓</span>':''}</button>`).join('')}</div>
+  ${done?`<div class="medical-feedback ${correct?'good':'bad'}"><b>${correct?'Correct answer':'Correct answer: '+esc(q.answer.text)}</b><p>${esc(q.explanation)}</p>${admissionProfileId(q)?`<button class="btn admission-profile-link" onclick="openWord('${esc(admissionProfileId(q))}')">View Vocabulary Profile ↗</button>`:''}</div>`:''}
   <div class="medical-quiz-footer"><small>Reference: ${esc(q.reference)}</small>${done?`<button class="btn pri" onclick="medicalNext()">${MEDICAL_RUN.index+1===MEDICAL_RUN.questions.length?'See result':'Next question'} →</button>`:''}</div></section>`;
  }
  if(!MEDICAL_RUN.started&&MEDICAL_RUN.questions.length&&MEDICAL_RUN.index>=MEDICAL_RUN.questions.length-1){
   return `<div class="page-heading"><div><span class="eyebrow">SESSION COMPLETE</span><h1>Medical admission result</h1><p class="sub">মূল প্রশ্ন নম্বরসহ উত্তর অনুশীলন সম্পন্ন হয়েছে।</p></div><span class="count-tile"><b>${MEDICAL_RUN.score}/${MEDICAL_RUN.questions.length}</b><small>SCORE</small></span></div><section class="card medical-result"><h2>${Math.round(MEDICAL_RUN.score/MEDICAL_RUN.questions.length*100)}% accuracy</h2><p>${MEDICAL_RUN.score}টি সঠিক · ${MEDICAL_RUN.questions.length-MEDICAL_RUN.score}টি ভুল</p><button class="btn pri" onclick="medicalRestart()">Practice another round</button></section>`;
  }
- 
  const banks=[
-  {id:'iba',name:'ঢাকা বিশ্ববিদ্যালয় · IBA',en:'DU IBA · BBA',desc:'BBA ভর্তি পরীক্ষার Vocabulary প্রশ্ন',items:DU_IBA_ADMISSION_Q,year:q=>(q.sess||[])[0]||((q.refs||[])[0]||'').replace(/^BBA IBA\s*/,'')||'সাল উল্লেখ নেই',render:(q,i)=>admissionQuestion('Q'+(q.n||i+1),q.stem,q.opts,q.a!==undefined&&q.opts?.[q.a]!==undefined?q.opts[q.a]:'',(q.refs||[]).join(' · '),q.n)},
-  {id:'abcd',name:'ঢাকা বিশ্ববিদ্যালয় · A/B/C/D ইউনিট',en:'DU A · B · C · D',desc:'চার ইউনিটের বিগত ভর্তি পরীক্ষার প্রশ্ন',items:DU_ABCD_Q,year:q=>{const r=q.sourceReference||(q.refs||[])[0]||'';const m=r.match(/(?:19|20)?\d{2}\s*[-–/]\s*(?:19|20)?\d{2}/);return m?m[0].replace(/\s/g,''):'সাল উল্লেখ নেই'},render:(q,i)=>admissionQuestion('Q'+(q.n||q.sourceQuestion||i+1),q.stem,q.opts,q.a!==undefined&&q.opts?.[q.a]!==undefined?q.opts[q.a]:'',q.sourceReference||((q.refs||[]).join(' · ')),q.n)},
-  {id:'medical',name:'Medical Admission',en:'Medical Colleges',desc:'মেডিকেল ভর্তি পরীক্ষার ইংরেজি প্রশ্ন',items:MEDICAL_QUESTIONS,year:()=> 'সাল উল্লেখ নেই',render:(q,i)=>admissionQuestion('Q'+(q.sourceQuestion||i+1),q.prompt,(q.options||[]).map(o=>o.letter+') '+o.text),q.answer?(q.answer.letter+') '+q.answer.text):'',q.reference,q.sourceQuestion)},
-  {id:'ckruet',name:'CKRUET · RUET / KUET / CUET',en:'Engineering Admission',desc:'RUET, KUET ও CUET-এর source-based vocabulary questions',items:CKRUET_QUESTIONS,year:q=>{const m=String(q.reference||'').match(/(?:19|20)?\d{2}\s*[-–/]\s*(?:19|20)?\d{2}/);return m?m[0].replace(/\s/g,''):'সাল উল্লেখ নেই'},render:(q,i)=>admissionQuestion('Q'+(i+1),q.prompt,[],q.answer||'',q.reference,i+1)}
+  {id:'iba',name:'ঢাকা বিশ্ববিদ্যালয় · IBA',en:'DU IBA · BBA',desc:'BBA ভর্তি পরীক্ষার Vocabulary প্রশ্ন',items:DU_IBA_ADMISSION_Q,category:q=>admissionTypeLabel(q.type),year:q=>(q.sess||[])[0]||((q.refs||[])[0]||'').replace(/^BBA IBA\s*/,'')||'সাল উল্লেখ নেই',render:(q,i)=>admissionQuestion('Q'+(q.n||i+1),q.stem,q.opts,q.a,(q.refs||[]).join(' · '),q.n,q.exp||'',admissionProfileId(q),admissionTypeLabel(q.type))},
+  {id:'abcd',name:'ঢাকা বিশ্ববিদ্যালয় · A/B/C/D ইউনিট',en:'DU A · B · C · D',desc:'চার ইউনিটের Vocabulary বিগত ভর্তি প্রশ্ন',items:DU_ABCD_ADMISSION_Q,category:q=>admissionTypeLabel(q.type),year:q=>{const r=q.sourceReference||(q.refs||[])[0]||'';const m=r.match(/(?:19|20)?\d{2}\s*[-–/]\s*(?:19|20)?\d{2}/);return m?m[0].replace(/\s/g,''):'সাল উল্লেখ নেই'},render:(q,i)=>admissionQuestion('Q'+(q.n||q.sourceQuestion||i+1),q.stem,q.opts,q.a,q.sourceReference||((q.refs||[]).join(' · ')),q.n,q.exp||'',admissionProfileId(q),admissionTypeLabel(q.type))},
+  {id:'medical',name:'Medical Admission',en:'Medical Colleges',desc:'মেডিকেল ভর্তি পরীক্ষার Vocabulary প্রশ্ন',items:MEDICAL_ADMISSION_QUESTIONS,category:q=>q.category,year:()=> 'সাল উল্লেখ নেই',render:(q,i)=>admissionQuestion('Q'+(q.sourceQuestion||i+1),q.prompt,(q.options||[]).map(o=>o.text),q.options?.findIndex(o=>o.letter===q.answer?.letter)??-1,q.reference,q.sourceQuestion,q.explanation||'',admissionProfileId(q),q.category||'Vocabulary')},
+  {id:'ckruet',name:'CKRUET · RUET / KUET / CUET',en:'Engineering Admission',desc:'RUET, KUET ও CUET-এর Vocabulary প্রশ্ন',items:CKRUET_ADMISSION_QUESTIONS,category:q=>q.category,year:q=>{const m=String(q.reference||'').match(/(?:19|20)?\d{2}\s*[-–/]\s*(?:19|20)?\d{2}/);return m?m[0].replace(/\s/g,''):'সাল উল্লেখ নেই'},render:(q,i)=>admissionQuestion('Q'+(i+1),q.stem||q.prompt,q.opts||[],q.opts?.length?q.answer:(q.answer||''),q.reference,i+1,q.exp||'',admissionProfileId(q),q.category||'Vocabulary')}
  ];
  const bank=ADMISSION_VIEW.bank&&banks.find(x=>x.id===ADMISSION_VIEW.bank);
  const folder=bank&&ADMISSION_VIEW.folder;
  if(!bank){
-  return `<div class="page-heading"><div><span class="eyebrow">SOURCE-BASED QUESTION ARCHIVE</span><h1>Admission Questions</h1><p class="sub">প্রথমে বিশ্ববিদ্যালয়/প্রতিষ্ঠান বেছে নাও। এরপর সাল বা সেশনের ফোল্ডারে ঢুকলে সেই বছরের সব প্রশ্ন একসাথে পাবে।</p></div><span class="count-tile"><b>${DU_IBA_ADMISSION_Q.length+DU_ABCD_Q.length+MEDICAL_QUESTIONS.length+CKRUET_QUESTIONS.length}</b><small>TOTAL QUESTIONS</small></span></div><div class="admission-university-grid">${banks.map(x=>`<button class="card admission-university-card" onclick="openAdmissionBank('${x.id}')"><span class="eyebrow">${x.en}</span><h2>${x.name}</h2><p>${x.desc}</p><div class="admission-university-foot"><b>${x.items.length}</b><span>প্রশ্ন</span><span class="admission-open-arrow">↗</span></div></button>`).join('')}</div><section class="card admission-friendly-note"><b>সহজভাবে সাজানো হয়েছে</b><p>একই সালের প্রশ্ন এক ফোল্ডারে থাকবে। যে সাল/সেশনে মাত্র ১–২টি প্রশ্ন আছে, সেগুলো আলাদা ছোট ফোল্ডার না করে একসাথে “অন্যান্য সাল/সেশন” ফোল্ডারে রাখা হয়েছে।</p></section>`;
+  const total=banks.reduce((a,x)=>a+x.items.length,0);
+  return `<div class="page-heading"><div><span class="eyebrow">SOURCE-BASED QUESTION ARCHIVE</span><h1>Admission Questions</h1><p class="sub">প্রথমে বিশ্ববিদ্যালয়/প্রতিষ্ঠান বেছে নাও। এরপর সাল বা সেশনের ফোল্ডারে ঢুকলে সেই বছরের Vocabulary প্রশ্নগুলো পাবে।</p></div><span class="count-tile"><b>${total}</b><small>VOCAB QUESTIONS</small></span></div><div class="admission-university-grid">${banks.map(x=>`<button class="card admission-university-card" onclick="openAdmissionBank('${x.id}')"><span class="eyebrow">${x.en}</span><h2>${x.name}</h2><p>${x.desc}</p><div class="admission-university-foot"><b>${x.items.length}</b><span>প্রশ্ন</span><span class="admission-open-arrow">↗</span></div></button>`).join('')}</div><section class="card admission-friendly-note"><b>Vocabulary-focused archive</b><p>Vocabulary-এর সঙ্গে সম্পর্কহীন প্রশ্ন বাদ দেওয়া হয়েছে। অপশন থাকা প্রশ্নে A/B/C/D বেছে সঙ্গে সঙ্গে সঠিক/ভুল ফিডব্যাক, ব্যাখ্যা ও সংশ্লিষ্ট Vocabulary Profile পাওয়া যাবে।</p></section>`;
  }
  const groups=new Map();
  bank.items.forEach(q=>{const y=String(bank.year(q)||'সাল উল্লেখ নেই');if(!groups.has(y))groups.set(y,[]);groups.get(y).push(q)});
  const merged=[],normal=[];
  for(const [y,qs] of groups){(qs.length<=2?merged:normal).push([y,qs])}
  if(merged.length)normal.push(['অন্যান্য সাল/সেশন',merged.flatMap(x=>x[1])]);
- normal.sort((a,b)=>a[0]==='অন্যান্য সাল/সেশন'?1:b[0]==='অন্যান্য সাল/সেশন'?-1:b[0].localeCompare(a[0],'en',{numeric:true}));
+ normal.sort((a,b)=>a[0]==='অন্যান্য সাল/সেশন'?1:b[0]==='অন্যান্য সাল/সেশন'?-1:a[0].localeCompare(b[0],'en',{numeric:true}));
  if(folder===null||folder===undefined){
   return `<div class="page-heading"><div><span class="eyebrow">ADMISSION ARCHIVE · ${bank.en}</span><h1>${bank.name}</h1><p class="sub">${bank.desc}। প্রশ্নগুলো সাল/সেশন অনুযায়ী ফোল্ডারে সাজানো।</p></div><span class="count-tile"><b>${bank.items.length}</b><small>QUESTIONS</small></span></div><button class="btn admission-back-btn" onclick="backAdmissionHome()">← সব বিশ্ববিদ্যালয়</button><div class="admission-folder-grid">${normal.map(([y,qs],i)=>`<button class="card admission-folder-card" onclick="openAdmissionFolder('${bank.id}',${i})"><span class="admission-folder-icon">▤</span><span class="admission-folder-name">${esc(y)}</span><small>${qs.length}টি প্রশ্ন</small><span class="admission-open-arrow">↗</span></button>`).join('')}</div>`;
  }
  const chosen=normal[Number(folder)];
  if(!chosen){ADMISSION_VIEW.folder=null;return V.admission()}
- return `<div class="page-heading"><div><span class="eyebrow">${bank.en} · ${esc(chosen[0])}</span><h1>${esc(chosen[0])}</h1><p class="sub">${bank.name} · এই ফোল্ডারের সব প্রশ্ন একসাথে</p></div><span class="count-tile"><b>${chosen[1].length}</b><small>QUESTIONS</small></span></div><div class="row admission-breadcrumb"><button class="btn" onclick="backAdmissionFolders()">← ${bank.name}</button><span>${esc(chosen[0])}</span>${bank.id==='ckruet'?'<button class="btn pri" onclick="go(\'ckruet\')">CKRUET Practice &amp; Game →</button>':''}</div><div class="admission-question-list admission-folder-questions">${chosen[1].map((q,i)=>bank.render(q,i)).join('')}</div>`;
-
+ const categoryGroups=new Map();
+ chosen[1].forEach(q=>{const c=bank.category(q)||'Vocabulary';if(!categoryGroups.has(c))categoryGroups.set(c,[]);categoryGroups.get(c).push(q)});
+ return `<div class="page-heading"><div><span class="eyebrow">${bank.en} · ${esc(chosen[0])}</span><h1>${esc(chosen[0])}</h1><p class="sub">${bank.name} · এই ফোল্ডারের সব Vocabulary প্রশ্ন</p></div><span class="count-tile"><b>${chosen[1].length}</b><small>QUESTIONS</small></span></div><div class="row admission-breadcrumb"><button class="btn" onclick="backAdmissionFolders()">← ${bank.name}</button><span>${esc(chosen[0])}</span>${bank.id==='ckruet'?'<button class="btn pri" onclick="go(\'ckruet\')">CKRUET Practice &amp; Game →</button>':''}</div><div class="admission-folder-questions">${[...categoryGroups.entries()].map(([category,qs])=>`<section class="admission-category-group"><div class="admission-category-heading"><h2>${esc(category)}</h2><span>${qs.length} questions</span></div><div class="admission-question-list">${qs.map((q,i)=>bank.render(q,i)).join('')}</div></section>`).join('')}</div>`;
 };
 V.revision=()=>{const a=W.filter(w=>D.p[w.id]).map(w=>[w,D.p[w.id]]),due=a.filter(([,p])=>isDue(p)),hard=a.filter(([,p])=>p.i>p.c).sort((x,y)=>(y[1].i-y[1].c)-(x[1].i-x[1].c)),learned=a.filter(([,p])=>p.c>0),total=W.length;
  return`<div class="page-heading"><div><span class="eyebrow">REMEMBER MORE · FORGET LESS</span><h1>Smart Revision</h1><p class="sub">কোন শব্দ কখন পড়বে, VocabHub সেটি তোমার শেখার অগ্রগতি অনুযায়ী সাজিয়ে দেবে।</p></div><span class="count-tile"><b>${due.length}</b><small>DUE TODAY</small></span></div>

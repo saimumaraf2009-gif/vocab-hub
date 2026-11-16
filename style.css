@@ -791,3 +791,36 @@ select:focus-visible{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px va
 .admission-folder-questions{display:grid;gap:10px}
 .admission-folder-questions .admission-question{background:var(--card);border:1px solid var(--bd);border-radius:15px;padding:15px}
 @media(max-width:620px){.admission-university-grid,.admission-folder-grid{grid-template-columns:1fr;gap:10px}.admission-university-card{min-height:145px}.admission-folder-card{min-height:108px}.admission-folder-questions .admission-question{padding:12px}}
+
+
+/* Admission MCQ feedback — accessible, responsive and theme-aware */
+.admission-mcq-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0 6px}
+.admission-mcq-option{display:flex;align-items:center;gap:11px;min-width:0;text-align:left;padding:12px 14px;border:1px solid var(--bd);border-radius:13px;background:var(--card);color:var(--tx);cursor:pointer;transition:border-color .18s,background .18s,transform .18s}
+.admission-mcq-option:hover:not(:disabled){border-color:var(--ac2);transform:translateY(-1px)}
+.admission-mcq-option>b{display:grid;place-items:center;flex:0 0 29px;height:29px;border-radius:9px;background:var(--el);color:var(--tx2);font-size:.8rem}
+.admission-mcq-option>span{line-height:1.45;overflow-wrap:anywhere}
+.admission-mcq-option:disabled{cursor:default;opacity:1}
+.admission-mcq-option.is-correct{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 11%,var(--card))}
+.admission-mcq-option.is-correct>b{background:var(--ok);color:#062116}
+.admission-mcq-option.is-wrong{border-color:var(--er);background:color-mix(in srgb,var(--er) 10%,var(--card))}
+.admission-mcq-option.is-wrong>b{background:var(--er);color:#fff}
+.admission-feedback{padding:13px 15px;margin:12px 0 2px;border:1px solid var(--bd);border-radius:13px;line-height:1.65}
+.admission-feedback.good{border-color:color-mix(in srgb,var(--ok) 48%,var(--bd));background:color-mix(in srgb,var(--ok) 9%,var(--card))}
+.admission-feedback.bad{border-color:color-mix(in srgb,var(--er) 48%,var(--bd));background:color-mix(in srgb,var(--er) 8%,var(--card))}
+.admission-feedback p{margin:5px 0 0;color:var(--tx2)}
+.admission-profile-link{margin-top:9px;font-size:.82rem}
+.admission-category-tag{display:inline-flex;vertical-align:middle;margin-left:5px;padding:2px 7px;border:1px solid var(--bd);border-radius:999px;color:var(--tx2);font-size:.68rem;font-weight:600}
+.admission-folder-questions{padding-top:6px;padding-bottom:28px}
+.admission-question{padding:19px 2px}
+@media(max-width:680px){
+ .admission-mcq-options{grid-template-columns:1fr}
+ .admission-mcq-option{padding:12px}
+ .admission-question{padding:16px 0}
+}
+
+.admission-category-group{margin:16px 0 22px;padding:0 16px;border:1px solid var(--bd);border-radius:17px;background:color-mix(in srgb,var(--card) 76%,transparent)}
+.admission-category-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 2px;border-bottom:1px solid var(--bd)}
+.admission-category-heading h2{font-size:1rem;line-height:1.35}
+.admission-category-heading span{font-size:.78rem;color:var(--tx2);white-space:nowrap}
+.admission-category-group .admission-question-list{padding:0 2px 8px}
+@media(max-width:680px){.admission-category-group{padding:0 11px;margin:12px 0 16px}.admission-category-heading{align-items:flex-start;flex-direction:column;gap:3px}}

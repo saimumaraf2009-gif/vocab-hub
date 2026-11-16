@@ -724,3 +724,45 @@ select:focus-visible{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px va
 .ckruet-answer p{margin:8px 0 0}
 .ckruet-active{padding:clamp(20px,4vw,32px)}
 @media(max-width:700px){.ckruet-controls{grid-template-columns:1fr}.ckruet-controls .row>*{flex:1 1 100%}.ckruet-qmeta{display:block}.ckruet-qmeta small{display:block;margin-top:5px}}
+
+
+/* Admission question archive */
+.admission-banner{margin:24px 0 30px;position:relative;overflow:hidden}
+.admission-banner .eft-copy{max-width:680px}
+.admission-banner .eft-units{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;min-width:250px}
+.admission-banner .eft-chip{cursor:default}
+.admission-source-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:22px 0 30px}
+.admission-source-card{padding:22px;display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-height:190px}
+.admission-source-top{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.admission-source-card h2{font-size:1.25rem;margin:0}
+.admission-source-card p{color:var(--muted);line-height:1.7;margin:0 0 4px}
+.admission-source-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:auto}
+.admission-reference-note{padding:20px;margin:24px 0;line-height:1.75}
+.admission-reference-note p{margin:8px 0;color:var(--muted)}
+.admission-bank-section{margin:34px 0}
+.admission-year-group{margin:10px 0;padding:0;overflow:hidden}
+.admission-year-group>summary{display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;list-style:none;padding:17px 20px;font-weight:600}
+.admission-year-group>summary::-webkit-details-marker{display:none}
+.admission-year-group>summary:after{content:"+";font-size:1.2rem;color:var(--accent)}
+.admission-year-group[open]>summary:after{content:"−"}
+.admission-year-group>summary span{font-size:.82rem;color:var(--muted);font-weight:500}
+.admission-question-list{padding:0 18px 12px}
+.admission-question{padding:16px 2px;border-top:1px solid var(--line)}
+.admission-question-meta{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;font-size:.78rem;color:var(--muted);margin-bottom:8px}
+.admission-question-meta b{color:var(--text)}
+.admission-question>p{line-height:1.75;margin:6px 0 10px}
+.admission-options{padding-left:24px;margin:8px 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 20px;color:var(--muted);line-height:1.6}
+.admission-answer{margin-top:10px;font-size:.86rem}
+.admission-answer summary{cursor:pointer;color:var(--accent);font-weight:600}
+.admission-answer p{margin:8px 0;color:var(--text)}
+@media(max-width:720px){
+ .admission-source-grid{grid-template-columns:1fr}
+ .admission-banner .eft-units{min-width:0}
+ .admission-options{grid-template-columns:1fr}
+ .admission-question-meta{flex-direction:column;gap:4px}
+}
+
+.admission-shortcut{display:flex;flex-direction:column;gap:7px;padding:18px 20px;margin:18px 0;text-decoration:none;border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line))}
+.admission-shortcut b{font-size:1rem;color:var(--text)}
+.admission-shortcut span{font-size:.86rem;color:var(--text)}
+.admission-shortcut small{font-size:.8rem;color:var(--muted)}

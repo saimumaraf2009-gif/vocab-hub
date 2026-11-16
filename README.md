@@ -1,4 +1,4 @@
-# VocabHub 2.15
+# VocabHub — DU A,B,C,D Integration Build
 
 A local-first English–Bengali vocabulary learning studio. Open `index.html` directly or publish the folder with GitHub Pages, Netlify, or another static host.
 
@@ -32,16 +32,17 @@ A local-first English–Bengali vocabulary learning studio. Open `index.html` di
 **Editorial limitation:** this is an editorial review pass, not a native lexicographer's sign-off or a complete word-by-word audit against Cambridge/Oxford. Reference links are supplied for further verification. A word can have different Bengali equivalents in different contexts; the entry gives the main learning sense(s) selected for this collection. Empty antonyms are deliberate where no good direct opposite exists.
 
 ## What's included
-- 894 vocabulary entries across two sections: 529 With Clues entries and 429 Class XI–XII entries, with 64 shared words; five difficulty levels are available.
+- 2,078 vocabulary entries across all integrated sections, including the new **DU A,B,C,D** section with 235 indexed word/phrase profiles; five difficulty levels are available.
 - Practice, revision, XP, achievements, themes, backup and restore.
 - Word profile with pronunciation (where available), Bengali meanings, part of speech, synonyms, antonyms and dictionary references.
 - Practice modes, matching, word games, analytics and local-first progress tracking.
 - Existing creator and partner branding, photos, design, and learning progress architecture are retained.
 
 ## Files to publish
-Upload the **contents** of `VocabHub-Premium/` to the static site host. Keep the following files at the same relative locations:
+Upload the **contents of this folder** to the static site host. The supplied fixed ZIP has `index.html` at its root, so it can also be uploaded directly to hosts that expect a root-level entry file. Keep the following files at the same relative locations:
 - `index.html`
 - `script.js`
+- `du-abcd-data.js`
 - `style.css`
 - `vocabulary.json` (canonical hosted data source)
 - `data/vocabulary.json` (maintained bundled data copy)
@@ -80,3 +81,7 @@ DU IBA Vocabulary section + 155 real IBA MCQs merged on top of the Medical Admis
 ## CKRUET Collection (added)
 
 See `CKRUET_INTEGRATION_BN.md` for the full source-based integration. The Library includes a CKRUET vocabulary section with 79 indexed profiles, and Practice/Arcade link to the 199-question searchable source bank.
+
+
+## DU A,B,C,D integration
+See `DU_ABCD_INTEGRATION_BN.md` for source counts, references, profile coverage and the two unscored source items.

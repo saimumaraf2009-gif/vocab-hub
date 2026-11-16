@@ -2,6 +2,14 @@
 
 A local-first English–Bengali vocabulary learning studio. Open `index.html` directly or publish the folder with GitHub Pages, Netlify, or another static host.
 
+## Latest update — Admission archive redesign
+- Removed only the standalone CKRUET Bank navigation item and the Library promotional banner. CKRUET questions, 79 vocabulary profiles, data, and practice/game functionality remain in the website.
+- Rebuilt Admission Questions as a university-first archive: choose DU IBA, DU A/B/C/D, Medical Admission, or CKRUET (RUET/KUET/CUET), then open the relevant year/session folder.
+- All questions for a selected year/session appear together inside that folder.
+- Year/session groups containing only one or two questions are merged into **Other sessions** instead of creating tiny folders.
+- Medical questions are kept together in one clearly labelled folder because the supplied question source does not provide exam years. CKRUET year/session folders are grouped from their original source references.
+- Added responsive, premium-style university and folder cards for desktop and mobile.
+
 ## What's new in 2.11.1 — Smart Revision and mobile navigation
 - Reworked Smart Revision guidance so the three queues are clearly explained: Due for revision, Difficult words, and Learned words.
 - Clarified the spaced-repetition intervals (1, 2, 4, 7, 15, 30 and 60 days) and the two flashcard self-check actions.
@@ -32,7 +40,7 @@ A local-first English–Bengali vocabulary learning studio. Open `index.html` di
 **Editorial limitation:** this is an editorial review pass, not a native lexicographer's sign-off or a complete word-by-word audit against Cambridge/Oxford. Reference links are supplied for further verification. A word can have different Bengali equivalents in different contexts; the entry gives the main learning sense(s) selected for this collection. Empty antonyms are deliberate where no good direct opposite exists.
 
 ## What's included
-- 2,078 vocabulary entries across all integrated sections, including the new **DU A,B,C,D** section with 235 indexed word/phrase profiles; five difficulty levels are available.
+- 2,078 vocabulary entries across all integrated sections, including the **DU A,B,C,D** section; five difficulty levels are available.
 - Practice, revision, XP, achievements, themes, backup and restore.
 - Word profile with pronunciation (where available), Bengali meanings, part of speech, synonyms, antonyms and dictionary references.
 - Practice modes, matching, word games, analytics and local-first progress tracking.
@@ -85,3 +93,9 @@ See `CKRUET_INTEGRATION_BN.md` for the full source-based integration. The Librar
 
 ## DU A,B,C,D integration
 See `DU_ABCD_INTEGRATION_BN.md` for source counts, references, profile coverage and the two unscored source items.
+
+
+## CKRUET access
+- CKRUET is intentionally absent from the desktop sidebar and mobile navigation menu only.
+- Open Admission Questions → CKRUET · RUET / KUET / CUET to browse its year/session folders.
+- The original CKRUET Library profiles and dedicated browse/practice/game page are retained; the dedicated page is reachable from a CKRUET year folder.

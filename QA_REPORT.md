@@ -45,3 +45,14 @@
 - Headword capitalization, medical question `wordIds`, duplicate spelling-profile merge এবং JavaScript syntax পরীক্ষা করা হয়েছে।
 
 **সীমাবদ্ধতা:** এই pass-এ dictionary lookup link প্রতিটি entry-তে নিশ্চিত করা হয়েছে; Cambridge/Oxford-এর প্রত্যেকটি definition page আলাদাভাবে যাচাই করা হয়নি। IPA automated pronunciation source থেকে এসেছে। Learning Level-গুলো internal editorial band, official CEFR certification নয়।
+
+
+## 2.21 — BCS English Question Bank
+
+- [x] 488 numbered source blocks parsed; four options present for each source block.
+- [x] 485 English question records integrated; 3 medical/biology items excluded from the English bank.
+- [x] 484 answer-bearing questions available to existing practice and timed sprint; Q368 excluded from scoring due to missing passage.
+- [x] 27 uncertain answer keys marked for review and visible in feedback.
+- [x] Question archive retains source references and original question numbers.
+- [x] Existing game/practice routes reused; no new game or practice engine added.
+- [x] JavaScript syntax checked with Node.js after integration.

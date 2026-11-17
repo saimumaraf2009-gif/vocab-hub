@@ -2,6 +2,13 @@
 
 A local-first English–Bengali vocabulary learning studio. Open `index.html` directly or publish the folder with GitHub Pages, Netlify, or another static host.
 
+## Latest update — 2.21 · BCS English question bank
+- Added **485 English questions** from the supplied BCS question-bank text to the existing source-based Admission Questions archive.
+- Prepared answers for **484 questions**; one passage-dependent question remains visible but unscored because its passage was not supplied. Three non-English medical/biology questions were excluded.
+- Preserved question numbers, four options and source references; 27 less-certain answer keys display a review warning.
+- BCS questions use the existing MCQ Practice and existing timed Speed Sprint. No new practice mode or game was added.
+- See `BCS_INTEGRATION_NOTES_BN.md` and `BCS_QUESTION_KEY_REVIEW.tsv` for the category mapping, source caveats and answer-key review list.
+
 ## Latest update — 2.20 · vocabulary profile enrichment
 - Updated all **2,077 vocabulary profiles** across the integrated Library sections.
 - Completed missing Bengali meanings, meaning breakdowns, parts of speech, learning levels, synonyms, pronunciation and dictionary lookup references; every entry now has a Section value.
@@ -62,6 +69,7 @@ Upload the **contents of this folder** to the static site host. The supplied fix
 - `index.html`
 - `script.js`
 - `du-abcd-data.js`
+- `bcs-data.js` (BCS Preliminary English question bank; loaded before `script.js`)
 - `style.css`
 - `vocabulary.json` (canonical hosted data source)
 - `data/vocabulary.json` (maintained bundled data copy)

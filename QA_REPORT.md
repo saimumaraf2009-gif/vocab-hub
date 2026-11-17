@@ -33,3 +33,15 @@
 
 ## যাচাইয়ের সীমা
 উত্তর-সূচক, অপশন-ম্যাচ, উৎস-রেফারেন্স, স্পষ্ট অসঙ্গতি ও চিহ্নিত অনিশ্চিত প্রশ্নগুলো পরীক্ষা করা হয়েছে। এটি প্রতিটি প্রশ্নের জন্য পৃথক পরীক্ষক/বোর্ডের আনুষ্ঠানিক answer-key certification নয়; তাই উৎসেই দ্ব্যর্থতা বা ভুল অপশন থাকা প্রশ্ন বাদ দেওয়া হয়েছে, অনুমান করে উত্তর বসানো হয়নি।
+
+
+## Vocabulary Library — Update 2.20
+
+- মোট unique vocabulary profile: **2,077**।
+- বাংলা অর্থ, Part of Speech, Synonyms, IPA, Dictionary References, Section ও Learning Level field-এ কোনো ফাঁকা entry নেই।
+- Antonyms: **1,181টি** profile-এ নির্ভরযোগ্য antonym আছে; **896টি** ক্ষেত্রে স্বাভাবিক direct opposite না থাকায় list ফাঁকা রাখা হয়েছে।
+- 236টি learning-level assignment পুনর্বিন্যাস করা হয়েছে; `difficulty` ও `level` একসঙ্গে sync করা।
+- Root JSON, `data/vocabulary.json` এবং embedded offline data একই dataset ব্যবহার করে।
+- Headword capitalization, medical question `wordIds`, duplicate spelling-profile merge এবং JavaScript syntax পরীক্ষা করা হয়েছে।
+
+**সীমাবদ্ধতা:** এই pass-এ dictionary lookup link প্রতিটি entry-তে নিশ্চিত করা হয়েছে; Cambridge/Oxford-এর প্রত্যেকটি definition page আলাদাভাবে যাচাই করা হয়নি। IPA automated pronunciation source থেকে এসেছে। Learning Level-গুলো internal editorial band, official CEFR certification নয়।

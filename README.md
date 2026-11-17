@@ -2,7 +2,18 @@
 
 A local-first English–Bengali vocabulary learning studio. Open `index.html` directly or publish the folder with GitHub Pages, Netlify, or another static host.
 
-## Latest update — Admission archive redesign
+## Latest update — 2.20 · vocabulary profile enrichment
+- Updated all **2,077 vocabulary profiles** across the integrated Library sections.
+- Completed missing Bengali meanings, meaning breakdowns, parts of speech, learning levels, synonyms, pronunciation and dictionary lookup references; every entry now has a Section value.
+- Capitalized the first letter of every headword word and corrected source spelling/meaning errors where identified.
+- Reclassified **236 learning-level assignments** across Beginner, Elementary, Intermediate, Advanced and Expert; the numeric `difficulty` and displayed `level` are synchronized.
+- Added IPA for every entry using CMU Pronouncing Dictionary data where available and eSpeak as a fallback; the pronunciation source/dialect is recorded per entry.
+- Added Cambridge Dictionary and Oxford Learner’s Dictionaries lookup links to every entry. These are lookup links, not a claim that every dictionary page was individually reviewed.
+- Kept antonyms empty where no reliable direct opposite exists rather than inventing one. Updated the online JSON, data copy and embedded offline vocabulary together.
+- See `UPDATE_2_20_BN.md` and `VOCABULARY_REVIEW_2_20_BN.md` for the detailed review notes and limitations.
+
+## Previous update — Admission archive redesign
+
 - Removed only the standalone CKRUET Bank navigation item and the Library promotional banner. CKRUET questions, 79 vocabulary profiles, data, and practice/game functionality remain in the website.
 - Rebuilt Admission Questions as a university-first archive: choose DU IBA, DU A/B/C/D, Medical Admission, or CKRUET (RUET/KUET/CUET), then open the relevant year/session folder.
 - All questions for a selected year/session appear together inside that folder.
@@ -40,7 +51,7 @@ A local-first English–Bengali vocabulary learning studio. Open `index.html` di
 **Editorial limitation:** this is an editorial review pass, not a native lexicographer's sign-off or a complete word-by-word audit against Cambridge/Oxford. Reference links are supplied for further verification. A word can have different Bengali equivalents in different contexts; the entry gives the main learning sense(s) selected for this collection. Empty antonyms are deliberate where no good direct opposite exists.
 
 ## What's included
-- 2,078 vocabulary entries across all integrated sections, including the **DU A,B,C,D** section; five difficulty levels are available.
+- 2,077 vocabulary entries across all integrated sections, including the **DU A,B,C,D** section; five difficulty levels are available.
 - Practice, revision, XP, achievements, themes, backup and restore.
 - Word profile with pronunciation (where available), Bengali meanings, part of speech, synonyms, antonyms and dictionary references.
 - Practice modes, matching, word games, analytics and local-first progress tracking.

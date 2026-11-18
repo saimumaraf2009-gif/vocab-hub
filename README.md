@@ -1,15 +1,23 @@
-# VocabHub — DU A,B,C,D Integration Build
+# VocabHub — BCS Vocabulary & separated admission sources
 
 A local-first English–Bengali vocabulary learning studio. Open `index.html` directly or publish the folder with GitHub Pages, Netlify, or another static host.
 
-## Latest update — 2.21 · BCS English question bank
-- Added **485 English questions** from the supplied BCS question-bank text to the existing source-based Admission Questions archive.
-- Prepared answers for **484 questions**; one passage-dependent question remains visible but unscored because its passage was not supplied. Three non-English medical/biology questions were excluded.
-- Preserved question numbers, four options and source references; 27 less-certain answer keys display a review warning.
-- BCS questions use the existing MCQ Practice and existing timed Speed Sprint. No new practice mode or game was added.
-- See `BCS_INTEGRATION_NOTES_BN.md` and `BCS_QUESTION_KEY_REVIEW.tsv` for the category mapping, source caveats and answer-key review list.
+## Latest update — 2.22 · BCS Vocabulary, source separation & resilient exams
+- Added a dedicated **BCS Vocabulary** Library section with **224 distinct word/phrase profiles** extracted from the BCS English question bank. Profiles include Bengali meaning, part of speech, IPA, contextual examples and original BCS question/source references; existing learner progress is preserved.
+- The profile collection contains **2,261 total vocabulary entries** across all integrated Library sections. New BCS entries are available in offline mode and in the hosted JSON copies.
+- Fixed the source-mixing bug: BCS questions no longer enter the DU IBA-only pool. DU IBA, DU A/B/C/D, HSC Academic and BCS are separate sources; a deliberate **All Sources** option remains available for mixed practice.
+- The supplied BCS English bank contains **485 questions**; **484** have usable answer keys for scored practice. The passage-dependent Q368 remains visible in the archive but is excluded from scoring because its passage is absent. Three non-English medical/biology items were not imported into the English bank.
+- Replaced question-count dropdowns with compact selectable tiles, including **3 questions**. Difficulty levels that cannot supply the selected count are disabled; the setup adjusts to an available level/count or falls back to a broader vocabulary pool rather than blocking a round.
+- The same count tiles are used in the separate Mistakes Exam setup. Timed challenges continue to use duration choices.
+- See `UPDATE_2_22_BN.md`, `BCS_VOCABULARY_INTEGRATION_BN.md`, `BCS_INTEGRATION_NOTES_BN.md` and `BCS_QUESTION_KEY_REVIEW.tsv` for implementation details and source caveats.
 
-## Latest update — 2.20 · vocabulary profile enrichment
+## Previous update — 2.21 · BCS English question bank
+- Added **485 English questions** from the supplied BCS question-bank text to the source-based Admission Questions archive.
+- Prepared answers for **484 questions**; one passage-dependent question remains visible but unscored because its passage was not supplied. Three non-English medical/biology questions were excluded.
+- Preserved question numbers, four options and source references; less-certain answer keys display a review warning.
+- See `BCS_INTEGRATION_NOTES_BN.md` and `BCS_QUESTION_KEY_REVIEW.tsv` for category mapping, source caveats and answer-key review list.
+
+## Previous update — 2.20 · vocabulary profile enrichment
 - Updated all **2,077 vocabulary profiles** across the integrated Library sections.
 - Completed missing Bengali meanings, meaning breakdowns, parts of speech, learning levels, synonyms, pronunciation and dictionary lookup references; every entry now has a Section value.
 - Capitalized the first letter of every headword word and corrected source spelling/meaning errors where identified.
@@ -58,7 +66,7 @@ A local-first English–Bengali vocabulary learning studio. Open `index.html` di
 **Editorial limitation:** this is an editorial review pass, not a native lexicographer's sign-off or a complete word-by-word audit against Cambridge/Oxford. Reference links are supplied for further verification. A word can have different Bengali equivalents in different contexts; the entry gives the main learning sense(s) selected for this collection. Empty antonyms are deliberate where no good direct opposite exists.
 
 ## What's included
-- 2,077 vocabulary entries across all integrated sections, including the **DU A,B,C,D** section; five difficulty levels are available.
+- 2,261 vocabulary entries across all integrated sections, including **BCS Vocabulary** and **DU A,B,C,D**; five difficulty levels are available.
 - Practice, revision, XP, achievements, themes, backup and restore.
 - Word profile with pronunciation (where available), Bengali meanings, part of speech, synonyms, antonyms and dictionary references.
 - Practice modes, matching, word games, analytics and local-first progress tracking.
@@ -68,8 +76,8 @@ A local-first English–Bengali vocabulary learning studio. Open `index.html` di
 Upload the **contents of this folder** to the static site host. The supplied fixed ZIP has `index.html` at its root, so it can also be uploaded directly to hosts that expect a root-level entry file. Keep the following files at the same relative locations:
 - `index.html`
 - `script.js`
-- `du-abcd-data.js`
-- `bcs-data.js` (BCS Preliminary English question bank; loaded before `script.js`)
+- `iba-data.js`, `du-abcd-data.js`, `hsc-data.js`, `ckruet-data.js` and `bcs-data.js` (question-bank data loaded before `script.js`)
+- `data/bcs-vocabulary.json` (dedicated BCS vocabulary profile export)
 - `style.css`
 - `vocabulary.json` (canonical hosted data source)
 - `data/vocabulary.json` (maintained bundled data copy)

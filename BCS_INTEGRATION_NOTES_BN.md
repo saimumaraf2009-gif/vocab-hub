@@ -33,3 +33,7 @@
 | Composition and paragraph terminology | Multiple Choice |
 
 No vocabulary profiles, new game mechanics, or new practice modes were created.
+
+
+## Later update — 2.22 vocabulary profiles
+The initial 2.21 import added only question-bank access. The subsequent 2.22 update adds the separate `BCS Vocabulary` Library section with 224 linked word/phrase profiles and a profile-to-question practice action. See `BCS_VOCABULARY_INTEGRATION_BN.md` for the profile fields and extraction notes.

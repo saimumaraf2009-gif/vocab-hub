@@ -854,3 +854,19 @@ select:focus-visible{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px va
 .xp-line{stroke:url(#xpLineGradient)!important;stroke-width:4.5;filter:drop-shadow(0 2px 5px rgba(255,45,65,.24))}
 .xp-point{fill:var(--card)!important;stroke:var(--ac)!important;stroke-width:3.5;filter:drop-shadow(0 1px 4px rgba(255,45,65,.25))}
 @media(max-width:560px){.home-leaderboard{padding:17px!important}.home-leaderboard-head{flex-direction:column}.home-leaderboard-record{gap:10px;padding:12px}.mission-intro:after{right:14px;font-size:30px}}
+
+/* 2.22 — compact, accessible question-count choice tiles */
+.count-choice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(62px,1fr));gap:8px;width:100%}
+.count-choice{min-height:56px;padding:8px 7px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:1px solid var(--bd);border-radius:12px;background:var(--el);color:var(--tx);cursor:pointer;font:inherit;transition:background .15s,border-color .15s,transform .15s}
+.count-choice b{font-size:14px;font-weight:800;line-height:1.1}
+.count-choice small{font-size:10px;color:var(--tx2);line-height:1.2;text-align:center}
+.count-choice:hover:not(:disabled){border-color:var(--ac);transform:translateY(-1px)}
+.count-choice.on{border-color:var(--ac);background:var(--glow);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ac) 35%,transparent);color:var(--ac2)}
+.count-choice:disabled{opacity:.35;cursor:not-allowed;filter:saturate(.25)}
+.dd-opt.disabled{opacity:.4;cursor:not-allowed}
+.dd-opt.disabled:hover{background:transparent}
+@media(max-width:420px){.count-choice-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.count-choice{min-height:50px;padding:6px 3px}}
+/* Keep the Mistakes Exam count tiles readable inside its flexible action row. */
+.exam-actions .field{flex:1 1 250px;min-width:min(100%,250px);margin:0}
+.exam-actions .count-choice-grid{grid-template-columns:repeat(4,minmax(48px,1fr))}
+@media(max-width:800px){.exam-actions .field{flex:1 1 100%;width:100%}}

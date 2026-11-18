@@ -1,5 +1,15 @@
 # Admission Questions — QA ও পরিবর্তন প্রতিবেদন
 
+## Current update — 2.22 · BCS Vocabulary and exam setup
+
+- Library: 2,261 unique vocabulary records in the full dataset, including 224 BCS Vocabulary profiles. The 224 BCS profiles have Bengali meanings, parts of speech, IPA, contextual example sentences, translations and source-question references.
+- BCS question source: 485 English bank records; 484 are scoreable. Q368 remains visible in the archive but is excluded from scored practice because the required passage is missing. The original file contains 38 question records whose displayed references name other exams; these references remain unchanged and are not relabelled.
+- Source separation: the DU IBA-only question pool is restricted to `IBA_Q`; BCS, DU ABCD and HSC are kept in their separate arrays. Mixed practice is available only through the explicit `All Sources` choice.
+- Exam setup: selectable question-count tiles include 3 questions. Unavailable level/count combinations are disabled and the round falls back to the largest available level/pool when required. Mistakes Exam also uses count tiles.
+- Static checks: JavaScript syntax checks passed for the main application and question-bank scripts; JSON files parsed successfully; canonical, offline embedded and dedicated BCS vocabulary datasets have matching counts.
+- Browser visual walkthrough was not completed in this environment, so this report does not claim full browser-level end-to-end validation.
+
+
 ## চূড়ান্ত সাজানো প্রশ্নসংখ্যা
 | বিশ্ববিদ্যালয়/ক্যাটাগরি | রাখা হয়েছে |
 |---|---:|

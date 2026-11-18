@@ -1,5 +1,15 @@
 # VocabHub — BCS Vocabulary & separated admission sources
 
+## Latest update — 2.27 · mobile-first UI polish & feedback
+- Added an **Admission Questions** shortcut alongside **Start a session** and **Play word arcade** on the homepage, with responsive sizing for narrow screens.
+- Rebuilt the Analytics activity calendar as a date-labelled monthly calendar with weekday headings, active-day/session/study-time summaries, and graded activity intensity.
+- Removed **Score trend** from Exam history while retaining the learning snapshot and individual session list.
+- Increased the size, spacing and visual clarity of the **I know this**, **Need more practice**, **Play again**, **Exam history** and **Back** actions.
+- Added a **Feedback** tab for errors/corrections, suggestions and appreciation. Feedback is saved locally in the current browser and can be copied or downloaded; this static edition does not send it to a server.
+- Updated mobile layout rules for the homepage actions, feedback form, activity calendar and result controls.
+- See `UPDATE_2_27_BN.md` for implementation and validation details.
+
+
 A local-first English–Bengali vocabulary learning studio. Open `index.html` directly or publish the folder with GitHub Pages, Netlify, or another static host.
 
 ## Latest update — 2.24 · Library filtering, BCS practice fix & topic-based archive

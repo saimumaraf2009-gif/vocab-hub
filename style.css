@@ -949,3 +949,122 @@ select:focus-visible{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px va
 .daily-study-section .data-note{margin-bottom:0}
 @media(max-width:600px){.mistake-setup-grid{grid-template-columns:1fr;gap:10px}.mistake-available{flex:1 1 100%}.daily-study-card{padding:13px 10px}.daily-study-bars{gap:5px;min-height:130px}.study-bar-rail{width:min(100%,31px);height:65px}.daily-study-day>b{font-size:9px}.daily-study-day>small{font-size:7px}.daily-study-summary{gap:18px}.daily-study-summary b{font-size:17px}.review-word-grid{grid-template-columns:repeat(auto-fit,minmax(155px,1fr))}}
 @media(max-width:420px){.stat{min-height:100px;padding:11px}.stat-icon{width:24px;height:24px;margin-bottom:7px}.stat-icon .ic{width:13px;height:13px}.stat b{font-size:21px}.review-word-grid{grid-template-columns:1fr 1fr;gap:7px}.review-word-mini{padding:11px 30px 10px 10px}.review-word-head b{font-size:11px}.review-word-meaning{font-size:10px}}
+
+/* ===== v2.27 · clearer activity calendar, stronger actions & feedback ===== */
+.hero-actions{gap:9px;align-items:stretch;flex-wrap:wrap}
+.hero-actions .btn{white-space:normal;line-height:1.35}
+.hero .hero-admission{background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.055));border-color:rgba(255,255,255,.3);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.035)}
+.hero .hero-admission:hover{border-color:#ff737b;background:rgba(255,75,85,.16)}
+
+/* A date-led month calendar with daily activity intensity */
+.activity-calendar-section{margin:24px 0 12px}
+.activity-calendar-section>.section-head{margin-bottom:12px}
+.activity-calendar{padding:clamp(14px,2.2vw,23px);overflow:hidden}
+.calendar-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:0 0 16px;margin-bottom:15px;border-bottom:1px solid var(--bd)}
+.calendar-summary>div{min-width:0;display:flex;flex-direction:column;gap:4px}
+.calendar-summary small{font-size:8px;letter-spacing:.13em;font-weight:850;color:var(--tx2)}
+.calendar-summary b{font-size:clamp(16px,2.5vw,23px);line-height:1.2;letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.calendar-summary b span{font-size:11px;color:var(--tx2);font-weight:650;letter-spacing:0}
+.calendar-weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
+.calendar-weekdays{margin-bottom:7px}
+.calendar-weekdays span{text-align:center;color:var(--tx2);font-size:9px;font-weight:800;padding:4px 0}
+.calendar-cell{position:relative;min-width:0;min-height:44px;aspect-ratio:1.35;display:flex;align-items:center;justify-content:center;border:1px solid var(--bd);border-radius:10px;background:var(--bg2);color:var(--tx2);font-size:11px;font-variant-numeric:tabular-nums;transition:transform .16s,border-color .16s,background .16s}
+.calendar-cell b{font-size:11px;font-weight:750;line-height:1}
+.calendar-cell i{position:absolute;right:5px;bottom:4px;min-width:13px;height:13px;padding:0 3px;display:grid;place-items:center;border-radius:99px;background:rgba(0,0,0,.2);color:#fff;font-size:7px;font-style:normal;font-weight:850}
+.calendar-cell.intensity-1{background:color-mix(in srgb,var(--ac) 16%,var(--bg2));border-color:color-mix(in srgb,var(--ac) 22%,var(--bd));color:var(--tx)}
+.calendar-cell.intensity-2{background:color-mix(in srgb,var(--ac) 32%,var(--bg2));border-color:color-mix(in srgb,var(--ac) 39%,var(--bd));color:var(--tx)}
+.calendar-cell.intensity-3{background:color-mix(in srgb,var(--ac) 56%,var(--bg2));border-color:color-mix(in srgb,var(--ac) 62%,var(--bd));color:#fff}
+.calendar-cell.intensity-4{background:var(--ac);border-color:var(--ac);color:#fff;box-shadow:0 5px 15px var(--glow)}
+.calendar-cell.today{outline:2px solid var(--ac2);outline-offset:2px;z-index:1}
+.calendar-cell.empty{background:transparent;border-color:transparent;box-shadow:none}
+.calendar-cell.empty:after{content:none}
+.calendar-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:14px;color:var(--tx2);font-size:9px}
+.calendar-legend{margin:0;gap:5px}
+.calendar-legend i{width:11px;height:11px;border:1px solid var(--bd)}
+.calendar-legend i:nth-of-type(1){background:var(--bg2)}
+.calendar-legend i:nth-of-type(2){background:color-mix(in srgb,var(--ac) 22%,var(--bg2))}
+.calendar-legend i:nth-of-type(3){background:color-mix(in srgb,var(--ac) 48%,var(--bg2))}
+.calendar-legend i:nth-of-type(4){background:var(--ac)}
+
+/* Flashcard decisions are large, easy-to-hit controls */
+.flashcard-review-card{padding:clamp(18px,3vw,30px);margin-top:14px}
+.flashcard-review-card>.big{font-size:clamp(30px,5vw,43px);padding:25px 0;overflow-wrap:anywhere}
+.flashcard-review-card>.big.bn{color:var(--ac2);line-height:1.45}
+.flash-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:22px 0 4px}
+.flash-action-btn,.flash-reveal-btn{width:100%;min-height:56px;padding:14px 16px;border-radius:15px;font-size:clamp(12px,1.5vw,14px);line-height:1.35;white-space:normal}
+.flash-know{background:linear-gradient(135deg,#16a36b,#087d53);border:0;color:#fff;box-shadow:0 9px 22px rgba(10,145,91,.2)}
+.flash-know:hover{border-color:#16a36b;box-shadow:0 10px 24px rgba(10,145,91,.28)}
+.flash-practice{background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 13%,var(--card)),var(--card));border-color:color-mix(in srgb,var(--ac) 34%,var(--bd));color:var(--tx)}
+.flash-reveal-btn{max-width:360px;justify-self:center;grid-column:1/-1}
+
+/* Results navigation */
+.results-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:23px 0 12px}
+.results-actions .btn{min-height:52px;padding:13px 17px;border-radius:14px;font-size:12px;line-height:1.3;text-align:center;white-space:normal}
+.results-actions .btn.pri{box-shadow:0 9px 22px var(--glow)}
+.results-actions a.btn{color:var(--tx)}
+
+/* Feedback page */
+.feedback-intro{display:flex;align-items:flex-start;gap:15px;margin:15px 0;border-color:color-mix(in srgb,var(--ac) 30%,var(--bd));background:linear-gradient(120deg,color-mix(in srgb,var(--ac) 11%,var(--card)),var(--card) 74%)}
+.feedback-intro-icon{width:42px;height:42px;flex:0 0 auto;display:grid;place-items:center;border-radius:14px;background:var(--glow);color:var(--ac2);font-size:21px}
+.feedback-intro b{font-size:14px}
+.feedback-intro p{margin-top:4px;color:var(--tx2);font-size:11px;line-height:1.75}
+.feedback-form{padding:clamp(16px,2.6vw,25px);margin:14px 0 24px}
+.feedback-form-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}
+.feedback-form-heading h2{margin:0;font-size:18px}
+.feedback-field{display:flex;flex-direction:column;gap:7px;margin:13px 0;color:var(--tx);font-size:11px;font-weight:800}
+.feedback-field>span{font-size:11px}
+.feedback-field input,.feedback-field select,.feedback-field textarea{width:100%;max-width:none;font:inherit;font-size:12px;font-weight:500}
+.feedback-field textarea{min-height:150px;resize:vertical;line-height:1.65}
+.feedback-field>small{font-size:9px;line-height:1.6;color:var(--tx2);font-weight:500}
+.feedback-form-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:15px;padding-top:14px;border-top:1px solid var(--bd)}
+.feedback-form-footer p{max-width:620px;color:var(--tx2);font-size:10px;line-height:1.7}
+.feedback-form-footer .btn{min-height:47px;flex:0 0 auto;padding:12px 18px;font-size:11px}
+.feedback-saved-section{margin:24px 0}
+.feedback-saved-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.feedback-saved-item{min-width:0;padding:15px;border:1px solid var(--bd);border-radius:15px;background:var(--card);box-shadow:0 7px 22px rgba(0,0,0,.045)}
+.feedback-saved-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.feedback-kind{display:inline-block;padding:4px 8px;border-radius:99px;background:var(--glow);color:var(--ac2);font-size:8px;font-weight:850}
+.feedback-saved-top h3{margin:7px 0 0;font-size:13px;overflow-wrap:anywhere}
+.feedback-saved-top time{flex:0 0 auto;color:var(--tx2);font-size:8px}
+.feedback-saved-item>p{margin:10px 0 12px;color:var(--tx2);font-size:10px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere;max-height:105px;overflow:auto}
+.feedback-saved-actions{display:flex;flex-wrap:wrap;gap:6px}
+.feedback-saved-actions .btn{min-height:36px;padding:8px 11px;font-size:9px}
+.feedback-saved-actions .feedback-delete{color:var(--er)}
+
+@media(max-width:800px){
+ .hero-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;width:100%}
+ .hero-actions .btn{min-width:0;min-height:44px;padding:9px 8px;font-size:clamp(9px,1.8vw,11px)}
+ .hero-actions .hero-admission{grid-column:1/-1}
+ .calendar-weekdays,.calendar-grid{gap:5px}
+ .calendar-cell{min-height:39px;border-radius:8px}
+ .calendar-summary{padding-bottom:12px;margin-bottom:11px}
+ .calendar-foot{font-size:8px}
+ .results-actions{grid-template-columns:1fr;gap:8px;margin-top:19px}
+ .results-actions .btn{width:100%;min-height:49px}
+ .feedback-saved-list{grid-template-columns:1fr}
+ .feedback-form-footer{align-items:stretch;flex-direction:column}
+ .feedback-form-footer .btn{width:100%}
+}
+@media(max-width:420px){
+ .hero-copy{padding-right:0}
+ .hero-actions{grid-template-columns:1fr 1fr}
+ .hero-actions .hero-admission{grid-column:1/-1}
+ .hero .hero-art{opacity:.16}
+ .calendar-weekdays,.calendar-grid{gap:4px}
+ .calendar-weekdays span{font-size:8px}
+ .calendar-cell{min-height:34px;border-radius:7px}
+ .calendar-cell b{font-size:10px}
+ .calendar-cell i{right:3px;bottom:3px;min-width:11px;height:11px;font-size:6px}
+ .calendar-summary{gap:7px}
+ .calendar-summary small{font-size:7px}
+ .calendar-summary b{font-size:16px}
+ .calendar-summary b span{font-size:9px}
+ .calendar-foot{align-items:flex-start;flex-direction:column}
+ .flash-actions{grid-template-columns:1fr;gap:8px}
+ .flash-action-btn,.flash-reveal-btn{min-height:54px}
+ .flash-reveal-btn{grid-column:auto;max-width:none}
+ .feedback-form-heading{align-items:flex-start;flex-direction:column}
+ .feedback-intro{gap:10px}
+ .feedback-intro-icon{width:36px;height:36px}
+}
+@media(prefers-reduced-motion:reduce){.calendar-cell,.flash-action-btn,.results-actions .btn{transition:none}}

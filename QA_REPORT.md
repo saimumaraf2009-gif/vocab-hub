@@ -1,3 +1,14 @@
+# Admission Questions — QA & implementation report
+
+## Current update — 2.24
+
+- Library unit selection is wired after rendering and immediately redraws the filtered words.
+- BCS practice setup opens with its own title and BCS English question source; DU IBA source data remains independent.
+- 43 multi-word BCS Vocabulary profiles are temporarily excluded; the BCS source question bank is unchanged.
+- Admission bank navigation is topic-first; source question references remain in each question card.
+- Learning-rhythm and session score charts include dates on the bottom axis; mastery distribution is displayed as horizontal bars.
+- Validation: JavaScript syntax and JSON data checks passed. Chromium headless launch timed out in this environment; no browser-level end-to-end test is claimed.
+
 # Admission Questions — QA ও পরিবর্তন প্রতিবেদন
 
 ## Current update — 2.22 · BCS Vocabulary and exam setup

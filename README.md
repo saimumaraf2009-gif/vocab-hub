@@ -2,9 +2,18 @@
 
 A local-first English–Bengali vocabulary learning studio. Open `index.html` directly or publish the folder with GitHub Pages, Netlify, or another static host.
 
-## Latest update — 2.22 · BCS Vocabulary, source separation & resilient exams
+## Latest update — 2.24 · Library filtering, BCS practice fix & topic-based archive
+- Fixed the Library unit selector: choosing a unit now immediately refreshes the visible word list; the custom dropdown listener is attached after the selector is rendered.
+- Corrected the BCS Preliminary shortcut so its setup opens with the dedicated **BCS Preliminary past questions** title and **BCS Preliminary · English** source, rather than falling back to DU IBA.
+- Held back **43 multi-word BCS Vocabulary phrase profiles** from the Library for now. The individual BCS exam questions and their source references remain in the BCS question bank.
+- Reorganized Admission Questions into topic-first sections. Questions retain their original question number, year/session and source reference in the question card.
+- Modernized dated trend charts, added calendar dates along the bottom axis, and separated mastery distribution into horizontal bar charts.
+- Replaced the most prominent generic Bengali count labels with English labels such as **All**, **Max available**, and **questions**.
+- See `UPDATE_2_24_BN.md` for implementation details and validation notes.
+
+## Previous update — 2.22 · BCS Vocabulary, source separation & resilient exams
 - Added a dedicated **BCS Vocabulary** Library section with **224 distinct word/phrase profiles** extracted from the BCS English question bank. Profiles include Bengali meaning, part of speech, IPA, contextual examples and original BCS question/source references; existing learner progress is preserved.
-- The profile collection contains **2,261 total vocabulary entries** across all integrated Library sections. New BCS entries are available in offline mode and in the hosted JSON copies.
+- The profile collection contains **2,218 vocabulary entries** across all integrated Library sections after 43 multi-word BCS phrase profiles were temporarily held back from the Library. New BCS entries are available in offline mode and in the hosted JSON copies.
 - Fixed the source-mixing bug: BCS questions no longer enter the DU IBA-only pool. DU IBA, DU A/B/C/D, HSC Academic and BCS are separate sources; a deliberate **All Sources** option remains available for mixed practice.
 - The supplied BCS English bank contains **485 questions**; **484** have usable answer keys for scored practice. The passage-dependent Q368 remains visible in the archive but is excluded from scoring because its passage is absent. Three non-English medical/biology items were not imported into the English bank.
 - Replaced question-count dropdowns with compact selectable tiles, including **3 questions**. Difficulty levels that cannot supply the selected count are disabled; the setup adjusts to an available level/count or falls back to a broader vocabulary pool rather than blocking a round.
@@ -66,7 +75,7 @@ A local-first English–Bengali vocabulary learning studio. Open `index.html` di
 **Editorial limitation:** this is an editorial review pass, not a native lexicographer's sign-off or a complete word-by-word audit against Cambridge/Oxford. Reference links are supplied for further verification. A word can have different Bengali equivalents in different contexts; the entry gives the main learning sense(s) selected for this collection. Empty antonyms are deliberate where no good direct opposite exists.
 
 ## What's included
-- 2,261 vocabulary entries across all integrated sections, including **BCS Vocabulary** and **DU A,B,C,D**; five difficulty levels are available.
+- 2,218 vocabulary entries across all integrated sections, including **BCS Vocabulary** and **DU A,B,C,D**; five difficulty levels are available. Multi-word BCS phrase profiles are temporarily excluded from Library display.
 - Practice, revision, XP, achievements, themes, backup and restore.
 - Word profile with pronunciation (where available), Bengali meanings, part of speech, synonyms, antonyms and dictionary references.
 - Practice modes, matching, word games, analytics and local-first progress tracking.

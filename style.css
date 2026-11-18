@@ -873,3 +873,34 @@ select:focus-visible{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px va
 
 /* v2.23: compact library unit selector + clear question-count tiles */
 .lib-unit-select{max-width:560px;margin:14px 0 8px;display:grid;gap:7px}.lib-unit-select .dd{width:100%}.unit-panel .unit-head{margin-bottom:10px}.count-choice-grid{grid-template-columns:repeat(auto-fit,minmax(68px,1fr))}.count-choice{min-width:0}
+
+
+/* 2.24 — modern analytics visuals and readable date axes */
+.chart-card{position:relative;overflow:hidden;border:1px solid color-mix(in srgb,var(--bd) 78%,var(--ac) 22%);background:radial-gradient(ellipse at 100% 0%,rgba(255,55,75,.075),transparent 48%),var(--card);box-shadow:0 12px 34px rgba(0,0,0,.07)}
+.xp-chart-wrap{min-height:270px;padding:14px 8px 2px}
+.xp-chart{width:100%;min-height:250px}
+.xp-gridline{stroke:color-mix(in srgb,var(--bd) 76%,transparent);stroke-dasharray:3 7;stroke-width:1}
+.xp-axis-label{fill:var(--tx2);font:11px var(--font);opacity:.9}
+.xp-weekday{font-size:11px;font-weight:700;fill:var(--tx)}
+.xp-axis-date{fill:var(--tx2);font:10px var(--font);letter-spacing:.01em}
+.chart-bars{display:grid;gap:17px;padding:14px 4px 10px}
+.chart-bar-item{min-width:0}
+.chart-bar-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:7px;color:var(--tx);font-size:13px}
+.chart-bar-top b{font-variant-numeric:tabular-nums;color:var(--ac2);font-size:13px}
+.chart-bar-track{height:10px;border-radius:999px;background:var(--el);overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.12)}
+.chart-bar-track i{display:block;height:100%;min-width:2px;border-radius:inherit;background:linear-gradient(90deg,#bd102a,#ff5369 62%,#ff9ba4);box-shadow:0 0 16px rgba(255,55,75,.22);transition:width .35s ease}
+.accuracy-donut{filter:drop-shadow(0 6px 16px rgba(255,55,75,.14))}
+.data-note{max-width:70ch;line-height:1.6}
+@media(max-width:560px){
+ .xp-chart-wrap{min-height:224px;padding:8px 0 0}
+ .xp-chart{min-height:215px}
+ .xp-axis-label{font-size:17px}
+ .xp-axis-date{font-size:15px}
+ .chart-bars{gap:14px;padding:8px 1px}
+ .chart-bar-track{height:8px}
+ .chart-card{padding:15px!important;min-height:240px}
+}
+
+.difficulty-row .ach-progress{height:8px;border:1px solid color-mix(in srgb,var(--bd) 78%,transparent);background:color-mix(in srgb,var(--el) 82%,var(--bg));box-shadow:inset 0 1px 2px rgba(0,0,0,.1)}
+.difficulty-row .ach-progress i{background:linear-gradient(90deg,#bd102a,#ff5369 62%,#ff9ba4);box-shadow:0 0 14px rgba(255,55,75,.18)}
+.analytics-highlight{border:1px solid color-mix(in srgb,var(--ac) 16%,var(--bd));background:radial-gradient(circle at 10% 15%,rgba(255,65,82,.07),transparent 46%),var(--card)}

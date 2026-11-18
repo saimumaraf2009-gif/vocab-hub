@@ -714,7 +714,7 @@ function medicalNext(){
 }
 function medicalRestart(){MEDICAL_RUN={started:false,mode:'practice',questions:[],index:0,score:0,picked:null,category:'all'};render()}
 let ADMISSION_VIEW={bank:null,folder:null};
-function openAdmissionBank(id){ADMISSION_VIEW={bank:id,folder:null};render()}
+function openAdmissionBank(id){ADMISSION_VIEW={bank:id,folder:null};go('admission')}
 function openAdmissionFolder(id,index){ADMISSION_VIEW={bank:id,folder:index};render()}
 function backAdmissionFolders(){ADMISSION_VIEW.folder=null;render()}
 function backAdmissionHome(){ADMISSION_VIEW={bank:null,folder:null};render()}

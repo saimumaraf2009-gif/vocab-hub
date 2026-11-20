@@ -1068,3 +1068,218 @@ select:focus-visible{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px va
  .feedback-intro-icon{width:36px;height:36px}
 }
 @media(prefers-reduced-motion:reduce){.calendar-cell,.flash-action-btn,.results-actions .btn{transition:none}}
+
+/* ===== Arcade game cards — themed, animated launcher tiles (v2.29) ===== */
+.arc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:16px;margin:6px 0 20px}
+.arc-card{--gc:#ff5a62;--rx:0deg;--ry:0deg;--px:0;--py:0;--mx:50%;--my:30%;position:relative;display:flex;flex-direction:column;padding:0!important;overflow:hidden;cursor:pointer;border:1px solid color-mix(in srgb,var(--gc) 26%,var(--bd))!important;border-radius:20px!important;background:var(--card);transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));transform-origin:50% 60%;transition:transform .18s ease-out,border-color .2s,box-shadow .25s;animation:arcIn .5s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--n,0)*40ms);-webkit-tap-highlight-color:transparent;contain:layout paint}
+.arc-card:after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:0;transition:opacity .25s;background:radial-gradient(260px circle at var(--mx) var(--my),color-mix(in srgb,var(--gc) 22%,transparent),transparent 62%)}
+.arc-card:active{transform:perspective(900px) scale(.975);transition-duration:.08s}
+.arc-card:has(:focus-visible){outline:2px solid var(--gc);outline-offset:2px}
+@media(hover:hover){.arc-card:hover{border-color:var(--gc)!important;box-shadow:0 0 0 1px var(--gc),0 16px 40px color-mix(in srgb,var(--gc) 34%,transparent),0 0 34px color-mix(in srgb,var(--gc) 22%,transparent)}.arc-card:hover:after{opacity:1}.arc-card:hover .arc-art{--sc:1.07}.arc-card:hover .arc-stage:before{opacity:1}.arc-card:hover .arc-stage:after{transform:translateX(260%) skewX(-18deg)}.arc-card:hover .arc-play{background:var(--gc);color:#101014;border-color:var(--gc)}.arc-card:hover .arc-play svg{transform:translateX(3px)}}
+.arc-stage{position:relative;height:134px;display:grid;place-items:center;overflow:hidden;background:linear-gradient(165deg,color-mix(in srgb,var(--gc) 24%,#0b0b10),#0a0a0e 78%);border-bottom:1px solid color-mix(in srgb,var(--gc) 30%,transparent);color:#fff;isolation:isolate}
+.arc-stage:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.72;transition:opacity .25s;background:radial-gradient(circle at 50% 56%,color-mix(in srgb,var(--gc) 34%,transparent),transparent 62%),linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px) 0 0/100% 18px}
+.arc-stage:after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:36%;z-index:4;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(255,255,255,.16),transparent);transform:translateX(0) skewX(-18deg);transition:transform .7s ease}
+.arc-art{position:relative;width:220px;height:120px;transform:translate3d(calc(var(--px)*8px),calc(var(--py)*6px),0) scale(var(--sc,1));transition:transform .2s ease-out;font-weight:800;line-height:1;letter-spacing:0}
+.arc-art i,.arc-art b,.arc-art s,.arc-art em,.arc-art u{font-style:normal;text-decoration:none;font-weight:800}
+.arc-body{position:relative;z-index:1;display:flex;flex-direction:column;flex:1;padding:13px 15px 15px}
+.arc-tags{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}
+.arc-mode{font-size:8.5px;font-weight:850;letter-spacing:.14em;text-transform:uppercase;color:var(--gc);background:color-mix(in srgb,var(--gc) 14%,transparent);border:1px solid color-mix(in srgb,var(--gc) 38%,transparent);padding:4px 8px;border-radius:99px;white-space:nowrap}
+:root[data-t=paper] .arc-mode{color:color-mix(in srgb,var(--gc) 62%,#000)}
+.arc-diff{display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:850;letter-spacing:.12em;color:var(--tx2);text-transform:uppercase;white-space:nowrap}
+.arc-diff i{width:7px;height:7px;border-radius:2px;background:var(--bd);transform:skewX(-14deg)}.arc-diff i.on{background:var(--gc);box-shadow:0 0 6px var(--gc)}.arc-diff span{margin-left:4px}
+.arc-body h3{font-size:15px;letter-spacing:-.04em;margin:0 0 4px;color:var(--tx)}
+.arc-body .sub{font-size:11px;line-height:1.55;margin:0 0 13px;flex:1;color:var(--tx2)}
+.arc-play{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:10px 12px;border-radius:12px;border:1px solid color-mix(in srgb,var(--gc) 55%,transparent);background:color-mix(in srgb,var(--gc) 14%,transparent);color:var(--tx);font-size:11px;font-weight:850;letter-spacing:.2em;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+:root[data-t=paper] .arc-play{color:#14141a}
+.arc-play svg{width:12px;height:12px;fill:currentColor;transition:transform .2s;animation:arcCue 1.4s ease-in-out infinite}
+.arc-play:before{content:"";position:absolute;inset:-1px;border-radius:inherit;border:1px solid var(--gc);opacity:0;animation:arcPing 2.2s ease-out infinite}
+@keyframes arcIn{from{opacity:0;transform:perspective(900px) translateY(14px) scale(.96)}to{opacity:1;transform:perspective(900px)}}
+@keyframes arcCue{0%,100%{transform:translateX(0)}50%{transform:translateX(3px)}}
+@keyframes arcPing{0%{opacity:.7;transform:scale(1)}70%,100%{opacity:0;transform:scale(1.1,1.5)}}
+.arc-card:not(.in-view) *,.arc-card:not(.in-view) *:before,.arc-card:not(.in-view) *:after{animation-play-state:paused!important}
+@media(max-width:520px){.arc-grid{grid-template-columns:1fr;gap:14px}.arc-stage{height:144px}.arc-art{--sc:1.1}.arc-card:hover .arc-art{--sc:1.1}}
+
+/* — 1 Word builder: tiles rise from the tray into slots — */
+.a-type .slots{position:absolute;top:18px;left:0;right:0;display:flex;justify-content:center;gap:7px}
+.a-type .slots b{width:34px;height:40px;border:1.5px dashed color-mix(in srgb,var(--gc) 70%,transparent);border-radius:9px;display:block}
+.a-type .slots i{display:grid;place-items:center;width:100%;height:100%;margin:-1.5px;box-sizing:content-box;padding:1.5px;border-radius:9px;background:linear-gradient(160deg,var(--gc),color-mix(in srgb,var(--gc) 55%,#000));color:#15110a;font-size:19px;box-shadow:0 5px 14px color-mix(in srgb,var(--gc) 45%,transparent);animation:arcRise 4.4s cubic-bezier(.3,1.4,.5,1) infinite both;animation-delay:calc(var(--i)*.32s)}
+.a-type .tray{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:6px}
+.a-type .tray s{width:24px;height:24px;display:grid;place-items:center;border-radius:7px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);font-size:11px;color:rgba(255,255,255,.72);animation:arcBob 2.2s ease-in-out infinite;animation-delay:calc(var(--i)*.18s)}
+@keyframes arcRise{0%{transform:translate(var(--fx),56px) scale(.7) rotate(var(--fr));opacity:0}10%{opacity:1}28%,76%{transform:none;opacity:1}92%,100%{transform:translate(0,-8px) scale(.9);opacity:0}}
+@keyframes arcBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+
+/* — 2 Memory flip: pairs flip, match glows — */
+.a-mem{perspective:520px;display:grid;grid-template-columns:repeat(3,56px);grid-auto-rows:50px;gap:9px;justify-content:center;align-content:center}
+.a-mem .c{position:relative;transform-style:preserve-3d}
+.a-mem .c b,.a-mem .c em{position:absolute;inset:0;display:grid;place-items:center;border-radius:10px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.a-mem .c b{background:repeating-linear-gradient(45deg,color-mix(in srgb,var(--gc) 55%,#1a1030) 0 5px,color-mix(in srgb,var(--gc) 35%,#1a1030) 5px 10px);border:1.5px solid color-mix(in srgb,var(--gc) 80%,#fff);font-size:17px;color:#fff}
+.a-mem .c em{transform:rotateY(180deg);background:#f3eeff;color:#2a1a55;font-size:11px;border:1.5px solid var(--gc)}
+.a-mem .c em:after{content:"";position:absolute;inset:-3px;border-radius:12px;border:2px solid #4fe0a0;opacity:0;animation:arcMatch 4.6s infinite}
+.a-mem .c.mt{transform:rotateY(180deg);animation:arcFlipHold 4.6s ease-in-out infinite}
+.a-mem .c.ms{animation:arcFlipMiss 4.6s ease-in-out infinite}
+.a-mem .c.id{animation:arcBob 2.6s ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes arcFlipHold{0%,8%{transform:rotateY(0)}20%,62%{transform:rotateY(180deg)}74%,100%{transform:rotateY(0)}}
+@keyframes arcFlipMiss{0%,48%{transform:rotateY(0)}56%,66%{transform:rotateY(180deg)}74%,100%{transform:rotateY(0)}}
+@keyframes arcMatch{0%,24%{opacity:0}30%,58%{opacity:1}66%,100%{opacity:0}}
+
+/* — 3 Word scramble: jumbled letters snap into order — */
+.a-scr i{position:absolute;top:44px;left:calc(var(--i)*34px + 8px);width:30px;height:34px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(160deg,#ffe0cf,#ffb18a);color:#3a1708;font-size:17px;box-shadow:0 4px 12px rgba(0,0,0,.35);animation:arcUnjumble 4.6s ease-in-out infinite both;animation-delay:calc(var(--i)*.06s)}
+.a-scr .chk{position:absolute;left:8px;right:8px;top:86px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--gc),#4fe0a0);transform-origin:left;animation:arcLine 4.6s ease-in-out infinite}
+.a-scr svg{position:absolute;right:6px;top:4px;width:22px;height:22px;stroke:var(--gc);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;animation:arcSpin 2.4s linear infinite}
+@keyframes arcUnjumble{0%{transform:translate(var(--sx),var(--sy)) rotate(var(--sr))}9%{transform:translate(calc(var(--sx)*-.7),calc(var(--sy)*.6)) rotate(calc(var(--sr)*-1))}18%{transform:translate(calc(var(--sx)*.8),calc(var(--sy)*-.7)) rotate(calc(var(--sr)*.8))}30%{transform:translate(var(--sx),var(--sy)) rotate(var(--sr))}46%,80%{transform:none}90%,100%{transform:translate(var(--sx),var(--sy)) rotate(var(--sr))}}
+@keyframes arcLine{0%,44%{transform:scaleX(0)}56%,82%{transform:scaleX(1)}92%,100%{transform:scaleX(0)}}
+@keyframes arcSpin{to{transform:rotate(360deg)}}
+
+/* — 4 Hangman: figure builds with each slip, then word is saved — */
+.a-hang svg{position:absolute;left:6px;top:4px;width:128px;height:112px;overflow:visible}
+.a-hang svg *{fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round}
+.a-hang .gal{stroke:var(--gc);opacity:.95}
+.a-hang .hp{transform-box:fill-box;transform-origin:50% 0;animation:arcPart 5.2s infinite both;animation-delay:calc(var(--k)*.5s)}
+.a-hang .bl{position:absolute;right:8px;top:50px;display:flex;gap:5px}
+.a-hang .bl i{width:16px;height:22px;border-bottom:2.5px solid var(--gc);display:grid;place-items:end center;font-size:15px;color:#fff;padding-bottom:2px}
+.a-hang .bl i u{display:block;animation:arcLetter 5.2s infinite both;animation-delay:calc(var(--k)*.28s)}
+.a-hang .ttl{position:absolute;right:8px;top:28px;font-size:8px;letter-spacing:.14em;color:rgba(255,255,255,.62)}
+.a-hang .hearts{position:absolute;right:8px;bottom:10px;font-size:10px;letter-spacing:2px;color:#ff4d5e;animation:arcBeat 1.3s ease-in-out infinite}
+@keyframes arcPart{0%{opacity:0;transform:scale(.4)}8%,84%{opacity:1;transform:scale(1)}94%,100%{opacity:0;transform:scale(.4)}}
+@keyframes arcLetter{0%,56%{opacity:0;transform:translateY(8px)}64%,86%{opacity:1;transform:none}96%,100%{opacity:0}}
+@keyframes arcBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.14)}}
+
+/* — 5 True / False blitz: cards swipe, timer drains — */
+.a-tf .side{position:absolute;top:34px;width:54px;height:54px;display:grid;place-items:center;border-radius:14px;font-size:9px;letter-spacing:.06em;border:1.5px solid;text-align:center;line-height:1.3}
+.a-tf .side b{display:block;font-size:20px}
+.a-tf .side.t{right:2px;color:#4fe0a0;border-color:#4fe0a0;background:rgba(79,224,160,.12);animation:arcFlashT 4s infinite}
+.a-tf .side.f{left:2px;color:#ff6b7d;border-color:#ff6b7d;background:rgba(255,107,125,.12);animation:arcFlashF 4s infinite}
+.a-tf .tfc{position:absolute;left:50%;top:28px;margin-left:-45px;width:90px;height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border-radius:12px;background:linear-gradient(160deg,#f7fff9,#c7f4dc);color:#0d3a26;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+.a-tf .tfc b{font-size:15px}.a-tf .tfc small{font-size:10px;font-weight:700;opacity:.8}
+.a-tf .c1{animation:arcSwipeR 4s ease-in-out infinite both}
+.a-tf .c2{opacity:0;animation:arcSwipeL 4s ease-in-out infinite both}
+.a-tf .bar{position:absolute;left:0;right:0;bottom:2px;height:5px;border-radius:5px;background:rgba(255,255,255,.12);overflow:hidden}
+.a-tf .bar i{display:block;height:100%;background:linear-gradient(90deg,#4fe0a0,#ffb84d,#ff6b7d);transform-origin:left;animation:arcDrain 4s linear infinite}
+@keyframes arcSwipeR{0%{opacity:0;transform:translateY(14px) scale(.85)}10%,32%{opacity:1;transform:none}46%{opacity:0;transform:translateX(74px) rotate(14deg)}100%{opacity:0;transform:translateX(74px) rotate(14deg)}}
+@keyframes arcSwipeL{0%,50%{opacity:0;transform:translateY(14px) scale(.85)}60%,82%{opacity:1;transform:none}96%,100%{opacity:0;transform:translateX(-74px) rotate(-14deg)}}
+@keyframes arcFlashT{0%,28%{transform:scale(1);background:rgba(79,224,160,.12)}38%{transform:scale(1.18);background:rgba(79,224,160,.5)}50%,100%{transform:scale(1);background:rgba(79,224,160,.12)}}
+@keyframes arcFlashF{0%,76%{transform:scale(1);background:rgba(255,107,125,.12)}88%{transform:scale(1.18);background:rgba(255,107,125,.5)}100%{transform:scale(1);background:rgba(255,107,125,.12)}}
+@keyframes arcDrain{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+
+/* — 6 Odd one out: a lens hunts the odd chip — */
+.a-odd .grid4{position:absolute;left:22px;top:12px;width:176px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.a-odd .w{position:relative;height:42px;display:grid;place-items:center;border-radius:11px;font-size:12px;background:rgba(255,255,255,.1);border:1.5px solid color-mix(in srgb,var(--gc) 55%,transparent);color:#fff;animation:arcBob 2.4s ease-in-out infinite;animation-delay:calc(var(--i)*.2s)}
+.a-odd .w.o{border-color:#ff6b7d;background:rgba(255,107,125,.16);animation:arcWobble 5s ease-in-out infinite}
+.a-odd .w.o:after{content:"";position:absolute;inset:-4px;border-radius:14px;border:2px solid #ff6b7d;opacity:0;animation:arcOddRing 5s ease-out infinite}
+.a-odd .lens{position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;border:3px solid var(--gc);background:color-mix(in srgb,var(--gc) 14%,transparent);box-shadow:0 0 14px var(--gc);transform:translate(116px,57px);animation:arcLens 5s cubic-bezier(.6,0,.3,1) infinite}
+.a-odd .lens:after{content:"";position:absolute;width:3px;height:13px;border-radius:3px;background:var(--gc);right:-6px;bottom:-9px;transform:rotate(-40deg)}
+@keyframes arcLens{0%{transform:translate(24px,3px)}18%,22%{transform:translate(116px,3px)}38%,42%{transform:translate(24px,57px)}58%,86%{transform:translate(116px,57px) scale(1.12)}100%{transform:translate(24px,3px)}}
+@keyframes arcWobble{0%,52%,100%{transform:none}58%{transform:rotate(-4deg) translateY(-3px)}66%{transform:rotate(4deg) translateY(-3px)}74%{transform:rotate(-3deg)}82%{transform:none}}
+@keyframes arcOddRing{0%,56%{opacity:0;transform:scale(.9)}64%{opacity:.9;transform:scale(1)}88%,100%{opacity:0;transform:scale(1.25,1.45)}}
+
+/* — 7 Sentence builder: word bricks snap together — */
+.a-sent .row{position:absolute;left:0;right:0;display:flex;justify-content:center;gap:6px}
+.a-sent .r1{top:26px}.a-sent .r2{top:66px}
+.a-sent i,.a-sent b{display:block;padding:8px 10px;border-radius:9px;font-size:12px;color:#0e1230;background:linear-gradient(160deg,#e6eaff,#aab6ff);box-shadow:0 4px 10px rgba(0,0,0,.35);animation:arcSnap 5s cubic-bezier(.3,1.3,.5,1) infinite both;animation-delay:calc(var(--i)*.22s)}
+.a-sent i:nth-child(even){background:linear-gradient(160deg,#fff,#c9d1ff)}
+.a-sent b{padding:8px 9px;background:var(--gc);color:#fff}
+.a-sent .cur{position:absolute;left:50%;bottom:6px;width:46px;height:3px;margin-left:-23px;border-radius:3px;background:var(--gc);animation:arcBlink 1s steps(2) infinite}
+@keyframes arcSnap{0%{opacity:0;transform:translateX(var(--fx)) rotate(var(--fr))}14%{opacity:1}30%,78%{opacity:1;transform:none}92%,100%{opacity:0;transform:translateY(-8px)}}
+@keyframes arcBlink{50%{opacity:0}}
+
+/* — 8 Word ladder: climber hops rung by rung, combo sparks — */
+.a-lad .rail{position:absolute;top:6px;bottom:6px;width:4px;border-radius:4px;background:linear-gradient(#fff,rgba(255,255,255,.35))}
+.a-lad .rail.l{left:78px}.a-lad .rail.r{left:138px}
+.a-lad .rung{position:absolute;left:78px;width:64px;height:3px;border-radius:3px;background:rgba(255,255,255,.5);bottom:calc(var(--k)*20px + 14px)}
+.a-lad .cl{position:absolute;left:96px;bottom:6px;width:28px;height:22px;display:grid;place-items:center;border-radius:8px;background:var(--gc);color:#251d00;font-size:9px;box-shadow:0 0 14px var(--gc);transform:translateY(-40px);animation:arcClimb 6s cubic-bezier(.3,1.5,.5,1) infinite}
+.a-lad .lv{position:absolute;right:20px;bottom:calc(var(--k)*20px + 8px);font-size:9px;padding:3px 6px;border-radius:6px;color:#251d00;background:var(--gc);animation:arcLit 6s infinite both;animation-delay:calc(var(--k)*.96s)}
+.a-lad .combo{position:absolute;left:4px;top:30px;font-size:11px;padding:5px 8px;border-radius:8px;color:#fff;background:linear-gradient(135deg,#ff5a36,#ffb84d);box-shadow:0 0 16px rgba(255,120,40,.7);transform:rotate(-8deg);animation:arcCombo 6s ease-out infinite}
+.a-lad .sp{position:absolute;left:30px;top:44px;width:6px;height:6px;border-radius:2px;background:#ffd24d;opacity:0;animation:arcSpark 6s ease-out infinite}
+.a-lad .star{position:absolute;left:101px;top:-2px;font-size:16px;color:var(--gc);animation:arcStar 6s ease-out infinite}
+@keyframes arcClimb{0%,10%{transform:translateY(0);opacity:1}16%,28%{transform:translateY(-20px)}34%,44%{transform:translateY(-40px)}50%,60%{transform:translateY(-60px)}66%,82%{transform:translateY(-80px)}92%{transform:translateY(-80px);opacity:1}100%{transform:translateY(0);opacity:0}}
+@keyframes arcLit{0%{opacity:.3}8%,86%{opacity:1}96%,100%{opacity:.3}}
+@keyframes arcCombo{0%,46%{opacity:0;transform:rotate(-8deg) scale(.3)}52%{opacity:1;transform:rotate(-8deg) scale(1.25)}58%,72%{opacity:1;transform:rotate(-8deg) scale(1)}82%,100%{opacity:0;transform:rotate(-8deg) translateY(-10px)}}
+@keyframes arcSpark{0%,46%{opacity:0;transform:translate(0,0) scale(1)}50%{opacity:1}68%,100%{opacity:0;transform:translate(var(--sx),var(--sy)) scale(.2)}}
+@keyframes arcStar{0%,64%{opacity:0;transform:scale(.2) rotate(0)}74%{opacity:1;transform:scale(1.4) rotate(180deg)}90%,100%{opacity:0;transform:scale(1) rotate(300deg)}}
+
+/* — 9 Speed challenge: ticking timer ring + pulse — */
+.a-spd .ring{position:absolute;left:62px;top:6px;width:108px;height:108px;border-radius:50%;background:repeating-conic-gradient(rgba(255,255,255,.55) 0 1.4deg,transparent 1.4deg 30deg);-webkit-mask:radial-gradient(circle,transparent 44px,#000 45px,#000 52px,transparent 53px);mask:radial-gradient(circle,transparent 44px,#000 45px,#000 52px,transparent 53px)}
+.a-spd .sweep{position:absolute;left:62px;top:6px;width:108px;height:108px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 270deg,color-mix(in srgb,var(--gc) 85%,transparent) 360deg);-webkit-mask:radial-gradient(circle,transparent 36px,#000 37px,#000 52px,transparent 53px);mask:radial-gradient(circle,transparent 36px,#000 37px,#000 52px,transparent 53px);animation:arcSpin 3s linear infinite}
+.a-spd .hand{position:absolute;left:115px;top:12px;width:3px;height:48px;margin-left:-1px;border-radius:3px;background:#fff;transform-origin:50% 100%;animation:arcSpin 3s steps(12) infinite}
+.a-spd .pv{position:absolute;left:62px;top:6px;width:108px;height:108px;border-radius:50%;border:2px solid var(--gc);opacity:0;animation:arcRingPulse 1.5s ease-out infinite}
+.a-spd .pv.p2{animation-delay:.75s}
+.a-spd .num{position:absolute;left:62px;top:50px;width:108px;text-align:center;font-size:21px}
+.a-spd .num b{position:absolute;left:0;right:0;top:0;opacity:0;animation:arcNum 6s infinite both}
+.a-spd .num b:nth-child(1){animation-delay:0s}.a-spd .num b:nth-child(2){animation-delay:2s}.a-spd .num b:nth-child(3){animation-delay:4s}
+.a-spd .num small{position:absolute;left:0;right:0;top:25px;font-size:7px;letter-spacing:.18em;color:rgba(255,255,255,.6)}
+.a-spd .ln{position:absolute;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--gc));opacity:0;animation:arcStreak .9s linear infinite;animation-delay:var(--d)}
+@keyframes arcRingPulse{0%{opacity:.8;transform:scale(.85)}100%{opacity:0;transform:scale(1.35)}}
+@keyframes arcNum{0%{opacity:0;transform:scale(.7)}6%,28%{opacity:1;transform:scale(1)}36%,100%{opacity:0;transform:scale(1.3)}}
+@keyframes arcStreak{0%{opacity:0;transform:translateX(-30px)}30%{opacity:.9}100%{opacity:0;transform:translateX(40px)}}
+
+/* — 10 Daily challenge: calendar, 5 words, XP and flame — */
+.a-day .cal{position:absolute;left:36px;top:12px;width:92px;height:98px;border-radius:14px;overflow:hidden;background:#fff6f9;color:#2b0b18;box-shadow:0 10px 24px rgba(0,0,0,.45)}
+.a-day .cal header{height:26px;display:grid;place-items:center;background:var(--gc);color:#fff;font-size:9px;letter-spacing:.2em}
+.a-day .cal strong{display:block;text-align:center;font-size:34px;line-height:1;margin-top:7px;font-weight:850}
+.a-day .pips{position:absolute;left:0;right:0;bottom:9px;display:flex;justify-content:center;gap:5px}
+.a-day .pips i{width:9px;height:9px;border-radius:50%;background:var(--gc);animation:arcPip 4.6s infinite both;animation-delay:calc(var(--k)*.4s)}
+.a-day .cal:after{content:"";position:absolute;top:0;bottom:0;left:-50%;width:40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-18deg);animation:arcShine 4.6s ease-in-out infinite}
+.a-day .xp{position:absolute;left:112px;top:20px;font-size:12px;padding:6px 9px;border-radius:99px;background:linear-gradient(135deg,var(--gc),#ffb84d);color:#2b0b18;box-shadow:0 0 16px color-mix(in srgb,var(--gc) 70%,transparent);animation:arcXp 4.6s ease-out infinite both}
+.a-day .fl{position:absolute;right:22px;bottom:12px;width:34px;height:44px;fill:#ff8a3d;transform-origin:50% 100%;animation:arcFlame .9s ease-in-out infinite alternate;filter:drop-shadow(0 0 8px rgba(255,140,40,.7))}
+@keyframes arcPip{0%{opacity:.25;transform:scale(.6)}6%{opacity:1;transform:scale(1.35)}12%,84%{opacity:1;transform:scale(1)}94%,100%{opacity:.25;transform:scale(.6)}}
+@keyframes arcShine{0%,55%{transform:translateX(0) skewX(-18deg)}80%,100%{transform:translateX(520%) skewX(-18deg)}}
+@keyframes arcXp{0%,50%{opacity:0;transform:translateY(12px) scale(.5)}58%{opacity:1;transform:translateY(-6px) scale(1.18)}66%,86%{opacity:1;transform:translateY(-12px) scale(1)}98%,100%{opacity:0;transform:translateY(-26px)}}
+@keyframes arcFlame{from{transform:scale(1,.94) rotate(-4deg)}to{transform:scale(.94,1.08) rotate(4deg)}}
+
+/* — 11 Boss battle: HP bar drains, boss shakes, damage pops — */
+.a-boss .hp{position:absolute;left:30px;right:30px;top:2px;height:9px;border-radius:5px;background:rgba(255,255,255,.14);overflow:hidden;border:1px solid rgba(255,255,255,.22)}
+.a-boss .hp i{display:block;height:100%;background:linear-gradient(90deg,#ff4d5e,#ff8a5c);transform-origin:left;transform:scaleX(.4);animation:arcHp 4s ease-out infinite}
+.a-boss .lbl{position:absolute;left:30px;top:14px;font-size:7px;letter-spacing:.2em;color:rgba(255,255,255,.7)}
+.a-boss .bs{position:absolute;left:78px;top:26px;width:64px;height:70px;animation:arcShake 4s linear infinite}
+.a-boss .hn{position:absolute;top:-8px;width:16px;height:22px;background:linear-gradient(#ff5d6c,#8b1020);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.a-boss .hn.l{left:0;transform:rotate(-14deg)}.a-boss .hn.r{right:0;transform:rotate(14deg)}
+.a-boss .fc{position:absolute;left:0;right:0;top:8px;height:56px;border-radius:16px 16px 20px 20px;background:linear-gradient(160deg,#4a1229,#1b0714);border:2px solid var(--gc);box-shadow:0 0 22px color-mix(in srgb,var(--gc) 55%,transparent)}
+.a-boss .ey{position:absolute;top:16px;width:12px;height:9px;border-radius:50% 50% 40% 40%;background:#ffe14d;box-shadow:0 0 10px #ffe14d;animation:arcBlinkEye 2.4s infinite}
+.a-boss .ey.l{left:12px;transform:rotate(14deg)}.a-boss .ey.r{right:12px;transform:rotate(-14deg)}
+.a-boss .tt{position:absolute;left:12px;right:12px;bottom:7px;height:11px;background:repeating-linear-gradient(90deg,#fff 0 6px,transparent 6px 9px);clip-path:polygon(0 0,100% 0,100% 100%,0 100%);border-radius:0 0 6px 6px;opacity:.92}
+.a-boss .fl{position:absolute;inset:6px 0 0;border-radius:16px;background:#fff;opacity:0;animation:arcHitFlash 4s infinite}
+.a-boss .sl{position:absolute;left:62px;top:50px;width:100px;height:4px;border-radius:4px;background:linear-gradient(90deg,transparent,#fff,transparent);opacity:0;transform:rotate(-35deg) scaleX(0);animation:arcSlash 4s infinite}
+.a-boss .dm{position:absolute;font-size:13px;color:#ffe14d;text-shadow:0 2px 0 #7a0c1b,0 0 8px rgba(255,80,60,.8);opacity:0;animation:arcDmg 4s ease-out infinite}
+.a-boss .lives{position:absolute;left:12px;bottom:6px;font-size:13px;letter-spacing:3px;color:#ff4d5e}
+.a-boss .lives i{display:inline-block;animation:arcBeat 1.2s ease-in-out infinite}
+.a-boss .lives i:nth-child(2){animation-delay:.2s}.a-boss .lives i:nth-child(3){animation-delay:.4s;opacity:.35}
+@keyframes arcHp{0%,18%{transform:scaleX(1)}22%,43%{transform:scaleX(.72)}47%,68%{transform:scaleX(.42)}72%,94%{transform:scaleX(.14)}100%{transform:scaleX(1)}}
+@keyframes arcShake{0%,19%,100%{transform:none}20%{transform:translateX(-5px) rotate(-2deg)}22%{transform:translateX(5px) rotate(2deg)}24%{transform:translateX(-3px)}26%{transform:none}44%{transform:none}45%{transform:translateX(5px) rotate(2deg)}47%{transform:translateX(-5px) rotate(-2deg)}49%{transform:translateX(3px)}51%{transform:none}69%{transform:none}70%{transform:translateX(-6px) rotate(-3deg)}72%{transform:translateX(6px) rotate(3deg)}74%{transform:translateX(-3px)}76%{transform:none}}
+@keyframes arcHitFlash{0%,19%{opacity:0}20%,45%,70%{opacity:.55}24%,49%,74%{opacity:0}44%,69%{opacity:0}100%{opacity:0}}
+@keyframes arcSlash{0%,18%{opacity:0;transform:rotate(-35deg) scaleX(0)}20%{opacity:1;transform:rotate(-35deg) scaleX(1)}26%{opacity:0;transform:rotate(-35deg) scaleX(1)}43%{opacity:0;transform:rotate(35deg) scaleX(0)}45%{opacity:1;transform:rotate(35deg) scaleX(1)}51%{opacity:0}68%{opacity:0;transform:rotate(-12deg) scaleX(0)}70%{opacity:1;transform:rotate(-12deg) scaleX(1)}76%,100%{opacity:0}}
+@keyframes arcDmg{0%{opacity:0;transform:translateY(8px) scale(.6)}4%{opacity:1;transform:translateY(-2px) scale(1.25)}16%{opacity:1;transform:translateY(-16px) scale(1)}24%,100%{opacity:0;transform:translateY(-24px)}}
+@keyframes arcBlinkEye{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+
+/* — 12 IBA odd word hunt: radar sweep and target lock — */
+.a-rad .disc{position:absolute;left:52px;top:2px;width:116px;height:116px;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--gc) 75%,transparent);background:repeating-radial-gradient(circle,transparent 0 18px,color-mix(in srgb,var(--gc) 32%,transparent) 18px 19px),linear-gradient(color-mix(in srgb,var(--gc) 30%,transparent),color-mix(in srgb,var(--gc) 30%,transparent)) 50% 0/1px 100% no-repeat,linear-gradient(color-mix(in srgb,var(--gc) 30%,transparent),color-mix(in srgb,var(--gc) 30%,transparent)) 0 50%/100% 1px no-repeat,rgba(5,25,22,.55)}
+.a-rad .sw{position:absolute;left:52px;top:2px;width:116px;height:116px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 280deg,color-mix(in srgb,var(--gc) 70%,transparent) 360deg);animation:arcSpin 4s linear infinite}
+.a-rad .bp{position:absolute;transform:translate(-50%,-50%);font-size:8.5px;padding:3px 6px;border-radius:99px;background:rgba(255,255,255,.14);color:#fff;white-space:nowrap;animation:arcBlip 4s infinite;animation-delay:var(--d)}
+.a-rad .bp.o{animation-name:arcBlipOdd}
+.a-rad .lk{position:absolute;left:33.6px;top:28.9px;width:0;height:0;animation:arcLock 4s ease-out infinite}
+.a-rad .lk s{position:absolute;width:9px;height:9px;border:2px solid #ff6b7d}
+.a-rad .lk s:nth-child(1){left:-27px;top:-14px;border-right:0;border-bottom:0}.a-rad .lk s:nth-child(2){left:18px;top:-14px;border-left:0;border-bottom:0}.a-rad .lk s:nth-child(3){left:-27px;top:6px;border-right:0;border-top:0}.a-rad .lk s:nth-child(4){left:18px;top:6px;border-left:0;border-top:0}
+.a-rad .lk b{position:absolute;left:-12px;top:-30px;font-size:8px;letter-spacing:.14em;padding:2px 5px;border-radius:4px;background:#ff6b7d;color:#fff}
+@keyframes arcBlip{0%{opacity:1;background:var(--gc);color:#042;transform:translate(-50%,-50%) scale(1.25)}25%,100%{opacity:.5;background:rgba(255,255,255,.14);color:#fff;transform:translate(-50%,-50%) scale(1)}}
+@keyframes arcBlipOdd{0%{opacity:1;background:#ff6b7d;transform:translate(-50%,-50%) scale(1.3)}25%,100%{opacity:.5;background:rgba(255,255,255,.14);transform:translate(-50%,-50%) scale(1)}}
+@keyframes arcLock{0%,84%{opacity:0;transform:scale(2.2)}92%,100%{opacity:1;transform:scale(1)}}
+
+/* — 13 / extras · Past-question sprint: question sheets whip past — */
+.a-spr .sheet{position:absolute;left:50px;top:12px;width:120px;height:92px;border-radius:9px;background:#f2f5ff;color:#101830}
+.a-spr .s3{transform:translate(10px,-6px) scale(.92);opacity:.45}.a-spr .s2{transform:translate(5px,-3px) scale(.96);opacity:.7}
+.a-spr .s1{padding:9px 10px;box-shadow:0 8px 20px rgba(0,0,0,.45);animation:arcSheet 3.2s cubic-bezier(.5,0,.3,1) infinite both}
+.a-spr .q{display:block;height:5px;border-radius:3px;background:#b7c0e0;margin-bottom:5px}.a-spr .q.sh{width:62%}
+.a-spr .op{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:8px}
+.a-spr .op i{position:relative;display:block;font-size:9px;text-align:left;padding:4px 6px;border-radius:5px;border:1px solid #c6cde8;color:#33406b}
+.a-spr .op i.ok:after{content:"";position:absolute;inset:-1px;border-radius:5px;background:var(--gc);opacity:0;animation:arcOk 3.2s infinite}
+.a-spr .op i.ok span{position:relative;z-index:1;animation:arcOkTx 3.2s infinite}
+.a-spr .tm{position:absolute;right:2px;top:2px;display:flex;align-items:center;gap:4px;font-size:10px;padding:4px 7px;border-radius:99px;background:rgba(0,0,0,.55);border:1px solid color-mix(in srgb,var(--gc) 60%,transparent);z-index:2}
+.a-spr .tm u{width:6px;height:6px;border-radius:50%;background:var(--gc);animation:arcBeat .8s ease-in-out infinite}
+.a-spr .st{position:absolute;left:2px;top:6px;font-size:9px;letter-spacing:.14em;padding:3px 6px;border-radius:5px;color:#111;background:var(--gc);transform:rotate(-6deg);z-index:2}
+.a-spr .pb{position:absolute;left:8px;right:8px;bottom:2px;height:5px;border-radius:5px;background:rgba(255,255,255,.14);overflow:hidden}
+.a-spr .pb i{display:block;height:100%;background:var(--gc);transform-origin:left;animation:arcDrain 6.4s linear infinite}
+@keyframes arcSheet{0%{opacity:0;transform:translate(8px,-4px) scale(.94)}14%{opacity:1;transform:none}60%{opacity:1;transform:none}82%,100%{opacity:0;transform:translateX(130px) rotate(14deg)}}
+@keyframes arcOk{0%,36%{opacity:0}44%,60%{opacity:1}100%{opacity:1}}
+@keyframes arcOkTx{0%,36%{color:#33406b}44%,100%{color:#101014}}
+
+/* Accessibility: calm, static, fully legible tiles */
+@media(prefers-reduced-motion:reduce){.arc-card,.arc-card *,.arc-card *:before,.arc-card *:after{animation:none!important;transition:none!important}.arc-card,.arc-card:active{transform:none!important}.arc-art{transform:none!important}.arc-stage:after{display:none}.a-boss .fl,.a-boss .sl,.a-boss .dm,.a-lad .sp{opacity:0!important}.a-tf .c2{opacity:0}.a-spd .num b:nth-child(1),.a-spd .num b:nth-child(3){opacity:0}.a-spd .num b:nth-child(2){opacity:1}.a-spd .hand{transform:rotate(60deg)}.a-hang .bl i u{opacity:1}.a-spd .pv{opacity:0}.a-rad .lk{opacity:1}.a-odd .lens{transform:translate(116px,57px)}.a-lad .combo{opacity:1}.a-lad .star{opacity:0}.a-spr .op i.ok:after{opacity:1}.a-spr .op i.ok span{color:#101014}}

@@ -1145,7 +1145,12 @@ const prcStrip=t=>{const k=t.startsWith('bcs_')?'bcs':(PRC_TYPE[t]?t:'def'),[c,h
  const main=document.getElementById('main');if(!main)return;
  const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
  const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('in-view',e.isIntersecting)),{rootMargin:'60px'}):null;
- const scan=()=>document.querySelectorAll('.arc-card:not([data-io]),.prc-type-card:not([data-io])').forEach(c=>{c.dataset.io='1';io?io.observe(c):c.classList.add('in-view')});
+ const scan=()=>{document.querySelectorAll('.arc-card:not([data-io]),.prc-type-card:not([data-io]),.hero:not([data-io])').forEach(c=>{c.dataset.io='1';io?io.observe(c):c.classList.add('in-view')});hmScan()};
+ /* Homepage: one-time staggered reveal (opacity/transform only); skipped for reduced motion or no IntersectionObserver */
+ const hmIo='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('hm-in');hmIo.unobserve(e.target)}}),{rootMargin:'0px 0px -6% 0px',threshold:.06}):null;
+ const HM='.hero-copy>*,.hero-art,.eft-banner,.eft-units>.eft-chip,#main>.section-head,.stats-grid>*,.dashboard-columns>*,.word-spotlight,.promo-bento>.promo-tile,.chart-card,.home-leaderboard,.creator-card,.footer-note';
+ const hmScan=()=>{if(!hmIo||!main.querySelector('.hero')||(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches))return;
+  main.querySelectorAll(HM).forEach(el=>{if(el.dataset.hm)return;el.dataset.hm='1';const sib=el.parentElement?[...el.parentElement.children].indexOf(el):0;el.style.setProperty('--n',Math.min(sib,8));el.classList.add('hm-rv');hmIo.observe(el)})};
  new MutationObserver(scan).observe(main,{childList:true});
  document.addEventListener('click',e=>{const c=e.target.closest&&e.target.closest('.arc-card[data-mode]');if(c&&!e.defaultPrevented)configureGame(c.dataset.mode,0)});
  let cur=null,ev=null,raf=0;

@@ -1481,3 +1481,92 @@ select:focus-visible{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px va
  .p-bcs .t{opacity:0}.p-bcs .t:first-child{opacity:1}
  .s-fill u i,.s-syn .g,.s-ant .g,.s-affix i{opacity:1}
 }
+
+/* ===== Homepage polish (v2.31) — restrained reveal + hover motion, mobile-first fixes =====
+   Same motion language as Arcade/Practice: cubic-bezier(.2,.8,.2,1), ~45ms stagger, transform/opacity only,
+   off-screen loops paused via .in-view. JS adds .hm-rv (hidden) then .hm-in (revealed once). */
+@keyframes hmIn{from{opacity:0;transform:translate3d(0,12px,0)}to{opacity:1;transform:none}}
+@keyframes hmFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.hm-rv{opacity:0}
+.hm-rv.hm-in{opacity:1;animation:hmIn .55s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--n,0)*45ms)}
+.hm-rv.hm-in .bar>i{transform-origin:left center;animation:hmFill .8s cubic-bezier(.2,.8,.2,1) .15s backwards}
+
+/* calmer hero loops: slower, smaller travel, no tilt; paused when off-screen */
+.hero .orbit{animation-duration:48s}
+.hero .hero-letter{animation:hmLetter 7s ease-in-out infinite}
+.hero .float-word{animation-duration:7s}
+@keyframes hmLetter{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.hero:not(.in-view) *,.hero:not(.in-view) *:before,.hero:not(.in-view) *:after{animation-play-state:paused!important}
+
+/* buttons: crisp press + lift (hover only on real pointers) */
+#main .btn{transition:transform .18s cubic-bezier(.2,.8,.2,1),border-color .2s,box-shadow .25s,background .2s}
+#main .btn:active{transform:scale(.97);transition-duration:.08s}
+#main .btn:focus-visible,#main .eft-chip:focus-visible,#main .text-link:focus-visible{outline:2px solid var(--ac2);outline-offset:2px}
+.text-link{transition:opacity .2s}
+
+/* cards, tiles, chips: border highlight + 2px lift, arrow nudge */
+.promo-tile,.eft-chip,.stat,.eft-banner,.home-leaderboard,.word-spotlight,.chart-card,.creator-card{transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s,box-shadow .25s,background .22s}
+.promo-tile .pt-go{display:inline-block;transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+.promo-tile:active,.eft-chip:active{transform:scale(.975);transition-duration:.08s}
+.promo-tile:after{transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .3s;opacity:.85}
+@media(hover:hover){
+ .promo-tile:hover{transform:translateY(-2px);box-shadow:0 14px 34px color-mix(in srgb,var(--pc) 16%,transparent)}
+ .promo-tile:hover .pt-go{transform:translateX(3px)}
+ .promo-tile:hover:after{transform:scale(1.18);opacity:1}
+ .eft-chip:hover{transform:translateY(-2px)}
+ .stat:hover,.word-spotlight:hover,.home-leaderboard:hover{border-color:color-mix(in srgb,var(--ac) 38%,var(--bd))}
+ .stat:hover{transform:translateY(-2px)}
+}
+
+/* ---- tablet / mobile ---- */
+@media(max-width:800px){
+ #main{overflow-x:clip}
+ #main .section-head{flex-wrap:wrap;gap:6px 12px}
+ #main .section-head>*{min-width:0}
+ .text-link{display:inline-flex;align-items:center;min-height:44px}
+ .eft-chip{min-height:52px}
+ .eft-copy .btn,.hero-actions .btn,.word-spot-side .btn{min-height:44px}
+}
+@media(max-width:560px){
+ /* hero: readable type, full-width stacked actions, art tucked behind the copy */
+ .hero{grid-template-columns:1fr;min-height:0;padding:22px 18px 20px;border-radius:20px}
+ .hero-copy{padding-right:0}
+ .hero h1{font-size:clamp(30px,9.2vw,38px)}
+ .hero p{font-size:13px;line-height:1.65;max-width:none}
+ .hero-art{display:none}
+ .hero-copy{position:relative;z-index:2}
+ .hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+ .hero-actions .btn{min-height:46px;font-size:11px;padding:10px 12px;justify-content:center}
+ .hero-actions .btn:last-child{grid-column:1/-1}
+ .hero-proof{max-width:none;font-size:10.5px;gap:6px 12px;margin-top:14px}
+ /* banners */
+ .eft-banner{padding:18px 14px}
+ .eft-copy p{font-size:12.5px;line-height:1.8;max-width:none}
+ .eft-copy .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+ .eft-copy .btn{font-size:11px;justify-content:center}
+ .eft-chip span{font-size:12px}.eft-chip small{font-size:10.5px}
+ /* snapshot: 2x2 instead of 4 cramped columns */
+ #main .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .stat{min-height:96px}.stat .stat-label{font-size:11px}
+ #main .dashboard-columns{grid-template-columns:1fr;gap:10px}
+ #main .word-spotlight{grid-template-columns:1fr;padding:16px;gap:12px}
+ .word-spot-side{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+ .word-spot-side .btn{flex:1 1 150px;justify-content:center}
+ .promo-tile p{font-size:11.5px;line-height:1.65}
+ .promo-tile b{font-size:14px}
+ .pt-go{font-size:11px}
+ .home-leaderboard-note{font-size:12px}
+}
+@media(max-width:380px){
+ .hero-actions,.eft-copy .row{grid-template-columns:1fr}
+ .eft-units{grid-template-columns:1fr 1fr;gap:6px}
+ .eft-chip{padding:8px}
+ #main{padding-left:12px;padding-right:12px}
+}
+@media(prefers-reduced-motion:reduce){
+ .hm-rv,.hm-rv.hm-in{opacity:1;animation:none!important}
+ .hm-rv .bar>i{animation:none!important}
+ .hero .orbit,.hero .hero-letter,.hero .float-word,.hero .art-spark{animation:none!important}
+ #main .btn,.promo-tile,.eft-chip,.stat,.promo-tile .pt-go,.promo-tile:after{transition:none!important}
+ #main .btn:active,.promo-tile:active,.eft-chip:active,.promo-tile:hover,.eft-chip:hover,.stat:hover,.promo-tile:hover .pt-go{transform:none!important}
+}

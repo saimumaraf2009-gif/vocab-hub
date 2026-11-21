@@ -1771,3 +1771,38 @@ select:focus-visible{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px va
  .h-tg i:first-child{opacity:.5;transform:scale(.7)}
  .revision-queue,.revision-step{transition:none!important}.revision-queue:hover{transform:none}
 }
+
+
+/* ===== v2.34 · Admission Questions — institution photo cards (same shell as Arcade / Practice cards) ===== */
+.adm-grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.adm-stage{height:152px;background:#0a0a0e}
+/* slow "Ken Burns" drift on the photo; staggered per card */
+.adm-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--op,50% 50%);transform-origin:var(--op,50% 50%);z-index:0;user-select:none;-webkit-user-drag:none;animation:admKen 16s ease-in-out infinite alternate;animation-delay:calc(var(--n,0)*-2.6s);will-change:transform;transition:filter .3s}
+.adm-contain .adm-stage{background:#fff}
+.adm-contain .adm-photo{object-fit:contain;background:#fff}
+@keyframes admKen{from{transform:scale(1.03) translate3d(0,0,0)}to{transform:scale(1.2) translate3d(-2.2%,-1.6%,0)}}
+.adm-contain .adm-photo{animation-name:admKenSoft}
+@keyframes admKenSoft{from{transform:scale(.9) translate3d(0,0,0)}to{transform:scale(.99) translate3d(0,-1%,0)}}
+/* colour wash + bottom shade so the badges stay readable on any photo */
+.adm-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(6,6,10,.22) 0%,rgba(6,6,10,0) 36%,rgba(6,6,10,.84) 100%),linear-gradient(120deg,color-mix(in srgb,var(--gc) 28%,transparent),transparent 58%)}
+.adm-contain .adm-shade{background:linear-gradient(180deg,rgba(6,6,10,0) 52%,rgba(6,6,10,.78) 100%),linear-gradient(120deg,color-mix(in srgb,var(--gc) 12%,transparent),transparent 58%)}
+/* periodic light sweep (staggered, so cards do not flash together) */
+.adm-sweep{position:absolute;top:0;bottom:0;left:-45%;width:34%;z-index:2;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(255,255,255,.24),transparent);transform:skewX(-18deg);opacity:0;animation:admSweep 6.5s ease-in-out infinite;animation-delay:calc(var(--n,0)*.9s + 1s)}
+@keyframes admSweep{0%,60%{transform:translateX(0) skewX(-18deg);opacity:0}64%{opacity:1}100%{transform:translateX(480%) skewX(-18deg);opacity:0}}
+/* badges */
+.adm-code{position:absolute;left:11px;top:11px;z-index:3;font-size:10px;font-weight:900;letter-spacing:.16em;padding:5px 10px;border-radius:99px;color:#fff;background:rgba(8,8,12,.58);border:1px solid color-mix(in srgb,var(--gc) 65%,transparent);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:admFloat 3.6s ease-in-out infinite;animation-delay:calc(var(--n,0)*-.5s)}
+@keyframes admFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.adm-live{position:absolute;right:11px;top:14px;z-index:3;display:flex;align-items:center;gap:5px;font-size:7.5px;font-weight:900;letter-spacing:.16em;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.75)}
+.adm-contain .adm-live{color:#14141a;text-shadow:none}
+.adm-live i{width:6px;height:6px;border-radius:50%;background:var(--gc);animation:admDot 1.8s ease-out infinite}
+@keyframes admDot{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--gc) 70%,transparent)}100%{box-shadow:0 0 0 9px transparent}}
+.adm-count{position:absolute;left:12px;bottom:10px;z-index:3;display:flex;align-items:baseline;gap:6px;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.7)}
+.adm-count b{font-size:26px;line-height:1;letter-spacing:-.06em;font-variant-numeric:tabular-nums}
+.adm-count small{font-size:8px;font-weight:850;letter-spacing:.16em;opacity:.88}
+/* BCS has no photo yet: keep its animated art, nudged up to leave room for the count */
+.adm-noimg .arc-stage{padding-bottom:28px}
+.adm-noimg .arc-art{--sc:.84}
+.adm-noimg .adm-live{display:none}
+@media(hover:hover){.adm-card:hover .adm-photo{filter:saturate(1.15) brightness(1.07)}}
+@media(max-width:520px){.adm-grid{grid-template-columns:1fr}.adm-stage{height:170px}.adm-noimg .arc-art{--sc:.9}}
+@media(prefers-reduced-motion:reduce){.adm-photo,.adm-sweep,.adm-code,.adm-live i{animation:none!important}}

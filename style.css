@@ -1806,3 +1806,82 @@ select:focus-visible{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px va
 @media(hover:hover){.adm-card:hover .adm-photo{filter:saturate(1.15) brightness(1.07)}}
 @media(max-width:520px){.adm-grid{grid-template-columns:1fr}.adm-stage{height:170px}.adm-noimg .arc-art{--sc:.9}}
 @media(prefers-reduced-motion:reduce){.adm-photo,.adm-sweep,.adm-code,.adm-live i{animation:none!important}}
+
+/* ===== Mistakes · arcade "error-buster" motion (v2.35) =====
+   Scoped to the Mistakes page only. transform/opacity animations, ease cubic-bezier(.2,.8,.2,1), ~40ms stagger.
+   Looping effects run only on the top 6 rows (.mist-hot) + the exam CTA so long lists stay cheap. */
+@keyframes mistIn{from{opacity:0;transform:translate3d(0,12px,0)}to{opacity:1;transform:none}}
+@keyframes mistAlert{0%,100%{opacity:.55;transform:scaleY(.55)}50%{opacity:1;transform:scaleY(1)}}
+@keyframes mistLock{0%,62%{opacity:0;transform:scale(1.035)}72%{opacity:.9;transform:scale(1)}90%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(1)}}
+@keyframes mistRetry{0%,100%{transform:translateX(0)}50%{transform:translateX(3px)}}
+@keyframes mistSpin{to{transform:rotate(360deg)}}
+@keyframes mistDot{0%{transform:scale(.4)}60%{transform:scale(1.35)}100%{transform:scale(1)}}
+@keyframes mistPing{0%{opacity:.6;transform:scale(1)}70%,100%{opacity:0;transform:scale(1.04,1.35)}}
+@keyframes mistTile{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+
+.mist-row{position:relative;overflow:hidden;isolation:isolate;--mc:var(--er);padding-left:20px;
+ animation:mistIn .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*40ms);
+ transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s,box-shadow .22s}
+.mist-row:before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:4px;border-radius:0 4px 4px 0;background:var(--mc);box-shadow:0 0 10px var(--mc);opacity:.55;transform-origin:center;pointer-events:none}
+.mist-row:after{content:"";position:absolute;inset:5px;border-radius:12px;pointer-events:none;opacity:0;z-index:-1;
+ --b:var(--mc);
+ background:
+  linear-gradient(var(--b),var(--b)) top left/14px 2px no-repeat,linear-gradient(var(--b),var(--b)) top left/2px 14px no-repeat,
+  linear-gradient(var(--b),var(--b)) top right/14px 2px no-repeat,linear-gradient(var(--b),var(--b)) top right/2px 14px no-repeat,
+  linear-gradient(var(--b),var(--b)) bottom left/14px 2px no-repeat,linear-gradient(var(--b),var(--b)) bottom left/2px 14px no-repeat,
+  linear-gradient(var(--b),var(--b)) bottom right/14px 2px no-repeat,linear-gradient(var(--b),var(--b)) bottom right/2px 14px no-repeat;
+ transform:scale(1.035);will-change:transform,opacity}
+.mist-hot:before{animation:mistAlert 2s ease-in-out infinite;animation-delay:calc(var(--i,0)*.25s)}
+.mist-hot:after{animation:mistLock 3.6s cubic-bezier(.2,.8,.2,1) infinite;animation-delay:calc(var(--i,0)*.45s)}
+.mist-fixed{--mc:var(--ok)}.mist-fixed:before{opacity:.8}
+
+.mist-word{position:relative;grid-template-columns:auto auto;column-gap:14px;align-items:center;justify-items:start;border-radius:10px;transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+.mist-word b{grid-column:1}.mist-word small{grid-column:1}
+.mist-fix{grid-column:2;grid-row:1/3;align-self:center;display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:99px;font-size:9px;font-weight:850;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;
+ color:var(--ac2);background:var(--glow);border:1px solid color-mix(in srgb,var(--ac) 38%,transparent);transition:transform .2s cubic-bezier(.2,.8,.2,1),background .2s,color .2s}
+.mist-fixed .mist-fix{color:var(--ok);background:color-mix(in srgb,var(--ok) 13%,transparent);border-color:color-mix(in srgb,var(--ok) 38%,transparent)}
+.mist-hot .mist-fix{animation:mistRetry 1.4s ease-in-out infinite}
+.mist-word:focus-visible{outline:2px solid var(--ac2);outline-offset:3px}
+
+.mist-dots i{transition:background .2s,box-shadow .2s}
+.mist-dots i.on{box-shadow:0 0 8px var(--ok);animation:mistDot .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*40ms + .25s)}
+
+@media(hover:hover){
+ .mist-row:hover,.mist-row:focus-within{transform:translateY(-3px);border-color:var(--mc);box-shadow:0 0 0 1px var(--mc),0 14px 30px color-mix(in srgb,var(--mc) 24%,transparent)}
+ .mist-row:hover:before,.mist-row:focus-within:before{animation:none;opacity:1;transform:scaleY(1)}
+ .mist-row:hover:after,.mist-row:focus-within:after{animation:none;opacity:.9;transform:scale(1);transition:transform .25s cubic-bezier(.2,.8,.2,1),opacity .2s}
+ .mist-row:hover .mist-fix{transform:translateX(2px);background:var(--ac);color:#fff}
+ .mist-fixed:hover .mist-fix{background:var(--ok);color:#06140d}
+ .mist-row:hover .mist-fix:first-letter{display:inline-block}
+}
+.mist-row:focus-within{transform:translateY(-3px);border-color:var(--mc);box-shadow:0 0 0 1px var(--mc),0 14px 30px color-mix(in srgb,var(--mc) 24%,transparent)}
+.mist-row:focus-within:after{opacity:.9;transform:scale(1);animation:none}
+.mist-row:active{transform:scale(.985);transition-duration:.08s}
+:root[data-t=paper] .mist-fixed .mist-fix{color:color-mix(in srgb,var(--ok) 80%,#000)}
+
+/* heading tile, overview stats, exam card */
+.mist-heading .count-tile{position:relative;animation:mistTile 2.8s ease-in-out infinite}
+.mist-heading .count-tile:after{content:"";position:absolute;inset:-1px;border-radius:15px;border:1.5px solid var(--ac2);opacity:0;pointer-events:none;animation:mistPing 2.6s ease-out infinite}
+.mist-overview .stat{animation:mistIn .45s cubic-bezier(.2,.8,.2,1) both}
+.mist-overview .stat:nth-child(2){animation-delay:60ms}.mist-overview .stat:nth-child(3){animation-delay:120ms}.mist-overview .stat:nth-child(4){animation-delay:180ms}
+@media(hover:hover){.mist-overview .stat:hover{transform:translateY(-3px);border-color:var(--ac2);box-shadow:0 12px 26px var(--glow)}}
+.mistake-exam-card{position:relative;overflow:hidden;isolation:isolate;border-color:color-mix(in srgb,var(--ac) 30%,var(--bd))}
+.mistake-exam-card:before{content:"";position:absolute;top:0;bottom:0;left:-40%;width:26%;z-index:-1;pointer-events:none;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--ac) 16%,transparent),transparent);transform:skewX(-18deg);animation:prcSheen 6s ease-in-out infinite}
+.mistake-exam-card .exam-actions .btn.pri{position:relative;transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s}
+.mistake-exam-card .exam-actions .btn.pri:not(:disabled){animation:mistRetry 1.4s ease-in-out infinite}
+.mistake-exam-card .exam-actions .btn.pri:not(:disabled):before{content:"";position:absolute;inset:-1px;border-radius:inherit;border:1.5px solid var(--ac2);opacity:0;pointer-events:none;animation:mistPing 2.2s ease-out infinite}
+@media(hover:hover){.mistake-exam-card .exam-actions .btn.pri:not(:disabled):hover{animation:none;transform:translateY(-2px) scale(1.03);box-shadow:0 10px 26px color-mix(in srgb,var(--ac) 40%,transparent)}}
+.mist-body-tabs .tab,#mist-body .tab{transition:background .2s,color .2s,transform .2s}
+#mist-body .tab:active{transform:scale(.96)}
+#mist-body .tab.on span{animation:mistDot .45s cubic-bezier(.2,.8,.2,1)}
+#mist-body .card.empty{animation:mistIn .45s cubic-bezier(.2,.8,.2,1) both}
+
+@media(max-width:520px){.mist-word{column-gap:10px}.mist-fix{padding:4px 8px;font-size:8px}.mist-row{padding-left:18px}}
+
+@media(prefers-reduced-motion:reduce){
+ .mist-row,.mist-row:before,.mist-row:after,.mist-fix,.mist-dots i,.mist-dots i.on,.mist-heading .count-tile,.mist-heading .count-tile:after,
+ .mist-overview .stat,.mistake-exam-card:before,.mistake-exam-card .exam-actions .btn.pri,.mistake-exam-card .exam-actions .btn.pri:before,
+ #mist-body .card.empty,#mist-body .tab.on span{animation:none!important;transition:none!important}
+ .mist-row:hover,.mist-row:focus-within,.mist-row:active,.mist-overview .stat:hover,.mistake-exam-card .exam-actions .btn.pri:hover{transform:none!important}
+ .mist-row:after{display:none}.mist-hot:before{opacity:.85}
+}

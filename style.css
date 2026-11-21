@@ -2645,3 +2645,33 @@ html.vc-hot .vc-dot{width:6px;height:6px}
 html.vc-down .vc-ring{width:26px;height:26px;background:rgba(255,31,45,.28)}
 html.vc-down .vc-dot{width:7px;height:7px}
 @media(prefers-reduced-motion:reduce){.vc-ring,.vc-dot{transition:opacity .01s}}
+
+
+/* ===== v2.48 · compact one-line choice boxes (levels + counts) ===== */
+.count-choice-grid{display:flex!important;flex-wrap:nowrap;gap:7px;width:100%}
+.count-choice{flex:1 1 0;min-width:0;min-height:38px;padding:6px 4px;border-radius:11px}
+.count-choice b{font-size:13.5px;white-space:nowrap}
+.level-choices .count-choice{min-height:46px;padding:6px 3px;gap:1px}
+.level-choices .count-choice b{font-size:12px;letter-spacing:-.01em}
+.level-choices .count-choice small{font-size:9.5px;white-space:nowrap}
+@media(max-width:480px){
+ .count-choice-grid{gap:5px}.count-choice b{font-size:12.5px}
+ .level-choices{flex-wrap:wrap!important}.level-choices .count-choice{flex:1 1 30%}
+}
+
+/* ===== v2.48 · home "Your learning rhythm" animation ===== */
+.rhythm-card.hm-in .xp-line{stroke-dasharray:2400;animation:anDraw 1.4s cubic-bezier(.2,.8,.2,1) .25s both}
+.rhythm-card.hm-in .xp-area{animation:anFade .9s ease .9s both}
+.rhythm-card.hm-in .xp-gridline{animation:anFade .6s ease both}
+.rhythm-card.hm-in .xp-point{transform-box:fill-box;transform-origin:center;animation:anPoint .45s cubic-bezier(.2,.8,.2,1) both;transition:transform .18s}
+.rhythm-card.hm-in .xp-point:nth-of-type(1){animation-delay:.45s}.rhythm-card.hm-in .xp-point:nth-of-type(2){animation-delay:.6s}
+.rhythm-card.hm-in .xp-point:nth-of-type(3){animation-delay:.75s}.rhythm-card.hm-in .xp-point:nth-of-type(4){animation-delay:.9s}
+.rhythm-card.hm-in .xp-point:nth-of-type(5){animation-delay:1.05s}.rhythm-card.hm-in .xp-point:nth-of-type(6){animation-delay:1.2s}
+.rhythm-card.hm-in .xp-point:nth-of-type(7){animation:anPoint .45s cubic-bezier(.2,.8,.2,1) 1.35s both,rhPulse 2.2s ease-in-out 2s infinite}
+.rhythm-card.hm-in .xp-weekday,.rhythm-card.hm-in .xp-axis-date{animation:anFade .6s ease .5s both}
+.rhythm-card .xp-point:hover{transform:scale(1.4)}
+.rhythm-card.hm-in:before{content:"";position:absolute;top:0;bottom:0;left:-35%;width:26%;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);transform:skewX(-14deg);animation:rhSweep 6s ease-in-out 1.8s infinite}
+@keyframes rhPulse{0%,100%{transform:scale(1);filter:drop-shadow(0 0 0 rgba(255,45,65,0))}50%{transform:scale(1.35);filter:drop-shadow(0 0 8px rgba(255,45,65,.7))}}
+@keyframes rhSweep{0%,55%{left:-35%}100%{left:130%}}
+@media(prefers-reduced-motion:reduce){.rhythm-card *,.rhythm-card:before{animation:none!important}.rhythm-card .xp-line{stroke-dasharray:none}}
+.level-choices .count-choice b{font-size:11.5px;letter-spacing:-.025em}

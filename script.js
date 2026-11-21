@@ -192,9 +192,8 @@ function questionCountOptions(max,defaults=[3,5,10,20,30]){
  const nums=[...new Set(defaults.filter(n=>n<=max))];
  if(max>0&&!nums.includes(max))nums.push(max);
  nums.sort((a,b)=>a-b);
- const base=defaults.map(n=>({v:n,t:String(n),s:'questions',disabled:n>max}));
- if(max>0&&!defaults.includes(max))base.push({v:max,t:String(max),s:'Max available'});
- base.push({v:999,t:'All',s:max+' available',disabled:max===0});
+ const base=defaults.map(n=>({v:n,t:String(n),disabled:n>max}));
+ base.push({v:999,t:'All',disabled:max===0});
  return base;
 }
 function configureGame(mode,duration=0){
@@ -234,9 +233,9 @@ function configureGame(mode,duration=0){
   }
   let chosenCount=timed?def:(+$('#setup-count')?.value||def);
   if(!timed&&chosenCount!==999&&chosenCount>max)chosenCount=max||1;
-  const levelOpts=DIFFICULTIES.map(l=>{const c=levelAvailable(sec,un,l.id),disabled=c===0||(!timed&&chosenCount!==999&&c<chosenCount);return{v:l.id,t:l.name,s:l.tag+' · '+c+'টি উপযোগী শব্দ'+(disabled?' · পর্যাপ্ত নেই':''),disabled}});
+  const levelOpts=DIFFICULTIES.map(l=>{const c=levelAvailable(sec,un,l.id),disabled=c===0||(!timed&&chosenCount!==999&&c<chosenCount);return{v:l.id,t:l.name,s:c+' words',disabled}});
   const levelWrap=$('#setup-level-wrap');
-  if(levelWrap){levelWrap.innerHTML=ddHTML('setup-level',levelOpts,selected);$('#setup-level').addEventListener('change',update)}
+  if(levelWrap){levelWrap.innerHTML=countChoiceHTML('setup-level',levelOpts,selected,'Difficulty level','level-choices');$('#setup-level').addEventListener('change',update)}
   const countWrap=$('#setup-count-wrap');
   if(countWrap){
    if(timed)countWrap.innerHTML=ddHTML('setup-count',defaults.map(n=>({v:n,t:n+' seconds'})),chosenCount);
@@ -263,7 +262,7 @@ function uploadProfilePhoto(file){if(!file)return;if(!file.type.startsWith('imag
 const ddLab=o=>`<span class="dd-lab"><b>${o.t}</b>${o.s?`<small>${o.s}</small>`:''}${o.p!=null?`<i class="dd-bar"><u style="width:${o.p}%"></u></i>`:''}</span>`;
 function ddHTML(id,opts,val){const enabled=opts.filter(o=>!o.disabled),cur=opts.find(o=>String(o.v)===String(val)&&!o.disabled)||enabled[0]||opts[0];
  return`<div class="dd" id="dd-${id}"><input type="hidden" id="${id}" value="${cur.v}"><button type="button" class="dd-btn" onclick="ddToggle('${id}')" onkeydown="ddKey(event,'${id}')" aria-haspopup="listbox"><span class="dd-cur">${ddLab(cur)}</span><span class="dd-chev">${ico('chev')}</span></button><div class="dd-menu" role="listbox">${opts.map(o=>`<button type="button" role="option" class="dd-opt ${String(o.v)===String(cur.v)?'on':''} ${o.disabled?'disabled':''}" data-v="${o.v}" ${o.disabled?'disabled aria-disabled="true"':''} onclick="ddPick('${id}','${o.v}')">${ddLab(o)}<span class="dd-check">${ico('check')}</span></button>`).join('')}</div></div>`}
-function countChoiceHTML(id,opts,val){const enabled=opts.filter(o=>!o.disabled),cur=opts.find(o=>String(o.v)===String(val)&&!o.disabled)||enabled[0]||opts[0];return`<input type="hidden" id="${id}" value="${cur.v}"><div class="count-choice-grid" data-for="${id}" role="group" aria-label="Number of questions">${opts.map(o=>`<button type="button" class="count-choice ${String(o.v)===String(cur.v)?'on':''}" data-v="${o.v}" aria-pressed="${String(o.v)===String(cur.v)?'true':'false'}" ${o.disabled?'disabled':''} onclick="setCountChoice('${id}','${String(o.v)}')"><b>${esc(o.t)}</b>${o.s?`<small>${esc(o.s)}</small>`:''}</button>`).join('')}</div>`}
+function countChoiceHTML(id,opts,val,label,cls){const enabled=opts.filter(o=>!o.disabled),cur=opts.find(o=>String(o.v)===String(val)&&!o.disabled)||enabled[0]||opts[0];return`<input type="hidden" id="${id}" value="${cur.v}"><div class="count-choice-grid${cls?' '+cls:''}" data-for="${id}" role="group" aria-label="${label||'Number of questions'}">${opts.map(o=>`<button type="button" class="count-choice ${String(o.v)===String(cur.v)?'on':''}" data-v="${o.v}" aria-pressed="${String(o.v)===String(cur.v)?'true':'false'}" ${o.disabled?'disabled':''} onclick="setCountChoice('${id}','${String(o.v)}')"><b>${esc(o.t)}</b>${o.s?`<small>${esc(o.s)}</small>`:''}</button>`).join('')}</div>`}
 function setCountChoice(id,v){const h=$('#'+id),g=document.querySelector('.count-choice-grid[data-for="'+id+'"]');if(!h||!g)return;const o=[...g.querySelectorAll('.count-choice')].find(x=>x.dataset.v===String(v));if(!o||o.disabled)return;h.value=v;g.querySelectorAll('.count-choice').forEach(x=>{const on=x===o;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on?'true':'false')});h.dispatchEvent(new Event('change'))}
 function ddToggle(id){const d=$('#dd-'+id),open=!d.classList.contains('open');document.querySelectorAll('.dd.open').forEach(x=>x.classList.remove('open'));if(open)d.classList.add('open')}
 function ddPick(id,v){const d=$('#dd-'+id),h=$('#'+id),o=[...d.querySelectorAll('.dd-opt')].find(x=>x.dataset.v===String(v));if(!o||o.disabled)return;d.querySelectorAll('.dd-opt').forEach(x=>x.classList.toggle('on',x===o));d.querySelector('.dd-cur').innerHTML=o.querySelector('.dd-lab').outerHTML;h.value=v;d.classList.remove('open');h.dispatchEvent(new Event('change'))}
@@ -604,7 +603,7 @@ V.dash=()=>{const s=st(),l=lvl(s.xp),g=Math.min(100,Math.round(s.todayC/D.goal*1
  <div class="section-head"><div><span class="eyebrow">TODAY'S DISCOVERY</span><h2>Word of the day</h2></div><span class="soft-pill">A little learning, daily</span></div>
  ${wod?`<section class="word-spotlight"><div class="word-spot-main"><div class="word-badge">✧ DAILY WORD</div><h2>${esc(wod.en)}</h2><span class="word-pos">${esc(wod.pos||'Vocabulary')} · ${esc(wod.diff||'Core')}</span><p class="bn word-meaning">${esc(wod.bn)}</p>${wod.ex?`<p class="word-example">“${esc(wod.ex)}”</p><p class="bn word-translation">${esc(wod.ext||'')}</p>`:''}<div class="word-chips">${(wod.syn||[]).slice(0,3).map(x=>`<span>${esc(x)}</span>`).join('')}</div></div><div class="word-spot-side"><div class="word-orbit">Aa</div><button class="btn pri" data-word="${esc(wod.id)}" onclick="openWord(this.dataset.word)">View word details ↗</button><button class="btn" onclick="start('flash',{n:10})">Practice with flashcards</button></div></section>`:''}
  ${exploreGrid(s)}
- <div class="section-head"><div><span class="eyebrow">CONSISTENCY BUILDS MASTERY</span><h2>Your learning rhythm</h2></div><a href="#analytics" class="text-link">See analytics ↗</a></div><div class="card chart-card">${chart(last7())}<p class="data-note">Daily XP over the last seven days. Keep showing up, one word at a time.</p></div>
+ <div class="section-head"><div><span class="eyebrow">CONSISTENCY BUILDS MASTERY</span><h2>Your learning rhythm</h2></div><a href="#analytics" class="text-link">See analytics ↗</a></div><div class="card chart-card rhythm-card">${chart(last7())}<p class="data-note">Daily XP over the last seven days. Keep showing up, one word at a time.</p></div>
  <section class="home-leaderboard card"><div class="home-leaderboard-head"><div><span class="eyebrow">COMMUNITY · CONSISTENCY · GROWTH</span><h2>Leaderboard</h2><p class="sub">Your learning record, with global rankings coming soon.</p></div><a class="text-link" href="#leaderboard">View leaderboard ↗</a></div><div class="home-leaderboard-record"><div class="home-leaderboard-rank">✦</div><div class="home-leaderboard-user"><b>${esc(D.name||'Learner')}</b><small>Your current record · ${s.streak} day streak</small></div><strong>${s.xp.toLocaleString()} <small>XP</small></strong></div><p class="home-leaderboard-note">Global rankings will appear when secure accounts and shared score storage are available. No fictional competitors or scores are shown.</p></section>
  ${creatorCard('home-creator')}
  <div class="footer-note"><span>VocabHub</span><span>Learn with intention. Remember with confidence.</span></div>`};

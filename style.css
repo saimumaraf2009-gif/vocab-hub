@@ -2404,3 +2404,60 @@ main>.page-heading:has(+.analytics-hero),.analytics-hero{animation:anRise .5s cu
  .mistake-setup-grid .dd-menu{left:0;right:auto;width:max(100%,min(270px,calc(100vw - 56px)))}
  .mistake-setup-grid .field:nth-child(2) .dd-menu{left:auto;right:0}
 }
+
+/* ===== v2.43 · Progress at a glance — animated premium icons ===== */
+.snap-stats .snap-streak{--c:#ff8a4c}
+.snap-stats .snap-explored{--c:#ffb84d}
+.snap-stats .snap-mastered{--c:#4fe0a0}
+.snap-stats .snap-revise{--c:#ff5a62}
+.snap-stats .stat-icon{width:36px;height:36px;margin-bottom:10px;border-radius:12px;color:var(--c);overflow:visible;
+ background:linear-gradient(145deg,color-mix(in srgb,var(--c) 28%,transparent),color-mix(in srgb,var(--c) 8%,transparent));
+ border:1px solid color-mix(in srgb,var(--c) 42%,transparent);
+ box-shadow:0 0 0 0 transparent,0 6px 18px color-mix(in srgb,var(--c) 22%,transparent),inset 0 1px 0 rgba(255,255,255,.14);
+ animation:snGlow 3.6s ease-in-out infinite}
+.snap-stats .stat-icon:after{border-color:var(--c)}
+.snap-stats .stat-icon .ic{width:22px;height:22px;stroke-width:1.7;overflow:visible}
+.snap-stats .sn-ic *{transform-box:fill-box}
+
+/* streak: flickering flame + rising embers */
+.sn-fl{transform-origin:50% 100%;animation:snFlame 1.9s ease-in-out infinite}
+.sn-core{transform-origin:50% 100%;animation:snCore 1.3s ease-in-out infinite}
+.sn-sp{opacity:0;animation:snSpark 2.4s ease-out infinite}
+.sn-sp2{animation-delay:1.1s}
+@keyframes snFlame{0%,100%{transform:scale(1,1) skewX(0)}30%{transform:scale(.97,1.06) skewX(-2deg)}60%{transform:scale(1.02,.97) skewX(2deg)}}
+@keyframes snCore{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:.45;transform:scale(.86)}}
+@keyframes snSpark{0%{opacity:0;transform:translateY(3px)}25%{opacity:.9}100%{opacity:0;transform:translateY(-6px)}}
+
+/* explored: page turn */
+.sn-pg{transform-box:view-box!important;transform-origin:12px 12px;opacity:0;animation:snPage 3.8s cubic-bezier(.5,.1,.3,1) infinite}
+@keyframes snPage{0%{opacity:0;transform:scaleX(1)}8%{opacity:.5}48%{opacity:.5;transform:scaleX(-1)}58%{opacity:0;transform:scaleX(-1)}100%{opacity:0;transform:scaleX(1)}}
+.sn-book{animation:snBob 3.8s ease-in-out infinite}
+@keyframes snBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-1px)}}
+
+/* mastered: badge breathes, check redraws */
+.sn-bd{transform-origin:50% 50%;animation:snBadge 3.2s ease-in-out infinite}
+.sn-ck{stroke-dasharray:1;stroke-dashoffset:1;animation:snCheck 3.2s ease-in-out infinite}
+@keyframes snBadge{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.06) rotate(3deg)}}
+@keyframes snCheck{0%,12%{stroke-dashoffset:1}40%,88%{stroke-dashoffset:0}100%{stroke-dashoffset:1}}
+
+/* revise: ring turns, hand ticks */
+.sn-rot{transform-origin:50% 50%;animation:snTurn 4.8s cubic-bezier(.6,0,.3,1) infinite}
+.sn-hand{transform-box:view-box!important;transform-origin:12px 12px;animation:snTick 6s steps(12) infinite}
+@keyframes snTurn{0%,20%{transform:rotate(0)}70%,100%{transform:rotate(360deg)}}
+@keyframes snTick{to{transform:rotate(360deg)}}
+
+@keyframes snGlow{0%,100%{box-shadow:0 0 0 0 transparent,0 6px 18px color-mix(in srgb,var(--c) 18%,transparent),inset 0 1px 0 rgba(255,255,255,.14)}50%{box-shadow:0 0 0 0 transparent,0 8px 26px color-mix(in srgb,var(--c) 38%,transparent),inset 0 1px 0 rgba(255,255,255,.2)}}
+
+/* start only once the card is revealed; speed up on hover */
+.snap-stats .stat:not(.hm-in) .stat-icon,.snap-stats .stat:not(.hm-in) .sn-ic *{animation-play-state:paused}
+.snap-stats .stat:hover .sn-fl{animation-duration:.9s}
+.snap-stats .stat:hover .sn-rot{animation-duration:2.4s}
+.snap-stats .stat:hover .sn-bd{animation-duration:1.6s}
+@media(max-width:420px){
+ .snap-stats .stat-icon{width:32px;height:32px;margin-bottom:8px;border-radius:11px}
+ .snap-stats .stat-icon .ic{width:20px;height:20px}
+}
+@media(prefers-reduced-motion:reduce){
+ .snap-stats .stat-icon,.snap-stats .sn-ic *{animation:none!important}
+ .sn-ck{stroke-dashoffset:0}.sn-pg,.sn-sp{opacity:0}
+}

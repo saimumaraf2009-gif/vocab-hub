@@ -2109,3 +2109,8 @@ main>.page-heading:has(+.analytics-hero),.analytics-hero{animation:anRise .5s cu
 @keyframes xpPop{0%{opacity:0;transform:translateY(10px) scale(.8)}14%{opacity:1;transform:translateY(0) scale(1.08)}24%{transform:scale(1)}72%{opacity:1;transform:translateY(-4px)}100%{opacity:0;transform:translateY(-16px)}}
 @media(max-width:800px){.xp-pop{top:calc(env(safe-area-inset-top,0px) + 62px);right:12px;font-size:13px;padding:7px 13px}}
 @media(prefers-reduced-motion:reduce){.xp-pop{animation:xpFade 1.6s linear both}.session-xp.bump{animation:none}@keyframes xpFade{0%,70%{opacity:1}100%{opacity:0}}}
+/* v2.38.1 — solid Next bar so profile text never shows through */
+.next-bar{background:linear-gradient(to top,var(--bg) 70%,transparent)}
+@media(max-width:800px){.next-bar{background:linear-gradient(to top,var(--bg) 75%,transparent)}}
+.xp-pop{top:calc(env(safe-area-inset-top,0px) + 84px)}
+@media(max-width:800px){.xp-pop{top:calc(env(safe-area-inset-top,0px) + 70px)}}

@@ -2114,3 +2114,83 @@ main>.page-heading:has(+.analytics-hero),.analytics-hero{animation:anRise .5s cu
 @media(max-width:800px){.next-bar{background:linear-gradient(to top,var(--bg) 75%,transparent)}}
 .xp-pop{top:calc(env(safe-area-inset-top,0px) + 84px)}
 @media(max-width:800px){.xp-pop{top:calc(env(safe-area-inset-top,0px) + 70px)}}
+
+/* ===== Home hero + "Progress at a glance" arcade motion (v2.39) =====
+   Same language as Practice/Arcade: cubic-bezier(.2,.8,.2,1), 45ms stagger, pointer-follow glow (--mx/--my),
+   soft parallax (--px/--py), sheen sweep, press feedback. transform/opacity only; off-screen loops paused;
+   nothing is hidden by CSS alone (hiding is added by JS and always released by a failsafe). */
+@keyframes hmBtnIn{from{opacity:0;transform:translate3d(0,10px,0) scale(.97)}to{opacity:1;transform:none}}
+@keyframes hmChipIn{from{opacity:0;transform:translate3d(0,6px,0)}to{opacity:1;transform:none}}
+@keyframes hmHeroSheen{0%,55%{transform:translateX(-130%) skewX(-18deg)}100%{transform:translateX(420%) skewX(-18deg)}}
+@keyframes hmStatPing{0%{opacity:.6;transform:scale(1)}70%,100%{opacity:0;transform:scale(1.6)}}
+
+/* ---- Hero ---- */
+.hero{--mx:50%;--my:40%;--px:0;--py:0}
+.hero-copy .hero-actions .btn,.hero-copy .hero-proof span{opacity:1}
+.hero-copy.hm-in .hero-actions .btn{animation:hmBtnIn .5s cubic-bezier(.2,.8,.2,1) backwards}
+.hero-copy.hm-in .hero-actions .btn:nth-child(1){animation-delay:.22s}
+.hero-copy.hm-in .hero-actions .btn:nth-child(2){animation-delay:.27s}
+.hero-copy.hm-in .hero-actions .btn:nth-child(3){animation-delay:.32s}
+.hero-copy.hm-in .hero-proof span{animation:hmChipIn .45s cubic-bezier(.2,.8,.2,1) backwards}
+.hero-copy.hm-in .hero-proof span:nth-child(1){animation-delay:.38s}
+.hero-copy.hm-in .hero-proof span:nth-child(2){animation-delay:.43s}
+.hero-copy.hm-in .hero-proof span:nth-child(3){animation-delay:.48s}
+.hero-copy.hm-in{animation:none}
+.hero-actions .btn,.hero-proof span{will-change:auto}
+.hero .hero-art{transform:translate3d(calc(var(--px)*10px),calc(var(--py)*7px),0);transition:transform .25s ease-out}
+.hero .float-word{transition:translate .25s ease-out;translate:calc(var(--px)*-6px) calc(var(--py)*-5px)}
+.hero-glow{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .3s;border-radius:inherit;background:radial-gradient(320px circle at var(--mx) var(--my),rgba(255,74,86,.22),transparent 62%)}
+.hero-sweep{position:absolute;top:0;bottom:0;left:-40%;width:28%;z-index:0;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);transform:translateX(-130%) skewX(-18deg);animation:hmHeroSheen 9s ease-in-out 1.4s infinite}
+.hero:not(.in-view) .hero-sweep{animation-play-state:paused}
+.hero-copy,.hero-art{position:relative;z-index:1}
+.hero .hero-actions .btn{transition:transform .18s cubic-bezier(.2,.8,.2,1),border-color .2s,box-shadow .25s,background .2s}
+.hero .hero-actions .btn:active{transform:scale(.96);transition-duration:.08s}
+.hero .hero-actions .btn span{display:inline-block;transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+.hero-proof span{transition:opacity .2s,transform .22s cubic-bezier(.2,.8,.2,1)}
+@media(hover:hover){
+ .hero:hover .hero-glow{opacity:1}
+ .hero .hero-actions .btn:hover{transform:translateY(-2px)}
+ .hero .hero-actions .btn.pri:hover{box-shadow:0 14px 34px rgba(255,31,45,.5)}
+ .hero .hero-actions .btn:hover span{transform:translate(2px,-2px)}
+ .hero-proof span:hover{opacity:1;transform:translateY(-1px)}
+}
+.hero .btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+/* ---- Progress at a glance: stat tiles, level + goal cards ---- */
+.stats-grid>.stat,.dashboard-columns>.card{--mx:50%;--my:30%;position:relative}
+.stats-grid>.stat:before,.level-card:before,.goal-card:before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;border-radius:inherit;opacity:0;transition:opacity .25s;background:radial-gradient(220px circle at var(--mx) var(--my),color-mix(in srgb,var(--ac) 22%,transparent),transparent 62%)}
+.level-card>*,.goal-card>*{position:relative;z-index:1}
+.stats-grid>.stat:active,.level-card:active,.goal-card:active{transform:scale(.975);transition-duration:.08s}
+.stats-grid>.stat:focus-within,.level-card:focus-within,.goal-card:focus-within{outline:2px solid var(--ac2);outline-offset:2px}
+.stat .stat-icon{position:relative}
+.stat .stat-icon:after{content:"";position:absolute;inset:-1px;border-radius:inherit;border:1px solid var(--ac2);opacity:0;pointer-events:none}
+.stat.hm-in .stat-icon:after{animation:hmStatPing .9s cubic-bezier(.2,.8,.2,1) calc(.25s + var(--n,0)*45ms) 1 backwards}
+.level-card .bar,.goal-card .bar{position:relative;overflow:hidden}
+.level-card.hm-in .bar>i,.goal-card.hm-in .bar>i{animation-duration:.95s;animation-delay:.25s}
+.level-card .bar>i:after,.goal-card .bar>i:after{content:"";position:absolute;top:0;bottom:0;right:0;width:36px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35));opacity:0}
+.level-card .bar>i,.goal-card .bar>i{position:relative}
+.level-card.hm-in .bar>i:after,.goal-card.hm-in .bar>i:after{animation:hmBarGlint 1s ease-out .9s 1 both}
+@keyframes hmBarGlint{0%{opacity:0}30%{opacity:1}100%{opacity:0}}
+.level-card.hm-in .level-meta strong,.goal-card.hm-in h2{animation:hmChipIn .5s cubic-bezier(.2,.8,.2,1) .2s backwards}
+.section-head.hm-in .soft-pill{animation:hmChipIn .5s cubic-bezier(.2,.8,.2,1) .18s backwards}
+.section-head.hm-in .eyebrow{animation:hmChipIn .45s cubic-bezier(.2,.8,.2,1) backwards}
+@media(hover:hover){
+ .stats-grid>.stat:hover:before,.level-card:hover:before,.goal-card:hover:before{opacity:1}
+ .stats-grid>.stat:hover,.level-card:hover,.goal-card:hover{transform:translateY(-3px);border-color:var(--ac2);box-shadow:0 0 0 1px color-mix(in srgb,var(--ac2) 60%,transparent),0 14px 34px color-mix(in srgb,var(--ac) 24%,transparent)}
+ .stats-grid>.stat:hover b{transform:scale(1.04)}
+ .level-card:hover .level-mark,.goal-card:hover .goal-ring{transform:scale(1.08)}
+}
+.stats-grid>.stat b{display:inline-block;transform-origin:left center;transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+.level-mark,.goal-ring{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.stats-grid>.stat:not(.hm-in) *,.level-card:not(.hm-in) *:after,.goal-card:not(.hm-in) *:after{animation-play-state:paused}
+
+@media(prefers-reduced-motion:reduce){
+ .hero-copy.hm-in .hero-actions .btn,.hero-copy.hm-in .hero-proof span,.stat.hm-in .stat-icon:after,
+ .level-card.hm-in .bar>i:after,.goal-card.hm-in .bar>i:after,.level-card.hm-in .level-meta strong,.goal-card.hm-in h2,
+ .section-head.hm-in .soft-pill,.section-head.hm-in .eyebrow{animation:none!important}
+ .hero-sweep,.hero-glow{display:none!important}
+ .hero .hero-art,.hero .float-word{transform:none!important;translate:none!important;transition:none!important}
+ .hero .hero-actions .btn,.hero .hero-actions .btn span,.hero-proof span,.stat b,.level-mark,.goal-ring,.stats-grid>.stat:before,.level-card:before,.goal-card:before{transition:none!important}
+ .stats-grid>.stat:hover,.level-card:hover,.goal-card:hover,.stats-grid>.stat:active,.level-card:active,.goal-card:active,
+ .hero .hero-actions .btn:hover,.hero .hero-actions .btn:active,.hero-proof span:hover,.stats-grid>.stat:hover b,.level-card:hover .level-mark,.goal-card:hover .goal-ring{transform:none!important}
+}

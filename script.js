@@ -580,7 +580,7 @@ function exploreGrid(s){
   {k:'profile',ic:'profile',t:'Your profile',d:'লেভেল, ছবি আর পুরো অগ্রগতি এক পাতায়।',m:'Lv '+(l.i+1)+' · '+l.name,c:'#4fe0a0',cls:'w2d'}];
  return`<div class="section-head"><div><span class="eyebrow">EVERYTHING IN ONE PLACE</span><h2>VocabHub-এর প্রতিটি ট্যাব, এক নজরে</h2></div><span class="soft-pill">${tiles.length} sections</span></div><div class="promo-bento">${tiles.map(p=>`<a class="promo-tile has-art ${p.cls||''}" href="#${p.k}" style="--pc:${p.c};--gc:${p.c}">${HM_ART[p.k]?`<div class="arc-stage hm-stage">${HM_ART[p.k]()}</div>`:''}<span class="pt-top"><span class="pt-ic">${ico(p.ic)}</span><span class="pt-metric">${esc(p.m)}</span></span><b>${p.t}</b><p class="bn">${p.d}</p><span class="pt-go">Open ↗</span></a>`).join('')}</div>`}
 V.dash=()=>{const s=st(),l=lvl(s.xp),g=Math.min(100,Math.round(s.todayC/D.goal*100)),wod=wordOfDay(),cats=[...new Set(W.flatMap(w=>w.sections||[]))].map(cat=>({cat,n:W.filter(w=>(w.sections||[]).includes(cat)).length})).sort((a,b)=>b.n-a.n).slice(0,6);
- return`<section class="hero">
+ return`<section class="hero"><span class="hero-glow" aria-hidden="true"></span><span class="hero-sweep" aria-hidden="true"></span>
    <div class="hero-copy"><span class="eyebrow">A SMARTER WAY TO LEARN</span>
    <h1>Words that take<br><em>you further.</em></h1>
    <p>Build a stronger vocabulary with focused practice, smart revision and a little progress every day.</p>
@@ -1175,11 +1175,12 @@ const prcStrip=t=>{const k=t.startsWith('bcs_')?'bcs':(PRC_TYPE[t]?t:'def'),[c,h
  const scan=()=>{document.querySelectorAll('.arc-card:not([data-io]),.prc-type-card:not([data-io]),.hero:not([data-io]),.promo-tile.has-art:not([data-io]),.revision-queue:not([data-io])').forEach(c=>{c.dataset.io='1';io?io.observe(c):c.classList.add('in-view')});hmScan()};
  /* Homepage: one-time staggered reveal (opacity/transform only); skipped for reduced motion or no IntersectionObserver */
  const hmIo='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('hm-in');hmIo.unobserve(e.target);hmCount(e.target)}}),{rootMargin:'0px 0px -6% 0px',threshold:.06}):null;
- const HM='.revision-intro,.revision-queue,.revision-how,.revision-step,.revision-rule-grid>div,.hero-copy>*,.hero-art,.eft-banner,.eft-units>.eft-chip,#main>.section-head,.stats-grid>*,.dashboard-columns>*,.word-spotlight,.promo-bento>.promo-tile,.chart-card,.home-leaderboard,.creator-card,.footer-note';
- const hmCount=el=>{const b=el.matches&&(el.matches('.stat')?el.querySelector('b'):el.matches('.revision-queue')?el.querySelector('strong'):null);if(!b)return;const t=b.textContent.trim();if(!/^\d{1,6}$/.test(t))return;const n=+t;if(n<2)return;const t0=performance.now()+120,d=750;b.textContent='0';
-  const f=now=>{const k=Math.max(0,Math.min(1,(now-t0)/d));b.textContent=String(Math.round(n*(1-Math.pow(1-k,3))));if(k<1)requestAnimationFrame(f);else b.textContent=t};requestAnimationFrame(f)};
+ const HM='.revision-intro,.revision-queue,.revision-how,.revision-step,.revision-rule-grid>div,.hero-copy,.hero-copy>*,.hero-art,.eft-banner,.eft-units>.eft-chip,#main>.section-head,.stats-grid>*,.dashboard-columns>*,.word-spotlight,.promo-bento>.promo-tile,.chart-card,.home-leaderboard,.creator-card,.footer-note';
+ const hmCount=el=>{const b=el.matches&&(el.matches('.stat')?el.querySelector('b'):el.matches('.revision-queue')?el.querySelector('strong'):el.matches('.level-card')?el.querySelector('.level-meta strong'):null);if(!b)return;const t=b.textContent.trim();const m=/^(\d{1,6})(\s*XP)?$/.exec(t);if(!m)return;const sfx=m[2]||'',n=+m[1];if(n<2)return;const t0=performance.now()+120,d=750;b.textContent='0'+sfx;
+  const f=now=>{if(!b.isConnected)return;const k=Math.max(0,Math.min(1,(now-t0)/d));b.textContent=String(Math.round(n*(1-Math.pow(1-k,3))))+sfx;if(k<1)requestAnimationFrame(f);else b.textContent=t};requestAnimationFrame(f)};
  const hmScan=()=>{if(!hmIo||!main.querySelector('.hero,.revision-queue-grid')||(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches))return;
-  main.querySelectorAll(HM).forEach(el=>{if(el.dataset.hm)return;el.dataset.hm='1';const sib=el.parentElement?[...el.parentElement.children].indexOf(el):0;el.style.setProperty('--n',Math.min(sib,8));el.classList.add('hm-rv');hmIo.observe(el)})};
+  const fresh=[];main.querySelectorAll(HM).forEach(el=>{if(el.dataset.hm)return;el.dataset.hm='1';const sib=el.parentElement?[...el.parentElement.children].indexOf(el):0;el.style.setProperty('--n',Math.min(sib,8));el.classList.add('hm-rv');fresh.push(el);hmIo.observe(el)});
+  if(fresh.length)setTimeout(()=>fresh.forEach(el=>{if(el.isConnected&&!el.classList.contains('hm-in')){el.classList.add('hm-in');hmIo.unobserve(el)}}),1800)};
  new MutationObserver(scan).observe(main,{childList:true});
  document.addEventListener('click',e=>{const c=e.target.closest&&e.target.closest('.arc-card[data-mode]');if(c&&!e.defaultPrevented)configureGame(c.dataset.mode,0)});
  let cur=null,ev=null,raf=0;
@@ -1195,6 +1196,19 @@ const prcStrip=t=>{const k=t.startsWith('bcs_')?'bcs':(PRC_TYPE[t]?t:'def'),[c,h
    cur.style.setProperty('--mx',(x*100).toFixed(1)+'%');cur.style.setProperty('--my',(y*100).toFixed(1)+'%')});
  },{passive:true});
  document.addEventListener('pointerout',e=>{if(cur&&(!e.relatedTarget||!(e.relatedTarget.closest&&e.relatedTarget.closest('.arc-card'))||e.relatedTarget.closest('.arc-card')!==cur)){clear(cur);cur=null}},{passive:true});
+ /* Home hero + progress cards: pointer-follow glow and hero parallax (CSS vars only; one delegated listener) */
+ let gcur=null,gev=null,graf=0;const GSEL='.hero,.stats-grid>.stat,.level-card,.goal-card';
+ const gclear=c=>{['--mx','--my','--px','--py'].forEach(p=>c.style.removeProperty(p))};
+ document.addEventListener('pointermove',e=>{
+  if(reduce||e.pointerType!=='mouse')return;
+  const c=e.target.closest&&e.target.closest(GSEL);
+  if(gcur&&gcur!==c){gclear(gcur);gcur=null}
+  if(!c)return;gcur=c;gev=e;
+  if(!graf)graf=requestAnimationFrame(()=>{graf=0;if(!gcur||!gev||!gcur.isConnected)return;const r=gcur.getBoundingClientRect(),x=(gev.clientX-r.left)/r.width,y=(gev.clientY-r.top)/r.height;
+   gcur.style.setProperty('--mx',(x*100).toFixed(1)+'%');gcur.style.setProperty('--my',(y*100).toFixed(1)+'%');
+   if(gcur.classList.contains('hero')){gcur.style.setProperty('--px',((x-.5)*2).toFixed(2));gcur.style.setProperty('--py',((y-.5)*2).toFixed(2))}});
+ },{passive:true});
+ document.addEventListener('pointerout',e=>{if(gcur&&(!e.relatedTarget||!(e.relatedTarget.closest&&gcur.contains(e.relatedTarget)))){gclear(gcur);gcur=null}},{passive:true});
  scan();
 })();
 

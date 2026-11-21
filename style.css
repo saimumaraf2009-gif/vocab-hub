@@ -1885,3 +1885,118 @@ select:focus-visible{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px va
  .mist-row:hover,.mist-row:focus-within,.mist-row:active,.mist-overview .stat:hover,.mistake-exam-card .exam-actions .btn.pri:hover{transform:none!important}
  .mist-row:after{display:none}.mist-hot:before{opacity:.85}
 }
+
+/* ===== Analytics · arcade performance-HUD motion (v2.36) =====
+   Scoped to the Analytics page only (.analytics-* / .daily-study-section / .activity-calendar-section).
+   Bars/lines/cards use transform + opacity (compositor-friendly); numbers and labels are never altered or masked.
+   Dashboard, Mistakes, Arcade, Practice charts and stat cards are untouched. */
+@property --an-fill{syntax:"<percentage>";inherits:false;initial-value:0%}
+@keyframes anRise{from{opacity:0;transform:translate3d(0,14px,0)}to{opacity:1;transform:none}}
+@keyframes anBarX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes anBarY{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes anDraw{from{stroke-dashoffset:2400}to{stroke-dashoffset:0}}
+@keyframes anFade{from{opacity:0}to{opacity:1}}
+@keyframes anPoint{0%{opacity:0;transform:scale(0)}65%{opacity:1;transform:scale(1.35)}100%{opacity:1;transform:scale(1)}}
+@keyframes anSweep{0%,55%{transform:translate3d(-130%,0,0)}100%{transform:translate3d(130%,0,0)}}
+@keyframes anFill{from{--an-fill:0%}to{--an-fill:var(--value)}}
+@keyframes anPing{0%{opacity:.55;transform:scale(1)}70%,100%{opacity:0;transform:scale(1.55)}}
+@keyframes anBlink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.7;transform:scale(1.07)}}
+@keyframes anTrendUp{0%,100%{transform:translate3d(0,1px,0)}50%{transform:translate3d(0,-2px,0)}}
+@keyframes anTrendDown{0%,100%{transform:translate3d(0,-1px,0)}50%{transform:translate3d(0,2px,0)}}
+@keyframes anIcon{0%{transform:scale(.4) rotate(-12deg);opacity:0}70%{transform:scale(1.14) rotate(3deg);opacity:1}100%{transform:none;opacity:1}}
+@keyframes anCell{0%{opacity:0;transform:scale(.4)}70%{opacity:1;transform:scale(1.12)}100%{opacity:1;transform:scale(1)}}
+@keyframes anToday{0%,100%{outline-color:var(--ac2);outline-offset:2px}50%{outline-color:color-mix(in srgb,var(--ac2) 35%,transparent);outline-offset:3.5px}}
+
+/* page + section entrance */
+main>.page-heading:has(+.analytics-hero),.analytics-hero{animation:anRise .5s cubic-bezier(.2,.8,.2,1) both}
+.analytics-hero{position:relative;overflow:hidden;isolation:isolate;animation-delay:.06s}
+.analytics-hero:before{content:"";position:absolute;top:0;bottom:0;left:0;width:45%;pointer-events:none;z-index:-1;
+ background:linear-gradient(105deg,transparent,color-mix(in srgb,var(--ac2) 16%,transparent),transparent);
+ transform:translate3d(-130%,0,0);animation:anSweep 5.5s cubic-bezier(.2,.8,.2,1) 1s infinite;will-change:transform}
+.analytics-hero b{display:inline-block;animation:anRise .55s cubic-bezier(.2,.8,.2,1) .18s both}
+.analytics-hero-mark{position:relative;animation:anIcon .6s cubic-bezier(.2,.8,.2,1) .3s both}
+.analytics-hero-mark:after{content:"";position:absolute;inset:0;border-radius:17px;border:1.5px solid var(--ac2);pointer-events:none;opacity:0;animation:anPing 2.8s ease-out 1.2s infinite}
+.an-streak.is-live{display:inline-block;animation:anBlink 2.2s ease-in-out infinite;transform-origin:left center}
+
+/* stat cards: staggered boot-up, hover/focus elevation, icon pop */
+.analytics-stats>.stat,.analytics-secondary>.stat{animation:anRise .45s cubic-bezier(.2,.8,.2,1) both;
+ transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s,box-shadow .22s}
+.analytics-stats>.stat:nth-child(1){animation-delay:.12s}.analytics-stats>.stat:nth-child(2){animation-delay:.16s}
+.analytics-stats>.stat:nth-child(3){animation-delay:.20s}.analytics-stats>.stat:nth-child(4){animation-delay:.24s}
+.analytics-stats>.stat:nth-child(5){animation-delay:.28s}.analytics-stats>.stat:nth-child(6){animation-delay:.32s}
+.analytics-stats>.stat:nth-child(7){animation-delay:.36s}.analytics-stats>.stat:nth-child(8){animation-delay:.40s}
+.analytics-secondary>.stat:nth-child(1){animation-delay:.05s}.analytics-secondary>.stat:nth-child(2){animation-delay:.09s}
+.analytics-secondary>.stat:nth-child(3){animation-delay:.13s}.analytics-secondary>.stat:nth-child(4){animation-delay:.17s}
+.analytics-secondary>.stat:nth-child(5){animation-delay:.21s}.analytics-secondary>.stat:nth-child(6){animation-delay:.25s}
+.analytics-stats>.stat .stat-icon,.analytics-secondary>.stat .stat-icon{animation:anIcon .55s cubic-bezier(.2,.8,.2,1) .25s both;transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+.analytics-stats>.stat:after,.analytics-secondary>.stat:after{transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.analytics-stats>.stat:hover,.analytics-stats>.stat:focus-within,.analytics-secondary>.stat:hover,.analytics-secondary>.stat:focus-within{
+ transform:translate3d(0,-4px,0);border-color:color-mix(in srgb,var(--ac) 52%,var(--bd));box-shadow:0 14px 30px rgba(0,0,0,.16),0 0 0 1px color-mix(in srgb,var(--ac) 22%,transparent)}
+.analytics-stats>.stat:hover .stat-icon,.analytics-secondary>.stat:hover .stat-icon{transform:scale(1.12) rotate(-4deg)}
+.analytics-stats>.stat:hover:after,.analytics-secondary>.stat:hover:after{transform:scale(1.5)}
+
+/* section blocks */
+.daily-study-section,.analytics-columns>section,.activity-calendar-section,.analytics-secondary,.analytics-secondary+.data-note{animation:anRise .5s cubic-bezier(.2,.8,.2,1) .35s both}
+.analytics-columns>section:nth-child(2){animation-delay:.45s}
+.activity-calendar-section{animation-delay:.5s}
+.daily-study-card,.analytics-highlight,.chart-card,.difficulty-analytics,.activity-calendar{transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s,box-shadow .22s}
+.daily-study-card:hover,.analytics-highlight:hover,.chart-card:hover,.difficulty-analytics:hover,.activity-calendar:hover,
+.daily-study-card:focus-within,.analytics-highlight:focus-within,.chart-card:focus-within,.difficulty-analytics:focus-within,.activity-calendar:focus-within{
+ transform:translate3d(0,-3px,0);border-color:color-mix(in srgb,var(--ac) 40%,var(--bd));box-shadow:0 14px 32px rgba(0,0,0,.14)}
+
+/* accuracy gauge fill (registered property; falls back to the static value if unsupported) */
+.accuracy-donut{background:conic-gradient(var(--ac2) var(--an-fill,var(--value)),var(--bg2) 0);animation:anFill 1.1s cubic-bezier(.2,.8,.2,1) .55s both}
+.accuracy-donut span{animation:anFade .5s ease 1s both}
+
+/* bars: scale from their base edge */
+.analytics-columns .chart-bar-track i,.difficulty-analytics .ach-progress i{transform-origin:left center;animation:anBarX .9s cubic-bezier(.2,.8,.2,1) .6s both}
+.difficulty-analytics .difficulty-row:nth-child(2) .ach-progress i{animation-delay:.68s}
+.difficulty-analytics .difficulty-row:nth-child(3) .ach-progress i{animation-delay:.76s}
+.difficulty-analytics .difficulty-row:nth-child(4) .ach-progress i{animation-delay:.84s}
+.difficulty-analytics .difficulty-row:nth-child(5) .ach-progress i{animation-delay:.92s}
+.analytics-columns .chart-bar-item:nth-child(2) .chart-bar-track i{animation-delay:.68s}
+.analytics-columns .chart-bar-item:nth-child(3) .chart-bar-track i{animation-delay:.76s}
+.analytics-columns .chart-bar-item:nth-child(4) .chart-bar-track i{animation-delay:.84s}
+.analytics-columns .chart-bar-item:nth-child(5) .chart-bar-track i{animation-delay:.92s}
+.daily-study-day .study-bar-rail i{transform-origin:center bottom;animation:anBarY .75s cubic-bezier(.2,.8,.2,1) .5s both}
+.daily-study-day:nth-child(2) .study-bar-rail i{animation-delay:.56s}.daily-study-day:nth-child(3) .study-bar-rail i{animation-delay:.62s}
+.daily-study-day:nth-child(4) .study-bar-rail i{animation-delay:.68s}.daily-study-day:nth-child(5) .study-bar-rail i{animation-delay:.74s}
+.daily-study-day:nth-child(6) .study-bar-rail i{animation-delay:.80s}.daily-study-day:nth-child(7) .study-bar-rail i{animation-delay:.86s}
+.daily-study-day{transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+.daily-study-day:hover{transform:translate3d(0,-3px,0)}
+
+/* XP trend line: draw-on, area fade, popping data points */
+.analytics-columns .xp-line{stroke-dasharray:2400;animation:anDraw 1.3s cubic-bezier(.2,.8,.2,1) .55s both}
+.analytics-columns .xp-area{animation:anFade .9s ease 1.1s both}
+.analytics-columns .xp-point{transform-box:fill-box;transform-origin:center;animation:anPoint .45s cubic-bezier(.2,.8,.2,1) both;transition:transform .18s}
+.analytics-columns .xp-point:nth-of-type(1){animation-delay:.7s}.analytics-columns .xp-point:nth-of-type(2){animation-delay:.82s}
+.analytics-columns .xp-point:nth-of-type(3){animation-delay:.94s}.analytics-columns .xp-point:nth-of-type(4){animation-delay:1.06s}
+.analytics-columns .xp-point:nth-of-type(5){animation-delay:1.18s}.analytics-columns .xp-point:nth-of-type(6){animation-delay:1.3s}
+.analytics-columns .xp-point:nth-of-type(7){animation-delay:1.42s}
+.analytics-columns .xp-point:hover{transform:scale(1.4)}
+
+/* weekly trend cue */
+.an-trend{display:inline-block;font-size:9px;font-weight:900;margin-right:4px}
+.an-trend.up{color:var(--ok);animation:anTrendUp 1.6s ease-in-out infinite}
+.an-trend.down{color:var(--er,#ff5369);animation:anTrendDown 1.6s ease-in-out infinite}
+
+/* activity calendar: cells pop in, active days glow, today pings */
+.activity-calendar .calendar-cell{animation:anCell .4s cubic-bezier(.2,.8,.2,1) both;transition:transform .16s cubic-bezier(.2,.8,.2,1)}
+.activity-calendar .calendar-cell:nth-child(7n+1){animation-delay:.60s}.activity-calendar .calendar-cell:nth-child(7n+2){animation-delay:.64s}
+.activity-calendar .calendar-cell:nth-child(7n+3){animation-delay:.68s}.activity-calendar .calendar-cell:nth-child(7n+4){animation-delay:.72s}
+.activity-calendar .calendar-cell:nth-child(7n+5){animation-delay:.76s}.activity-calendar .calendar-cell:nth-child(7n+6){animation-delay:.80s}
+.activity-calendar .calendar-cell:nth-child(7n){animation-delay:.84s}
+.activity-calendar .calendar-cell:not(.empty):hover{transform:scale(1.12);z-index:2}
+.activity-calendar .calendar-cell.today{animation:anCell .4s cubic-bezier(.2,.8,.2,1) .9s both,anToday 2.4s ease-in-out 1.4s infinite}
+
+@media (prefers-reduced-motion:reduce){
+ .analytics-hero,.analytics-hero *,.analytics-hero:before,.analytics-hero-mark:after,
+ .analytics-stats>.stat,.analytics-stats>.stat *,.analytics-secondary>.stat,.analytics-secondary>.stat *,
+ .daily-study-section,.daily-study-section *,.analytics-columns,.analytics-columns *,
+ .analytics-secondary,.analytics-secondary+.data-note,.activity-calendar-section,.activity-calendar-section *,
+ .an-trend,.an-streak{animation:none!important;transition:none!important}
+ .analytics-columns .xp-line{stroke-dasharray:none}
+ .accuracy-donut{background:conic-gradient(var(--ac2) var(--value),var(--bg2) 0)}
+ .analytics-hero:before,.analytics-hero-mark:after{display:none}
+ .analytics-stats>.stat:hover,.analytics-secondary>.stat:hover,.daily-study-card:hover,.analytics-highlight:hover,.chart-card:hover,.difficulty-analytics:hover,.activity-calendar:hover,.daily-study-day:hover{transform:none}
+}

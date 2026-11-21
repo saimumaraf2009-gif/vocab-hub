@@ -552,6 +552,16 @@ function sscBanner(){const us=unitList(SSC_SEC),tot=W.filter(w=>inSection(w,SSC_
   return`<section class="eft-banner ssc-banner" aria-label="English 1st Paper SSC"><div class="eft-copy"><span class="eft-kicker">SSC · Classes IX–X</span><h2>English 1st Paper SSC</h2><p class="bn">${us.length}টি ইউনিট, ${tot}টি vocabulary profile। লাইব্রেরিতে শব্দগুলো দেখো, অথবা Practice ও Arcade থেকে বেছে নিয়ে অনুশীলন করো।</p><div class="row"><button class="btn pri" onclick="openUnit('${SSC_SEC}',0)">ইউনিট দেখো ↗</button><button class="btn hero-ghost" onclick="openSscTraining('mixed')">Practice শুরু করো</button></div></div><div class="eft-units">${us.map(u=>`<button type="button" class="eft-chip" onclick="openUnit('${SSC_SEC}',${u.n})"><i>${String(u.n).padStart(2,'0')}</i><span>${esc(u.title)}</span><small>${u.count}</small></button>`).join('')}</div></section>`}
 function openSscTraining(mode){D.gameSections=D.gameSections||{};D.gameUnits=D.gameUnits||{};D.gameSections[mode]=SSC_SEC;D.gameUnits[mode]=0;configureGame(mode,0)}
 function sscTrainingCard(mode,title,desc){const count=W.filter(w=>inSection(w,SSC_SEC)).length;return`<a class="card admission-shortcut ssc-training-card" href="javascript:void(0)" onclick="openSscTraining('${mode}')"><b>${title}</b><span>${count}টি word profile · ১৪টি ইউনিট</span><small>${desc} →</small></a>`}
+/* Homepage tile art: reuses Practice/Arcade animated art; a few small new ones (h-*) share the same shell */
+const HM_ART={
+ practice:()=>PRC_ART.mixed(),arcade:()=>ARC_ART.mem(),lib:()=>PRC_ART.fill(),revision:()=>PRC_ART.flash(),
+ mistakes:()=>ARC_ART.tf(),missions:()=>ARC_ART.daily(),history:()=>PRC_ART.iba(),
+ levels:()=>`<div class="arc-art h-lv" aria-hidden="true">${[0,1,2,3,4].map(k=>`<i style="--k:${k}"></i>`).join('')}</div>`,
+ analytics:()=>`<div class="arc-art h-an" aria-hidden="true">${[30,44,36,58,52,70,84].map((h,k)=>`<i style="--h:${h}px;--k:${k}"></i>`).join('')}<svg viewBox="0 0 220 120"><path pathLength="1" d="M20 78L50 64L80 72L110 50L140 56L170 38L200 24"/></svg></div>`,
+ achievements:()=>`<div class="arc-art h-ach" aria-hidden="true">${[0,1,2,3].map(k=>`<i style="--k:${k}">★</i>`).join('')}</div>`,
+ leaderboard:()=>`<div class="arc-art h-lb" aria-hidden="true"><div class="r r0"><b></b><span></span></div><div class="r r1"><b></b><span></span></div><div class="r r2 y"><b></b><span></span></div></div>`,
+ profile:()=>`<div class="arc-art h-pf" aria-hidden="true"><svg viewBox="0 0 220 120"><circle class="t" cx="110" cy="60" r="36"/><circle class="p" cx="110" cy="60" r="36"/><text x="110" y="67" text-anchor="middle">Lv</text></svg></div>`
+};
 function exploreGrid(s){
  const l=lvl(s.xp),act=Object.values(D.mist).filter(m=>!m.fixed).length,ms=missions(),msDone=ms.filter(m=>m[3]>=m[4]).length,unl=ACH.filter(([n])=>D.ach[n]).length,real=D.ses.filter(x=>x.mode!='mission'),exams=real.filter(x=>x.n>0).length;
  const tiles=[
@@ -567,7 +577,7 @@ function exploreGrid(s){
   {k:'history',ic:'history',t:'Exam history',d:'প্রতিটি পরীক্ষা ও গেমের ফল এক জায়গায়।',m:exams+' exams',c:'#a78bfa'},
   {k:'leaderboard',ic:'trophy',t:'Leaderboard',d:'XP র‍্যাংকিংয়ে নিজের জায়গা দেখো।',m:s.xp+' XP',c:'#ffb84d',cls:'w2d'},
   {k:'profile',ic:'profile',t:'Your profile',d:'লেভেল, ছবি আর পুরো অগ্রগতি এক পাতায়।',m:'Lv '+(l.i+1)+' · '+l.name,c:'#4fe0a0',cls:'w2d'}];
- return`<div class="section-head"><div><span class="eyebrow">EVERYTHING IN ONE PLACE</span><h2>VocabHub-এর প্রতিটি ট্যাব, এক নজরে</h2></div><span class="soft-pill">${tiles.length} sections</span></div><div class="promo-bento">${tiles.map(p=>`<a class="promo-tile ${p.cls||''}" href="#${p.k}" style="--pc:${p.c}"><span class="pt-top"><span class="pt-ic">${ico(p.ic)}</span><span class="pt-metric">${esc(p.m)}</span></span><b>${p.t}</b><p class="bn">${p.d}</p><span class="pt-go">Open ↗</span></a>`).join('')}</div>`}
+ return`<div class="section-head"><div><span class="eyebrow">EVERYTHING IN ONE PLACE</span><h2>VocabHub-এর প্রতিটি ট্যাব, এক নজরে</h2></div><span class="soft-pill">${tiles.length} sections</span></div><div class="promo-bento">${tiles.map(p=>`<a class="promo-tile has-art ${p.cls||''}" href="#${p.k}" style="--pc:${p.c};--gc:${p.c}">${HM_ART[p.k]?`<div class="arc-stage hm-stage">${HM_ART[p.k]()}</div>`:''}<span class="pt-top"><span class="pt-ic">${ico(p.ic)}</span><span class="pt-metric">${esc(p.m)}</span></span><b>${p.t}</b><p class="bn">${p.d}</p><span class="pt-go">Open ↗</span></a>`).join('')}</div>`}
 V.dash=()=>{const s=st(),l=lvl(s.xp),g=Math.min(100,Math.round(s.todayC/D.goal*100)),wod=wordOfDay(),cats=[...new Set(W.flatMap(w=>w.sections||[]))].map(cat=>({cat,n:W.filter(w=>(w.sections||[]).includes(cat)).length})).sort((a,b)=>b.n-a.n).slice(0,6);
  return`<section class="hero">
    <div class="hero-copy"><span class="eyebrow">A SMARTER WAY TO LEARN</span>
@@ -1145,10 +1155,12 @@ const prcStrip=t=>{const k=t.startsWith('bcs_')?'bcs':(PRC_TYPE[t]?t:'def'),[c,h
  const main=document.getElementById('main');if(!main)return;
  const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
  const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('in-view',e.isIntersecting)),{rootMargin:'60px'}):null;
- const scan=()=>{document.querySelectorAll('.arc-card:not([data-io]),.prc-type-card:not([data-io]),.hero:not([data-io])').forEach(c=>{c.dataset.io='1';io?io.observe(c):c.classList.add('in-view')});hmScan()};
+ const scan=()=>{document.querySelectorAll('.arc-card:not([data-io]),.prc-type-card:not([data-io]),.hero:not([data-io]),.promo-tile.has-art:not([data-io])').forEach(c=>{c.dataset.io='1';io?io.observe(c):c.classList.add('in-view')});hmScan()};
  /* Homepage: one-time staggered reveal (opacity/transform only); skipped for reduced motion or no IntersectionObserver */
- const hmIo='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('hm-in');hmIo.unobserve(e.target)}}),{rootMargin:'0px 0px -6% 0px',threshold:.06}):null;
+ const hmIo='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('hm-in');hmIo.unobserve(e.target);hmCount(e.target)}}),{rootMargin:'0px 0px -6% 0px',threshold:.06}):null;
  const HM='.hero-copy>*,.hero-art,.eft-banner,.eft-units>.eft-chip,#main>.section-head,.stats-grid>*,.dashboard-columns>*,.word-spotlight,.promo-bento>.promo-tile,.chart-card,.home-leaderboard,.creator-card,.footer-note';
+ const hmCount=el=>{const b=el.matches&&el.matches('.stat')&&el.querySelector('b');if(!b)return;const t=b.textContent.trim();if(!/^\d{1,6}$/.test(t))return;const n=+t;if(n<2)return;const t0=performance.now()+120,d=750;b.textContent='0';
+  const f=now=>{const k=Math.max(0,Math.min(1,(now-t0)/d));b.textContent=String(Math.round(n*(1-Math.pow(1-k,3))));if(k<1)requestAnimationFrame(f);else b.textContent=t};requestAnimationFrame(f)};
  const hmScan=()=>{if(!hmIo||!main.querySelector('.hero')||(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches))return;
   main.querySelectorAll(HM).forEach(el=>{if(el.dataset.hm)return;el.dataset.hm='1';const sib=el.parentElement?[...el.parentElement.children].indexOf(el):0;el.style.setProperty('--n',Math.min(sib,8));el.classList.add('hm-rv');hmIo.observe(el)})};
  new MutationObserver(scan).observe(main,{childList:true});

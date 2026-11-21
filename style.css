@@ -1570,3 +1570,69 @@ select:focus-visible{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px va
  #main .btn,.promo-tile,.eft-chip,.stat,.promo-tile .pt-go,.promo-tile:after{transition:none!important}
  #main .btn:active,.promo-tile:active,.eft-chip:active,.promo-tile:hover,.eft-chip:hover,.stat:hover,.promo-tile:hover .pt-go{transform:none!important}
 }
+
+/* ===== Homepage animated tile art (v2.31b) — Practice/Arcade art shell inside the "everything in one place" tiles ===== */
+.promo-tile.has-art{--px:0;--py:0;min-height:0;padding-top:0;gap:6px}
+.promo-tile.has-art:after{display:none}
+.hm-stage{height:118px;margin:0 -16px 10px;border-radius:0}
+.hm-stage .arc-art{--sc:.86}
+.hm-stage .arc-art,.hm-stage .arc-art *{pointer-events:none}
+.promo-tile.has-art:not(.in-view) .arc-art *,.promo-tile.has-art:not(.in-view) .arc-art *:before,.promo-tile.has-art:not(.in-view) .arc-art *:after{animation-play-state:paused!important}
+@media(hover:hover){.promo-tile:hover .arc-art{--sc:.93}.promo-tile:hover .arc-stage:before{opacity:1}.promo-tile:hover .arc-stage:after{transform:translateX(260%) skewX(-18deg)}}
+@media(max-width:800px){.hm-stage{height:102px;margin:0 -12px 8px}.hm-stage .arc-art,.promo-tile:hover .arc-art{--sc:.76}}
+@media(max-width:380px){.hm-stage .arc-art,.promo-tile:hover .arc-art{--sc:.7}}
+
+/* new small arts (h-*): transform/opacity loops, ~4–5s, calm */
+.h-lv{display:flex;align-items:flex-end;justify-content:center;gap:10px;padding-bottom:14px}
+.h-lv i{width:26px;height:calc(26px + var(--k)*15px);border-radius:6px 6px 2px 2px;background:color-mix(in srgb,var(--gc) calc(26% + var(--k)*15%),#15151b);transform-origin:bottom;animation:hLv 4.6s cubic-bezier(.2,.8,.2,1) infinite;animation-delay:calc(var(--k)*.16s)}
+.h-lv i:last-child{box-shadow:0 0 18px color-mix(in srgb,var(--gc) 55%,transparent)}
+@keyframes hLv{0%{transform:scaleY(.12);opacity:.35}22%,78%{transform:scaleY(1);opacity:1}100%{transform:scaleY(.12);opacity:.35}}
+.h-an{display:flex;align-items:flex-end;justify-content:center;gap:12px;padding:0 0 12px}
+.h-an i{width:18px;height:var(--h);border-radius:5px 5px 1px 1px;background:linear-gradient(180deg,var(--gc),color-mix(in srgb,var(--gc) 30%,#15151b));opacity:.85;transform-origin:bottom;animation:hLv 4.6s cubic-bezier(.2,.8,.2,1) infinite;animation-delay:calc(var(--k)*.1s)}
+.h-an svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.h-an path{fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;animation:hDraw 4.6s ease-in-out infinite}
+@keyframes hDraw{0%{stroke-dashoffset:1;opacity:.2}35%,80%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+.h-ach{display:flex;align-items:center;justify-content:center;gap:12px}
+.h-ach i{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;font-style:normal;font-size:18px;color:var(--gc);background:color-mix(in srgb,var(--gc) 14%,#101015);border:1px solid color-mix(in srgb,var(--gc) 55%,transparent);animation:hLit 5s ease-in-out infinite;animation-delay:calc(var(--k)*.55s)}
+@keyframes hLit{0%,8%{opacity:.35;transform:scale(.9)}20%,70%{opacity:1;transform:scale(1)}100%{opacity:.35;transform:scale(.9)}}
+.h-lb{display:block}
+.h-lb .r{position:absolute;left:18px;right:18px;top:12px;height:26px;display:flex;align-items:center;gap:9px;padding:0 9px;border-radius:9px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
+.h-lb .r b{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.35)}
+.h-lb .r span{flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,.18)}
+.h-lb .r0{transform:translateY(0);animation:hLb0 5s cubic-bezier(.2,.8,.2,1) infinite}
+.h-lb .r1{transform:translateY(34px);animation:hLb1 5s cubic-bezier(.2,.8,.2,1) infinite}
+.h-lb .r2{transform:translateY(68px);animation:hLb2 5s cubic-bezier(.2,.8,.2,1) infinite}
+.h-lb .y{background:color-mix(in srgb,var(--gc) 22%,#101015);border-color:var(--gc)}.h-lb .y b{background:var(--gc)}.h-lb .y span{background:color-mix(in srgb,var(--gc) 60%,transparent)}
+@keyframes hLb0{0%,25%{transform:translateY(0)}45%,85%{transform:translateY(34px)}100%{transform:translateY(0)}}
+@keyframes hLb1{0%,25%{transform:translateY(34px)}45%,85%{transform:translateY(68px)}100%{transform:translateY(34px)}}
+@keyframes hLb2{0%,25%{transform:translateY(68px)}45%,85%{transform:translateY(0)}100%{transform:translateY(68px)}}
+.h-pf svg{position:absolute;inset:0;width:100%;height:100%}
+.h-pf circle{fill:none;stroke-width:8;transform:rotate(-90deg);transform-origin:110px 60px}
+.h-pf .t{stroke:rgba(255,255,255,.12)}
+.h-pf .p{stroke:var(--gc);stroke-linecap:round;stroke-dasharray:226;stroke-dashoffset:226;animation:hRing 5s cubic-bezier(.2,.8,.2,1) infinite}
+.h-pf text{fill:#fff;font-size:22px;font-weight:800}
+@keyframes hRing{0%{stroke-dashoffset:226}40%,80%{stroke-dashoffset:68}100%{stroke-dashoffset:226}}
+
+/* ---- other homepage elements that deserve motion ---- */
+@property --goal{syntax:'<percentage>';inherits:true;initial-value:0%}
+@keyframes hmRing{from{--goal:0%}}
+.goal-card.hm-in .goal-ring{animation:hmRing 1s cubic-bezier(.2,.8,.2,1) .2s backwards}
+@keyframes hmGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.chart-card.hm-in .bars i{transform-origin:bottom;animation:hmGrow .7s cubic-bezier(.2,.8,.2,1) backwards}
+.chart-card.hm-in .bars div:nth-child(2) i{animation-delay:.05s}.chart-card.hm-in .bars div:nth-child(3) i{animation-delay:.1s}.chart-card.hm-in .bars div:nth-child(4) i{animation-delay:.15s}.chart-card.hm-in .bars div:nth-child(5) i{animation-delay:.2s}.chart-card.hm-in .bars div:nth-child(6) i{animation-delay:.25s}.chart-card.hm-in .bars div:nth-child(7) i{animation-delay:.3s}
+.eft-kicker:before{content:"";width:6px;height:6px;border-radius:50%;margin-right:7px;background:var(--ac2);animation:arcPing 2.4s ease-out infinite}
+.stat .stat-icon{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+@media(hover:hover){.stat:hover .stat-icon{transform:scale(1.1)}}
+.level-mark,.home-leaderboard-rank{animation:hmPulse 3.2s ease-in-out infinite}
+@keyframes hmPulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.07);opacity:1}}
+.word-badge{position:relative;overflow:hidden}
+.word-badge:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);transform:translateX(-120%) skewX(-18deg);animation:hmSheen 5s ease-in-out 1.2s infinite}
+@keyframes hmSheen{0%,60%{transform:translateX(-120%) skewX(-18deg)}100%{transform:translateX(220%) skewX(-18deg)}}
+.level-card:not(.hm-in) *,.goal-card:not(.hm-in) *,.word-spotlight:not(.hm-in) *,.home-leaderboard:not(.hm-in) *{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){
+ .hm-stage .arc-art,.hm-stage .arc-art *,.hm-stage .arc-art *:before,.hm-stage .arc-art *:after,.hm-stage:after{animation:none!important;transition:none!important}
+ .hm-stage .arc-art{transform:none!important}
+ .h-lv i,.h-an i{opacity:1}.h-an path{stroke-dashoffset:0}.h-ach i{opacity:1}.h-pf .p{stroke-dashoffset:68}
+ .h-lb .r0{transform:translateY(34px)}.h-lb .r1{transform:translateY(68px)}.h-lb .r2{transform:translateY(0)}
+ .goal-ring,.chart-card .bars i,.level-mark,.home-leaderboard-rank,.eft-kicker:before,.word-badge:after{animation:none!important}.word-badge:after{display:none}
+}

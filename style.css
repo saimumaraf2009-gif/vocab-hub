@@ -1709,3 +1709,65 @@ select:focus-visible{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px va
  .page-heading,.lib-progress,.library-toolbar,.lib-prog-bar i,.word-row.wr-in,.word-row-fav.pop,.lib-reset,.lib-empty-ic{animation:none!important}
  .lib-chip,.lib-clear,.wr-dot,.word-row,.word-row-fav,.expand-mark{transition:none!important}
 }
+
+/* ===== Smart Revision (v2.33) — animated queue cards, memory curve, step timeline ===== */
+.revision-intro-icon{animation:hmPulse 3.4s ease-in-out infinite}
+.revision-queue{overflow:hidden;--px:0;--py:0;transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s,box-shadow .25s}
+.revision-queue{border-color:color-mix(in srgb,var(--gc) 26%,var(--bd))}
+.revision-queue>strong{color:var(--gc)}
+.revision-queue .rv-stage{width:calc(100% + 36px);margin:-18px -18px 14px;height:118px;flex:none}
+.revision-queue .rv-stage .arc-art{--sc:.86}
+.revision-queue:not(.in-view) .arc-art *,.revision-queue:not(.in-view) .arc-art *:before,.revision-queue:not(.in-view) .arc-art *:after{animation-play-state:paused!important}
+.revision-queue .btn.pri{position:relative;background:var(--gc);border-color:var(--gc);color:#101014}
+.rv-due .btn.pri:not(:disabled):before{content:"";position:absolute;inset:-1px;border-radius:inherit;border:1px solid var(--gc);opacity:0;animation:arcPing 2.4s ease-out infinite;pointer-events:none}
+@media(hover:hover){.revision-queue:hover{transform:translateY(-2px);border-color:var(--gc);box-shadow:0 14px 34px color-mix(in srgb,var(--gc) 18%,transparent)}.revision-queue:hover .arc-art{--sc:.93}}
+
+/* target: ripples around a dot */
+.h-tg{display:grid;place-items:center}
+.h-tg i{position:absolute;left:50%;top:50%;width:92px;height:92px;margin:-46px 0 0 -46px;border-radius:50%;border:2px solid var(--gc);opacity:0;animation:hTg 3.6s cubic-bezier(.2,.8,.2,1) infinite;animation-delay:calc(var(--k,0)*1.2s)}
+.h-tg i:nth-child(2){--k:1}.h-tg i:nth-child(3){--k:2}
+.h-tg b{position:relative;width:16px;height:16px;border-radius:50%;background:var(--gc);box-shadow:0 0 18px var(--gc)}
+.h-tg span{position:absolute;right:6px;bottom:4px;font-size:11px;color:rgba(255,255,255,.7);letter-spacing:.06em}
+@keyframes hTg{0%{transform:scale(.25);opacity:.9}100%{transform:scale(1);opacity:0}}
+/* memory refresh: arcs turn slowly, tick holds */
+.h-mem svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.h-mem .t{fill:none;stroke:rgba(255,255,255,.1);stroke-width:7}
+.h-mem .a{fill:none;stroke:var(--gc);stroke-width:7;stroke-linecap:round;transform-origin:110px 60px;animation:hSpin 6s linear infinite}
+.h-mem .a.b{animation-direction:normal}
+.h-mem .ck{fill:none;stroke:#fff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+@keyframes hSpin{to{transform:rotate(360deg)}}
+
+/* forgetting-curve strip */
+.rv-curve{margin:16px 0 4px;padding:12px 12px 8px;border:1px solid var(--bd);border-radius:14px;background:var(--bg2)}
+.rv-curve svg{display:block;width:100%;height:96px;overflow:visible}
+.rv-curve path{fill:none;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}
+.rv-curve .fg{stroke:var(--tx2);stroke-width:1.5;stroke-dasharray:4 5;opacity:.55}
+.rv-curve .rc{stroke:var(--ok);stroke-width:2.4;stroke-dasharray:1;stroke-dashoffset:1}
+.rv-curve .dt{stroke:var(--ok);stroke-width:8;opacity:0}
+.rv-curve.hm-in .rc{animation:rvDraw 7s cubic-bezier(.4,0,.2,1) .3s infinite}
+.rv-curve.hm-in .dt{animation:rvDot 7s ease-out .3s infinite;animation-delay:calc(.3s + var(--i)*1.7s)}
+@keyframes rvDraw{0%{stroke-dashoffset:1}60%,92%{stroke-dashoffset:0}100%{stroke-dashoffset:0;opacity:0}}
+@keyframes rvDot{0%{opacity:0;transform:scale(.4)}6%{opacity:1;transform:scale(1.5)}12%,70%{opacity:1;transform:scale(1)}85%,100%{opacity:0}}
+.rv-legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:10.5px;font-weight:750;color:var(--tx2);margin-top:6px}
+.rv-legend span:before{content:"";display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle;background:var(--ok)}
+.rv-legend .l2:before{background:none;border-top:2px dashed var(--tx2)}
+/* rounds light up one after another */
+.revision-step{transition:border-color .25s,background .25s}
+.revision-step.hm-in{animation:hmIn .55s cubic-bezier(.2,.8,.2,1) backwards,rvStep 8s ease-in-out infinite;animation-delay:calc(var(--n,0)*45ms),calc(1s + var(--i)*.8s)}
+@keyframes rvStep{0%,16%,100%{border-color:var(--bd);background:var(--bg2)}4%,10%{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,var(--bg2))}}
+
+@media(max-width:800px){
+ .revision-queue .rv-stage{grid-column:1/-1;grid-row:1;width:calc(100% + 28px);margin:-14px -14px 12px;height:100px}
+ .revision-queue .rv-stage .arc-art,.revision-queue:hover .arc-art{--sc:.74}
+ .revision-queue-top{grid-row:2}
+ .revision-queue>strong{grid-row:3/5}
+ .revision-queue h3{grid-row:3}.revision-queue p{grid-row:4}
+ .revision-queue .btn{min-height:44px}
+ .rv-curve{padding:10px 10px 6px}
+}
+@media(prefers-reduced-motion:reduce){
+ .revision-intro-icon,.rv-due .btn.pri:before,.h-tg i,.h-mem .a,.revision-step.hm-in{animation:none!important}
+ .rv-curve .rc{animation:none!important;stroke-dashoffset:0}.rv-curve .dt{animation:none!important;opacity:1}
+ .h-tg i:first-child{opacity:.5;transform:scale(.7)}
+ .revision-queue,.revision-step{transition:none!important}.revision-queue:hover{transform:none}
+}

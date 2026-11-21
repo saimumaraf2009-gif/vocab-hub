@@ -582,7 +582,7 @@ function exploreGrid(s){
 V.dash=()=>{const s=st(),l=lvl(s.xp),g=Math.min(100,Math.round(s.todayC/D.goal*100)),wod=wordOfDay(),cats=[...new Set(W.flatMap(w=>w.sections||[]))].map(cat=>({cat,n:W.filter(w=>(w.sections||[]).includes(cat)).length})).sort((a,b)=>b.n-a.n).slice(0,6);
  return`<section class="hero"><span class="hero-glow" aria-hidden="true"></span><span class="hero-sweep" aria-hidden="true"></span>
    <div class="hero-copy"><span class="eyebrow">A SMARTER WAY TO LEARN</span>
-   <h1>Words that take<br><em>you further.</em></h1>
+   <h1><span class="hl"><span>Words that take</span></span><span class="hl"><span><em>you further.</em></span></span></h1>
    <p>Build a stronger vocabulary with focused practice, smart revision and a little progress every day.</p>
    <div class="row hero-actions"><button class="btn pri" onclick="configureGame('mixed',0)">Start a session <span>↗</span></button><button class="btn hero-ghost" onclick="go('arcade')">Play word arcade <span>↗</span></button><button class="btn hero-admission" onclick="go('admission')">Admission Questions <span>↗</span></button></div>
    <div class="hero-proof"><span>✦ ${W.length} curated words</span><span>◷ Smart revision</span><span>⌁ Dark &amp; light themes</span></div></div>
@@ -592,7 +592,7 @@ V.dash=()=>{const s=st(),l=lvl(s.xp),g=Math.min(100,Math.round(s.todayC/D.goal*1
  <div class="section-head"><div><span class="eyebrow">YOUR LEARNING SNAPSHOT</span><h2>Progress, at a glance</h2></div><span class="soft-pill">${W.length} words in your library</span></div>
  <div class="grid stats-grid">${stat(s.streak,'Day streak')}${stat(s.learned,'Words explored')}${stat(s.cnt.mastered,'Mastered')}${stat(s.due,'Ready to revise')}</div>
  <div class="dashboard-columns"><div class="card level-card"><div class="section-head compact"><div><span class="eyebrow">YOUR JOURNEY</span><h2>Level ${l.i+1} · ${l.name}</h2></div><span class="level-mark">${ico("spark")}</span></div><div class="level-meta"><strong>${s.xp} XP</strong><span>${l.next?(l.next-s.xp)+' XP to next level':'Top level reached'}</span></div><div class="bar"><i style="width:${l.pct}%"></i></div><p class="micro">${l.pct}% progress to your next milestone</p></div>
- <div class="card goal-card"><div class="goal-heading"><span class="eyebrow">DAILY TARGET</span><span class="goal-ring" style="--goal:${g}%"><b>${g}%</b></span></div><h2>${s.todayC} <small>/ ${D.goal}</small></h2><p class="sub">Correct answers today</p><div class="bar"><i style="width:${g}%"></i></div><p class="micro">${Math.max(0,D.goal-s.todayC)} more correct answers to reach your goal</p></div></div>
+ <div class="card goal-card${g>=100?' goal-done':''}"><div class="goal-heading"><span class="eyebrow">DAILY TARGET</span><span class="goal-ring" style="--goal:${g}%"><b>${g}%</b></span></div><h2>${s.todayC} <small>/ ${D.goal}</small></h2><p class="sub">Correct answers today</p><div class="bar"><i style="width:${g}%"></i></div><p class="micro">${Math.max(0,D.goal-s.todayC)} more correct answers to reach your goal</p></div></div>
  <div class="section-head"><div><span class="eyebrow">TODAY'S DISCOVERY</span><h2>Word of the day</h2></div><span class="soft-pill">A little learning, daily</span></div>
  ${wod?`<section class="word-spotlight"><div class="word-spot-main"><div class="word-badge">✧ DAILY WORD</div><h2>${esc(wod.en)}</h2><span class="word-pos">${esc(wod.pos||'Vocabulary')} · ${esc(wod.diff||'Core')}</span><p class="bn word-meaning">${esc(wod.bn)}</p>${wod.ex?`<p class="word-example">“${esc(wod.ex)}”</p><p class="bn word-translation">${esc(wod.ext||'')}</p>`:''}<div class="word-chips">${(wod.syn||[]).slice(0,3).map(x=>`<span>${esc(x)}</span>`).join('')}</div></div><div class="word-spot-side"><div class="word-orbit">Aa</div><button class="btn pri" data-word="${esc(wod.id)}" onclick="openWord(this.dataset.word)">View word details ↗</button><button class="btn" onclick="start('flash',{n:10})">Practice with flashcards</button></div></section>`:''}
  ${exploreGrid(s)}
@@ -977,9 +977,18 @@ function drawHist(){const el=$('#hist-list');if(!el)return;const rows=D.ses.filt
 /* ---------- mistakes ---------- */
 let MT='active';
 const mistWords=f=>W.filter(w=>D.mist[w.id]&&f(D.mist[w.id]));
+/* Mistakes · learning snapshot tiles (v2.40): arcade-style animated stage + count-up number. Decorative art is aria-hidden. */
+const MST_ART={
+ fix:'<i class="r r1"></i><i class="r r2"></i><i class="r r3"></i><i class="sw"></i><s class="dt d1"></s><s class="dt d2"></s><s class="dt d3"></s><i class="ch h"></i><i class="ch v"></i>',
+ rec:'<svg viewBox="0 0 120 80"><circle class="t" cx="60" cy="40" r="26"/><circle class="p" cx="60" cy="40" r="26"/><path class="ck" d="M48 41l8 8 16-17"/></svg><s class="sp s1">✦</s><s class="sp s2">✦</s>',
+ wrg:'<u class="x x1">✕</u><u class="x x2">✕</u><u class="x x3">✕</u><u class="x x4">✕</u><i class="ln"></i>',
+ exm:'<span class="sh"><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i><em class="st">✓</em></span>'
+};
+const mstTile=(n,label,tag,k)=>`<div class="card stat mist-tile mt-${k}"><div class="arc-stage mst-stage" aria-hidden="true"><span class="mst-tag">${tag}</span><div class="mst-art">${MST_ART[k]}</div></div><div class="mst-body"><span class="stat-icon">${ico(STAT_ICONS[label]||'spark')}</span><b>${n}</b><span class="stat-label">${label}</span></div></div>`;
+const mstRate=(a,f)=>{const t=a+f,p=t?Math.round(f/t*100):0;return`<div class="card mist-rate" style="--rate:${p}%"><div class="mr-top"><span class="eyebrow">RECOVERY RATE</span><strong>${p}%</strong></div><div class="mr-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${p}" aria-label="Recovery rate"><i></i></div><p class="micro">${t?`${f} of ${t} weak words recovered`:'No weak words yet — mistakes you make will appear here.'}</p></div>`};
 V.mistakes=()=>{const act=mistWords(m=>!m.fixed),fx=mistWords(m=>m.fixed),tot=Object.values(D.mist).reduce((a,m)=>a+m.w,0),ex=D.ses.filter(x=>x.mode=='mistakes').length;
  return`<div class="page-heading mist-heading"><div><span class="eyebrow">LEARN FROM YOUR MISTAKES</span><h1>Mistakes</h1><p class="sub">যেসব শব্দে ভুল হয়েছে সেগুলো এখানে জমা হয়। একটি শব্দ পরপর ৩ বার সঠিক হলে "Recovered" হয়ে যায়।</p></div><span class="count-tile"><b>${act.length}</b><small>TO FIX</small></span></div>
- <section class="profile-progress-section mist-overview"><div class="section-head"><div><span class="eyebrow">MISTAKE OVERVIEW</span><h2>Learning snapshot</h2></div><a class="text-link" href="#analytics">Full analytics ↗</a></div><div class="grid profile-stats">${stat(act.length,'Words to fix')}${stat(fx.length,'Recovered')}${stat(tot,'Wrong answers')}${stat(ex,'Mistake exams')}</div>
+ <section class="profile-progress-section mist-overview"><div class="section-head"><div><span class="eyebrow">MISTAKE OVERVIEW</span><h2>Learning snapshot</h2></div><a class="text-link" href="#analytics">Full analytics ↗</a></div><div class="grid profile-stats mist-tiles">${mstTile(act.length,'Words to fix','ACTIVE','fix')}${mstTile(fx.length,'Recovered','RECOVERED','rec')}${mstTile(tot,'Wrong answers','TOTAL','wrg')}${mstTile(ex,'Mistake exams','EXAMS','exm')}</div>${mstRate(act.length,fx.length)}
  <section class="card exam-card mistake-exam-card"><div class="exam-copy"><span class="eyebrow">MISTAKES EXAM</span><h2>Test yourself on weak words</h2><p class="sub">ভুল হওয়া শব্দ থেকে নিজের পছন্দের difficulty ও প্রশ্নসংখ্যা বেছে নিয়ে অনুশীলন করো।</p></div><div class="mistake-setup-grid"><div class="field"><span class="field-label">Difficulty Level</span>${ddHTML('mx-level',[{v:0,t:'All difficulty levels',s:act.length+' weak words'},...DIFFICULTIES.map(l=>({v:l.id,t:l.name,s:act.filter(w=>Number(w.difficulty)===l.id).length+' weak words'}))],0)}</div><div class="field"><span class="field-label">Number of Questions</span><div id="mx-count-wrap">${ddHTML('mx-count',questionCountOptions(act.length,[3,5,10,20]),Math.min(10,act.length)||999)}</div></div></div><div class="exam-actions"><small id="mx-available" class="mistake-available">${act.length} weak words available</small><button class="btn pri" onclick="startMistakeExam()" ${act.length?'':'disabled'}>Start exam →</button><button class="btn" onclick="configureGame('boss',0)">Boss battle</button></div></section>
  <div id="mist-body"></div>`};
 const setMT=k=>{MT=k;drawMist()};
@@ -1172,7 +1181,8 @@ const prcStrip=t=>{const k=t.startsWith('bcs_')?'bcs':(PRC_TYPE[t]?t:'def'),[c,h
  const main=document.getElementById('main');if(!main)return;
  const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
  const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('in-view',e.isIntersecting)),{rootMargin:'60px'}):null;
- const scan=()=>{document.querySelectorAll('.arc-card:not([data-io]),.prc-type-card:not([data-io]),.hero:not([data-io]),.promo-tile.has-art:not([data-io]),.revision-queue:not([data-io])').forEach(c=>{c.dataset.io='1';io?io.observe(c):c.classList.add('in-view')});hmScan()};
+ const scan=()=>{document.querySelectorAll('.arc-card:not([data-io]),.prc-type-card:not([data-io]),.hero:not([data-io]),.promo-tile.has-art:not([data-io]),.revision-queue:not([data-io]),.mist-tile:not([data-io]),.mist-rate:not([data-io])').forEach(c=>{c.dataset.io='1';io?io.observe(c):c.classList.add('in-view')});hmScan();mstScan()};
+ const mstScan=()=>{if(reduce)return;main.querySelectorAll('.mist-tile:not([data-ct])').forEach(el=>{el.dataset.ct='1';if(typeof hmCount==='function')hmCount(el)})};
  /* Homepage: one-time staggered reveal (opacity/transform only); skipped for reduced motion or no IntersectionObserver */
  const hmIo='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('hm-in');hmIo.unobserve(e.target);hmCount(e.target)}}),{rootMargin:'0px 0px -6% 0px',threshold:.06}):null;
  const HM='.revision-intro,.revision-queue,.revision-how,.revision-step,.revision-rule-grid>div,.hero-copy,.hero-copy>*,.hero-art,.eft-banner,.eft-units>.eft-chip,#main>.section-head,.stats-grid>*,.dashboard-columns>*,.word-spotlight,.promo-bento>.promo-tile,.chart-card,.home-leaderboard,.creator-card,.footer-note';
@@ -1197,7 +1207,7 @@ const prcStrip=t=>{const k=t.startsWith('bcs_')?'bcs':(PRC_TYPE[t]?t:'def'),[c,h
  },{passive:true});
  document.addEventListener('pointerout',e=>{if(cur&&(!e.relatedTarget||!(e.relatedTarget.closest&&e.relatedTarget.closest('.arc-card'))||e.relatedTarget.closest('.arc-card')!==cur)){clear(cur);cur=null}},{passive:true});
  /* Home hero + progress cards: pointer-follow glow and hero parallax (CSS vars only; one delegated listener) */
- let gcur=null,gev=null,graf=0;const GSEL='.hero,.stats-grid>.stat,.level-card,.goal-card';
+ let gcur=null,gev=null,graf=0;const GSEL='.hero,.stats-grid>.stat,.level-card,.goal-card,.mist-tile';
  const gclear=c=>{['--mx','--my','--px','--py'].forEach(p=>c.style.removeProperty(p))};
  document.addEventListener('pointermove',e=>{
   if(reduce||e.pointerType!=='mouse')return;
@@ -1209,6 +1219,19 @@ const prcStrip=t=>{const k=t.startsWith('bcs_')?'bcs':(PRC_TYPE[t]?t:'def'),[c,h
    if(gcur.classList.contains('hero')){gcur.style.setProperty('--px',((x-.5)*2).toFixed(2));gcur.style.setProperty('--py',((y-.5)*2).toFixed(2))}});
  },{passive:true});
  document.addEventListener('pointerout',e=>{if(gcur&&(!e.relatedTarget||!(e.relatedTarget.closest&&gcur.contains(e.relatedTarget)))){gclear(gcur);gcur=null}},{passive:true});
+ /* Hero CTA: subtle magnetic pull (uses the individual `translate` property; reset on leave) */
+ let mcur=null,mraf=0,mev=null;
+ const mclear=b=>{b.style.removeProperty('--tx');b.style.removeProperty('--ty')};
+ document.addEventListener('pointermove',e=>{
+  if(reduce||e.pointerType!=='mouse')return;
+  const b=e.target.closest&&e.target.closest('.hero-actions .btn');
+  if(mcur&&mcur!==b){mclear(mcur);mcur=null}
+  if(!b)return;mcur=b;mev=e;
+  if(!mraf)mraf=requestAnimationFrame(()=>{mraf=0;if(!mcur||!mev||!mcur.isConnected)return;const r=mcur.getBoundingClientRect();
+   mcur.style.setProperty('--tx',Math.max(-5,Math.min(5,(mev.clientX-r.left-r.width/2)*.08)).toFixed(1)+'px');
+   mcur.style.setProperty('--ty',Math.max(-3,Math.min(3,(mev.clientY-r.top-r.height/2)*.12)).toFixed(1)+'px')});
+ },{passive:true});
+ document.addEventListener('pointerout',e=>{if(mcur&&(!e.relatedTarget||!(e.relatedTarget.closest&&e.relatedTarget.closest('.hero-actions .btn')===mcur))){mclear(mcur);mcur=null}},{passive:true});
  scan();
 })();
 

@@ -2628,3 +2628,20 @@ main>.page-heading:has(+.analytics-hero),.analytics-hero{animation:anRise .5s cu
 @media(max-width:860px){.hero2{grid-template-columns:1fr;border-radius:20px;padding:20px 16px}.hero2 p{max-width:none;font-size:13px}.h2-actions .h2-btn{flex:1 1 150px;justify-content:center}.h2-ring{width:80px;height:80px}.h2-ring:before{inset:8px}}
 @media(max-width:380px){.h2-chips{gap:6px}.h2-chip{padding:8px}}
 @media(prefers-reduced-motion:reduce){.hero2 *,.hero2{animation:none!important;transition:none!important}.h2-ring{--h2g:var(--goal)}.h2-dot{display:none}}
+
+
+/* ===== v2.47 · premium round red cursor ===== */
+html.vc-on,html.vc-on *{cursor:none!important}
+html.vc-on.vc-text input,html.vc-on.vc-text textarea,html.vc-on.vc-text [contenteditable=true]{cursor:text!important}
+.vc-dot,.vc-ring{position:fixed;left:0;top:0;z-index:2147483647;pointer-events:none;border-radius:50%;opacity:0;will-change:transform;transition:opacity .2s}
+html.vc-show .vc-dot,html.vc-show .vc-ring{opacity:1}
+html.vc-text .vc-dot,html.vc-text .vc-ring{opacity:0!important}
+.vc-dot{width:10px;height:10px;background:radial-gradient(circle at 35% 30%,#ff9aa2,#ff1f2d 55%,#a50c18);box-shadow:0 0 0 1.5px rgba(255,255,255,.55),0 0 14px rgba(255,31,45,.85),0 0 28px rgba(255,31,45,.4);
+ transition:opacity .2s,width .18s cubic-bezier(.2,.8,.2,1),height .18s cubic-bezier(.2,.8,.2,1)}
+.vc-ring{width:36px;height:36px;border:1.5px solid rgba(255,45,60,.75);background:radial-gradient(circle,rgba(255,31,45,.07),rgba(255,31,45,0) 70%);box-shadow:0 0 22px rgba(255,31,45,.25),inset 0 0 12px rgba(255,31,45,.12);
+ transition:opacity .2s,width .25s cubic-bezier(.2,.8,.2,1),height .25s cubic-bezier(.2,.8,.2,1),background .25s,border-color .25s}
+html.vc-hot .vc-ring{width:54px;height:54px;border-color:#ff4b58;background:radial-gradient(circle,rgba(255,31,45,.22),rgba(255,31,45,.04) 70%)}
+html.vc-hot .vc-dot{width:6px;height:6px}
+html.vc-down .vc-ring{width:26px;height:26px;background:rgba(255,31,45,.28)}
+html.vc-down .vc-dot{width:7px;height:7px}
+@media(prefers-reduced-motion:reduce){.vc-ring,.vc-dot{transition:opacity .01s}}

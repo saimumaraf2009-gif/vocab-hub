@@ -571,19 +571,19 @@ const HM_ART={
 function exploreGrid(s){
  const l=lvl(s.xp),act=Object.values(D.mist).filter(m=>!m.fixed).length,ms=missions(),msDone=ms.filter(m=>m[3]>=m[4]).length,unl=ACH.filter(([n])=>D.ach[n]).length,real=D.ses.filter(x=>x.mode!='mission'),exams=real.filter(x=>x.n>0).length;
  const tiles=[
-  {k:'practice',ic:'practice',t:'Smart practice',d:'MCQ, fill in the blanks, matching, flashcard — এক সেশনে মিশিয়ে, তোমার সেকশন ও লেভেল অনুযায়ী।',m:'6 modes',c:'#ff4d5a',cls:'w2'},
-  {k:'arcade',ic:'arcade',t:'Word arcade',d:'Memory flip, Hangman, Boss battle — খেলতে খেলতেই শব্দ শেখা।',m:GAME_MODES.length+' games',c:'#ffb84d',cls:'w2'},
-  {k:'levels',ic:'levels',t:'Difficulty journey',d:'Beginner থেকে Expert — ৫টি লেভেলের যেকোনোটি খোলা।',m:'5 levels',c:'#5cc8ff'},
-  {k:'lib',ic:'lib',t:'Vocabulary library',d:'আলাদা BCS Vocabulary-সহ সব সেকশনের শব্দ খোঁজো ও Word Profile দেখো।',m:W.length+' words',c:'#a78bfa'},
-  {k:'revision',ic:'revision',t:'Smart revision',d:'ভুলে যাওয়ার আগেই শব্দটা ফিরিয়ে আনো।',m:s.due+' due today',c:'#4fe0a0'},
-  {k:'mistakes',ic:'mistakes',t:'Mistakes',d:'ভুল শব্দ জমে; পরপর ৩ বার ঠিক হলেই Recovered।',m:act+' to fix',c:'#ff6b7d'},
-  {k:'missions',ic:'missions',t:'Missions',d:'দৈনিক ও সাপ্তাহিক কুইস্ট, জেতো বোনাস XP।',m:msDone+'/'+ms.length+' complete',c:'#ffb84d'},
-  {k:'achievements',ic:'achievements',t:'Achievements',d:'মাইলস্টোন আনলক করে নিজের কালেকশন সাজাও।',m:unl+'/'+ACH.length+' unlocked',c:'#ff7ac8'},
-  {k:'analytics',ic:'analytics',t:'Analytics',d:'XP, accuracy আর স্ট্রিক — গ্রাফে নিজের উন্নতি দেখো।',m:real.length+' sessions',c:'#5cc8ff'},
-  {k:'history',ic:'history',t:'Exam history',d:'প্রতিটি পরীক্ষা ও গেমের ফল এক জায়গায়।',m:exams+' exams',c:'#a78bfa'},
-  {k:'leaderboard',ic:'trophy',t:'Leaderboard',d:'XP র‍্যাংকিংয়ে নিজের জায়গা দেখো।',m:s.xp+' XP',c:'#ffb84d',cls:'w2d'},
-  {k:'profile',ic:'profile',t:'Your profile',d:'লেভেল, ছবি আর পুরো অগ্রগতি এক পাতায়।',m:'Lv '+(l.i+1)+' · '+l.name,c:'#4fe0a0',cls:'w2d'}];
- return`<div class="section-head"><div><span class="eyebrow">EVERYTHING IN ONE PLACE</span><h2>VocabHub-এর প্রতিটি ট্যাব, এক নজরে</h2></div><span class="soft-pill">${tiles.length} sections</span></div><div class="promo-bento">${tiles.map(p=>`<a class="promo-tile has-art ${p.cls||''}" href="#${p.k}" style="--pc:${p.c};--gc:${p.c}">${HM_ART[p.k]?`<div class="arc-stage hm-stage">${HM_ART[p.k]()}</div>`:''}<span class="pt-top"><span class="pt-ic">${ico(p.ic)}</span><span class="pt-metric">${esc(p.m)}</span></span><b>${p.t}</b><p class="bn">${p.d}</p><span class="pt-go">Open ↗</span></a>`).join('')}</div>`}
+  {k:'practice',ic:'practice',t:'Smart practice',d:'MCQ, fill in the blanks, matching and flashcards, blended into one session by your section and level.',m:'6 modes',c:'#ff4d5a',cls:'w2'},
+  {k:'arcade',ic:'arcade',t:'Word arcade',d:'Memory flip, Hangman and Boss battle. Learn words while you play.',m:GAME_MODES.length+' games',c:'#ffb84d',cls:'w2'},
+  {k:'levels',ic:'levels',t:'Difficulty journey',d:'From Beginner to Expert. All five levels are open.',m:'5 levels',c:'#5cc8ff'},
+  {k:'lib',ic:'lib',t:'Vocabulary library',d:'Search words from every section, including BCS Vocabulary, and open each Word Profile.',m:W.length+' words',c:'#a78bfa'},
+  {k:'revision',ic:'revision',t:'Smart revision',d:'Bring a word back just before you forget it.',m:s.due+' due today',c:'#4fe0a0'},
+  {k:'mistakes',ic:'mistakes',t:'Mistakes',d:'Wrong words collect here. Get one right 3 times in a row to recover it.',m:act+' to fix',c:'#ff6b7d'},
+  {k:'missions',ic:'missions',t:'Missions',d:'Daily and weekly quests that earn you bonus XP.',m:msDone+'/'+ms.length+' complete',c:'#ffb84d'},
+  {k:'achievements',ic:'achievements',t:'Achievements',d:'Unlock milestones and build your badge collection.',m:unl+'/'+ACH.length+' unlocked',c:'#ff7ac8'},
+  {k:'analytics',ic:'analytics',t:'Analytics',d:'XP, accuracy and streaks. See your progress in charts.',m:real.length+' sessions',c:'#5cc8ff'},
+  {k:'history',ic:'history',t:'Exam history',d:'Every exam and game result in one place.',m:exams+' exams',c:'#a78bfa'},
+  {k:'leaderboard',ic:'trophy',t:'Leaderboard',d:'See where you stand in the XP rankings.',m:s.xp+' XP',c:'#ffb84d',cls:'w2d'},
+  {k:'profile',ic:'profile',t:'Your profile',d:'Your level, photo and full progress on one page.',m:'Lv '+(l.i+1)+' · '+l.name,c:'#4fe0a0',cls:'w2d'}];
+ return`<div class="section-head"><div><span class="eyebrow">EVERYTHING IN ONE PLACE</span><h2>Every VocabHub tab, at a glance</h2></div><span class="soft-pill">${tiles.length} sections</span></div><div class="promo-bento">${tiles.map(p=>`<a class="promo-tile has-art ${p.cls||''}" href="#${p.k}" style="--pc:${p.c};--gc:${p.c}">${HM_ART[p.k]?`<div class="arc-stage hm-stage">${HM_ART[p.k]()}</div>`:''}<span class="pt-top"><span class="pt-ic">${ico(p.ic)}</span><span class="pt-metric">${esc(p.m)}</span></span><b>${p.t}</b><p>${p.d}</p><span class="pt-go">Open ↗</span></a>`).join('')}</div>`}
 V.dash=()=>{const s=st(),l=lvl(s.xp),g=Math.min(100,Math.round(s.todayC/D.goal*100)),wod=wordOfDay(),cats=[...new Set(W.flatMap(w=>w.sections||[]))].map(cat=>({cat,n:W.filter(w=>(w.sections||[]).includes(cat)).length})).sort((a,b)=>b.n-a.n).slice(0,6);
  return`<section class="hero2"><span class="h2-blob h2-b1" aria-hidden="true"></span><span class="h2-blob h2-b2" aria-hidden="true"></span><span class="h2-grid" aria-hidden="true"></span>${[1,2,3,4,5,6].map(n=>`<i class="h2-dot h2-d${n}" aria-hidden="true"></i>`).join('')}
    <div class="h2-copy"><span class="h2-eyebrow">${(()=>{const h=new Date().getHours(),g=h<5?'LATE NIGHT':h<12?'GOOD MORNING':h<17?'GOOD AFTERNOON':'GOOD EVENING',n=(D.name||'').trim().split(/\s+/)[0];return esc(g+(n&&n!=='Learner'?', '+n.toUpperCase():''))})()}</span>
@@ -1277,3 +1277,28 @@ save();
 render();
 // Hosted deployments can fetch the project-root vocabulary.json; offline and file:// use the embedded fallback.
 syncRemoteVocabulary({silent:true});
+
+
+/* ---------- v2.47 · premium round red cursor (fine pointers only) ---------- */
+(()=>{if(!window.matchMedia||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
+ const root=document.documentElement,dot=document.createElement('div'),ring=document.createElement('div');
+ dot.className='vc-dot';ring.className='vc-ring';dot.setAttribute('aria-hidden','true');ring.setAttribute('aria-hidden','true');
+ document.body.append(ring,dot);root.classList.add('vc-on');
+ let x=innerWidth/2,y=innerHeight/2,rx=x,ry=y,shown=false,raf=0;
+ const HOT='a,button,[onclick],[role=button],label,select,summary,.btn,.card[href],.promo-tile,.arc-card,.prc-type-card,input[type=checkbox],input[type=radio],input[type=range],input[type=file]';
+ const TXT='input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]):not([type=button]),textarea,[contenteditable=true]';
+ const loop=()=>{rx+=(x-rx)*.18;ry+=(y-ry)*.18;ring.style.transform=`translate3d(${rx}px,${ry}px,0) translate(-50%,-50%)`;
+  if(Math.abs(x-rx)>.1||Math.abs(y-ry)>.1)raf=requestAnimationFrame(loop);else raf=0};
+ addEventListener('pointermove',e=>{if(e.pointerType&&e.pointerType!=='mouse')return;x=e.clientX;y=e.clientY;
+  dot.style.transform=`translate3d(${x}px,${y}px,0) translate(-50%,-50%)`;
+  if(!shown){shown=true;rx=x;ry=y;root.classList.add('vc-show')}
+  const t=e.target.closest?e.target:null;
+  root.classList.toggle('vc-text',!!(t&&t.closest(TXT)));
+  root.classList.toggle('vc-hot',!!(t&&t.closest(HOT)));
+  if(!raf)raf=requestAnimationFrame(loop)},{passive:true});
+ addEventListener('pointerdown',()=>root.classList.add('vc-down'),{passive:true});
+ addEventListener('pointerup',()=>root.classList.remove('vc-down'),{passive:true});
+ document.addEventListener('mouseleave',()=>root.classList.remove('vc-show'));
+ document.addEventListener('mouseenter',()=>{if(shown)root.classList.add('vc-show')});
+ addEventListener('blur',()=>root.classList.remove('vc-down'));
+})();

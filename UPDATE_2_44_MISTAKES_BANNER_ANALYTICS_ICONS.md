@@ -1,0 +1,5 @@
+# v2.44
+- Practice studio: the "words to fix" banner is now a highlighted "mistakes exam" card with a clear Bengali explanation (only previously-wrong words appear; 3 correct in a row = Recovered), two small chips, an animated icon and a "ভুলের এক্সাম দাও ↗" button. Empty state (no mistakes) shows a green "all clear" version.
+- Analytics: metric icons were invisible. Cause: `.stats-grid>.stat:not(.hm-in) *{animation-play-state:paused}` (homepage reveal rule) kept the icon pop-in animation paused at opacity 0 on every non-home page. Rule is now scoped to `.hm-rv` items (only the homepage scan adds that class).
+- Analytics: 14 custom animated icons (clock hand, drawing check, bullseye, stopwatch, writing pencil, tilting books, calendar dots, swinging medal, growing bars, week dots, trophy shine, bolt, spinning revision arrows) + animated hero chart icon. Hover speeds them up; reduced-motion = static.
+- Files: script.js (AN_ICO/AN_COL/AN_HERO, stat(), V.practice banner), style.css (end of file + one rule fix).

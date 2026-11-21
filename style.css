@@ -2182,7 +2182,7 @@ main>.page-heading:has(+.analytics-hero),.analytics-hero{animation:anRise .5s cu
 }
 .stats-grid>.stat b{display:inline-block;transform-origin:left center;transition:transform .22s cubic-bezier(.2,.8,.2,1)}
 .level-mark,.goal-ring{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
-.stats-grid>.stat:not(.hm-in) *,.level-card:not(.hm-in) *:after,.goal-card:not(.hm-in) *:after{animation-play-state:paused}
+.stats-grid>.stat.hm-rv:not(.hm-in) *,.level-card.hm-rv:not(.hm-in) *:after,.goal-card.hm-rv:not(.hm-in) *:after{animation-play-state:paused}
 
 @media(prefers-reduced-motion:reduce){
  .hero-copy.hm-in .hero-actions .btn,.hero-copy.hm-in .hero-proof span,.stat.hm-in .stat-icon:after,
@@ -2460,4 +2460,95 @@ main>.page-heading:has(+.analytics-hero),.analytics-hero{animation:anRise .5s cu
 @media(prefers-reduced-motion:reduce){
  .snap-stats .stat-icon,.snap-stats .sn-ic *{animation:none!important}
  .sn-ck{stroke-dashoffset:0}.sn-pg,.sn-sp{opacity:0}
+}
+
+/* ===== v2.44 · Analytics animated metric icons + Mistakes exam banner ===== */
+.an-stat .stat-icon{width:38px;height:38px;margin-bottom:10px;border-radius:13px;color:var(--c);overflow:visible;
+ background:linear-gradient(145deg,color-mix(in srgb,var(--c) 28%,transparent),color-mix(in srgb,var(--c) 8%,transparent));
+ border:1px solid color-mix(in srgb,var(--c) 42%,transparent);
+ box-shadow:0 6px 18px color-mix(in srgb,var(--c) 22%,transparent),inset 0 1px 0 rgba(255,255,255,.14);
+ animation:anIcon .55s cubic-bezier(.2,.8,.2,1) .25s both,snGlow 3.6s ease-in-out .9s infinite}
+.an-stat .stat-icon:after{border-color:var(--c)}
+.an-stat .stat-icon .ic{width:23px;height:23px;stroke-width:1.7;overflow:visible}
+.an-ic *{transform-box:fill-box;transform-origin:50% 50%}
+.analytics-hero-mark .an-ic{width:30px;height:30px;overflow:visible;color:var(--ac2)}
+@keyframes aiPulse{0%,100%{opacity:1}50%{opacity:.45}}
+@keyframes aiSpin{to{transform:rotate(360deg)}}
+@keyframes aiDraw{0%,10%{stroke-dashoffset:1}45%,85%{stroke-dashoffset:0}100%{stroke-dashoffset:1}}
+@keyframes aiBar{0%,100%{transform:scaleY(.35)}45%,70%{transform:scaleY(1)}}
+.an-ic .ai-draw,.an-ic .ai-line{stroke-dasharray:1;stroke-dashoffset:1;animation:aiDraw 3.2s ease-in-out infinite}
+/* sessions: clock hand sweeps */
+.ai-hand{transform-box:view-box!important;transform-origin:12px 12px;animation:aiSpin 6s linear infinite}
+.ai-sess .ai-pulse,.ai-corr .ai-pulse{animation:aiPulse 3.2s ease-in-out infinite}
+/* accuracy: bullseye */
+.ai-ring{animation:aiRing 2.4s ease-in-out infinite}.ai-dot{animation:aiDot 2.4s ease-in-out infinite}
+@keyframes aiRing{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.7);opacity:.55}}
+@keyframes aiDot{0%,100%{transform:scale(1)}50%{transform:scale(1.55)}}
+/* stopwatch */
+.ai-hand2{transform-box:view-box!important;transform-origin:12px 13.5px;animation:aiSpin 4s steps(24) infinite}
+/* pencil writing */
+.ai-pen{transform-origin:20% 90%;animation:aiPen 2.4s ease-in-out infinite}
+@keyframes aiPen{0%,100%{transform:translate(-1px,0) rotate(-3deg)}50%{transform:translate(2px,1px) rotate(4deg)}}
+/* books */
+.ai-bk{animation:aiBk 3s ease-in-out infinite}
+@keyframes aiBk{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+.ai-tilt{transform-origin:0% 100%;animation:aiTilt 3s ease-in-out infinite}
+@keyframes aiTilt{0%,100%{transform:rotate(0)}50%{transform:rotate(-10deg)}}
+/* calendar dots */
+.ai-d1,.ai-d2,.ai-d3{animation:aiBlink 2.4s ease-in-out infinite}.ai-d2{animation-delay:.3s}.ai-d3{animation-delay:.6s}
+@keyframes aiBlink{0%,100%{opacity:.25;transform:scale(.8)}40%{opacity:1;transform:scale(1.25)}}
+/* medal */
+.ai-medal{animation:aiSwing 3.4s ease-in-out infinite;transform-origin:50% 0}
+@keyframes aiSwing{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+.ai-star{animation:aiStar 2.6s ease-in-out infinite}
+@keyframes aiStar{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.35) rotate(36deg)}}
+/* bars */
+.ai-b1,.ai-b2,.ai-b3,.ai-b4{transform-origin:50% 100%;animation:aiBar 2.8s ease-in-out infinite}
+.ai-b2{animation-delay:.2s}.ai-b3{animation-delay:.4s}.ai-b4{animation-delay:.6s}
+/* week dots */
+.ai-p1,.ai-p2,.ai-p3,.ai-p4,.ai-p5,.ai-p6,.ai-p7{animation:aiBlink 2.8s ease-in-out infinite}
+.ai-p2{animation-delay:.15s}.ai-p3{animation-delay:.3s}.ai-p4{animation-delay:.45s}.ai-p5{animation-delay:.6s}.ai-p6{animation-delay:.75s}.ai-p7{animation-delay:.9s}
+/* trophy */
+.ai-cup{animation:aiBob 2.8s ease-in-out infinite}
+@keyframes aiBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-1px)}}
+.ai-shine{animation:aiShine 2.8s ease-in-out infinite}
+@keyframes aiShine{0%,100%{opacity:0;transform:translateX(0)}30%{opacity:.9}70%{opacity:.9;transform:translateX(4px)}}
+.ai-sp{animation:aiSp 2.2s ease-in-out infinite}
+@keyframes aiSp{0%,100%{opacity:0;transform:scale(.4) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+/* bolt */
+.ai-bolt{animation:aiBolt 1.8s ease-in-out infinite}
+@keyframes aiBolt{0%,100%{transform:scale(1);opacity:1}45%{transform:scale(1.14) rotate(-4deg)}55%{opacity:.6}70%{transform:scale(.96)}}
+/* revision */
+.ai-spin{animation:aiSpin 5s cubic-bezier(.6,0,.3,1) infinite}
+.an-stat:hover .ai-hand,.an-stat:hover .ai-hand2{animation-duration:1.4s}
+.an-stat:hover .ai-spin{animation-duration:1.8s}
+.an-stat:hover .ai-b1,.an-stat:hover .ai-b2,.an-stat:hover .ai-b3,.an-stat:hover .ai-bolt{animation-duration:1.2s}
+
+/* ---- Practice · mistakes exam banner ---- */
+.mist-banner-v2{--mc:#ff6b7d;display:grid!important;grid-template-columns:auto 1fr auto;align-items:center;gap:16px!important;padding:18px 20px!important;border-radius:18px;
+ background:radial-gradient(120% 140% at 0% 0%,color-mix(in srgb,var(--mc) 22%,var(--card)),var(--card) 62%);
+ border:1px solid color-mix(in srgb,var(--mc) 48%,var(--bd))!important;box-shadow:0 0 0 1px color-mix(in srgb,var(--mc) 14%,transparent),0 12px 32px color-mix(in srgb,var(--mc) 16%,transparent);animation:mbGlow 3.4s ease-in-out infinite}
+@keyframes mbGlow{0%,100%{box-shadow:0 0 0 1px color-mix(in srgb,var(--mc) 14%,transparent),0 10px 26px color-mix(in srgb,var(--mc) 12%,transparent)}50%{box-shadow:0 0 0 1px color-mix(in srgb,var(--mc) 32%,transparent),0 14px 38px color-mix(in srgb,var(--mc) 26%,transparent)}}
+.mist-banner-v2 .mb-ic{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;color:var(--mc);background:linear-gradient(145deg,color-mix(in srgb,var(--mc) 30%,transparent),color-mix(in srgb,var(--mc) 8%,transparent));border:1px solid color-mix(in srgb,var(--mc) 50%,transparent)}
+.mist-banner-v2 .mb-ic svg{width:32px;height:32px;overflow:visible;stroke-width:1.7}
+.mb-svg *{transform-box:fill-box;transform-origin:50% 50%}
+.mb-spin{transform-box:view-box!important;transform-origin:12px 12px;animation:aiSpin 5s linear infinite}
+.mb-orb{animation:aiPulse 2.4s ease-in-out infinite}
+.mb-ex,.mb-exd{animation:mbEx 1.6s ease-in-out infinite}
+@keyframes mbEx{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+.mist-banner-v2 .mb-copy{min-width:0;display:flex;flex-direction:column;gap:4px}
+.mist-banner-v2 .mb-eyebrow{font-size:12px;font-weight:800;letter-spacing:.02em;color:var(--mc)}
+.mist-banner-v2 .mb-copy b{font-size:18px;line-height:1.3;letter-spacing:-.01em}
+.mist-banner-v2 .mb-copy small{font-size:13px;line-height:1.65;opacity:.85;max-width:60ch}
+.mb-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
+.mb-chips i{font-style:normal;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:99px;color:var(--mc);background:color-mix(in srgb,var(--mc) 14%,transparent);border:1px solid color-mix(in srgb,var(--mc) 34%,transparent)}
+.mb-cta{white-space:nowrap;font-weight:800;font-size:13.5px;padding:11px 16px;border-radius:13px;color:#fff;background:linear-gradient(135deg,var(--mc),color-mix(in srgb,var(--mc) 62%,#7a1030));box-shadow:0 8px 20px color-mix(in srgb,var(--mc) 32%,transparent);display:inline-flex;gap:6px;align-items:center;transition:transform .2s}
+.mb-cta em{font-style:normal;display:inline-block;animation:mbNudge 1.6s ease-in-out infinite}
+@keyframes mbNudge{0%,100%{transform:translate(0,0)}50%{transform:translate(2px,-2px)}}
+@media(hover:hover){.mist-banner-v2:hover .mb-cta{transform:translateX(3px)}}
+.mist-banner-v2.is-clear{--mc:#4fe0a0;animation:none;grid-template-columns:auto 1fr}
+@media(max-width:640px){.mist-banner-v2{grid-template-columns:auto 1fr;padding:15px!important;gap:12px!important}.mb-cta{grid-column:1/-1;justify-content:center}.mist-banner-v2 .mb-ic{width:46px;height:46px}.mist-banner-v2 .mb-copy b{font-size:16px}.an-stat .stat-icon{width:34px;height:34px}}
+@media(prefers-reduced-motion:reduce){
+ .an-stat .stat-icon,.an-ic *,.mist-banner-v2,.mb-svg *,.mb-cta em{animation:none!important}
+ .an-ic .ai-draw,.an-ic .ai-line{stroke-dashoffset:0}.ai-shine,.ai-sp{opacity:0}
 }

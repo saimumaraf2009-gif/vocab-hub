@@ -2675,3 +2675,25 @@ html.vc-down .vc-dot{width:7px;height:7px}
 @keyframes rhSweep{0%,55%{left:-35%}100%{left:130%}}
 @media(prefers-reduced-motion:reduce){.rhythm-card *,.rhythm-card:before{animation:none!important}.rhythm-card .xp-line{stroke-dasharray:none}}
 .level-choices .count-choice b{font-size:11.5px;letter-spacing:-.025em}
+
+
+/* v2.49 · Compact Mistakes snapshot cards on mobile */
+@media (max-width: 640px) {
+  .mist-tiles { gap: 10px; }
+  .mist-tile { border-radius: 15px; }
+  .mist-tile .mst-stage { height: 58px; }
+  .mist-tile .mst-art { width: 100px; height: 58px; transform: scale(.78); transform-origin: center; }
+  .mst-tag { top: 7px; left: 8px; font-size: 7px; padding: 2px 6px; }
+  .mst-body { padding: 8px 11px 10px; }
+  .mst-body .stat-icon { top: -14px; right: 9px; }
+  .mst-body b { font-size: 22px; margin-bottom: 2px; }
+  .mist-tile .stat-label { font-size: 11px; line-height: 1.25; }
+}
+@media (max-width: 380px) {
+  .mist-tiles { gap: 8px; }
+  .mist-tile .mst-stage { height: 52px; }
+  .mist-tile .mst-art { transform: scale(.7); }
+  .mst-body { padding: 7px 9px 9px; }
+  .mst-body b { font-size: 20px; }
+  .mist-tile .stat-label { font-size: 10px; }
+}

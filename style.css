@@ -2677,23 +2677,28 @@ html.vc-down .vc-dot{width:7px;height:7px}
 .level-choices .count-choice b{font-size:11.5px;letter-spacing:-.025em}
 
 
-/* v2.49 · Compact Mistakes snapshot cards on mobile */
-@media (max-width: 640px) {
-  .mist-tiles { gap: 10px; }
-  .mist-tile { border-radius: 15px; }
-  .mist-tile .mst-stage { height: 58px; }
-  .mist-tile .mst-art { width: 100px; height: 58px; transform: scale(.78); transform-origin: center; }
-  .mst-tag { top: 7px; left: 8px; font-size: 7px; padding: 2px 6px; }
-  .mst-body { padding: 8px 11px 10px; }
-  .mst-body .stat-icon { top: -14px; right: 9px; }
-  .mst-body b { font-size: 22px; margin-bottom: 2px; }
-  .mist-tile .stat-label { font-size: 11px; line-height: 1.25; }
+/* v2.50 · Mistakes page copy cleanup + compact mobile snapshot */
+.mist-heading>div>h1{margin-bottom:0}
+.mistake-exam-card .exam-copy h2{margin-bottom:0}
+@media(max-width:600px){
+ .mist-overview .mist-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .mist-tiles .mist-tile{min-width:0;border-radius:15px}
+ .mist-tiles .mist-tile .mst-stage{height:62px;min-height:62px}
+ .mist-tiles .mst-art{transform:scale(.72);transform-origin:center center}
+ .mist-tiles .mst-tag{top:7px;left:8px;font-size:7px;padding:2px 6px}
+ .mist-tiles .mst-body{padding:8px 11px 10px}
+ .mist-tiles .mst-body .stat-icon{top:-13px;right:9px;width:25px;height:25px}
+ .mist-tiles .mst-body b{font-size:22px;line-height:1.15;margin-bottom:2px}
+ .mist-tiles .mist-tile .stat-label{font-size:10px;line-height:1.25}
+ .mist-heading{gap:12px}
+ .mist-heading>div{min-width:0}
+ .mistake-exam-card .exam-copy h2{line-height:1.2}
 }
-@media (max-width: 380px) {
-  .mist-tiles { gap: 8px; }
-  .mist-tile .mst-stage { height: 52px; }
-  .mist-tile .mst-art { transform: scale(.7); }
-  .mst-body { padding: 7px 9px 9px; }
-  .mst-body b { font-size: 20px; }
-  .mist-tile .stat-label { font-size: 10px; }
+@media(max-width:380px){
+ .mist-overview .mist-tiles{gap:7px}
+ .mist-tiles .mist-tile .mst-stage{height:54px;min-height:54px}
+ .mist-tiles .mst-art{transform:scale(.64)}
+ .mist-tiles .mst-body{padding:7px 9px 9px}
+ .mist-tiles .mst-body b{font-size:20px}
+ .mist-tiles .mist-tile .stat-label{font-size:9px}
 }

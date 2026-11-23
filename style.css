@@ -2864,21 +2864,21 @@ html.vh-intro,html.vh-intro body{overflow:hidden}
 @keyframes vsLogo{from{opacity:0;transform:scale(.4) rotate(-14deg)}to{opacity:1;transform:none}}
 @keyframes vsDraw{to{stroke-dashoffset:0}}
 .vs-name{display:flex;justify-content:center;font-size:clamp(40px,11vw,68px);font-weight:900;letter-spacing:-.045em;line-height:1;perspective:600px}
-.vs-name span{display:inline-block;opacity:0;transform:translateY(55%) rotateX(-75deg);transform-origin:50% 100%;animation:vsLetter .65s cubic-bezier(.2,.8,.2,1) calc(.6s + var(--i)*.07s) forwards}
+.vs-name span{display:inline-block;opacity:0;transform:translateY(55%) rotateX(-75deg);transform-origin:50% 100%;animation:vsLetter .65s cubic-bezier(.2,.8,.2,1) calc(.45s + var(--i)*.055s) forwards}
 .vs-name .vs-hub{background:linear-gradient(180deg,#ff6b75,#ff1f2d);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
 @keyframes vsLetter{to{opacity:1;transform:none}}
-.vs-tag{margin:0;font-size:clamp(12px,3.2vw,15px);font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.72);opacity:0;animation:vsUp .7s ease 1.3s forwards}
+.vs-tag{margin:0;font-size:clamp(12px,3.2vw,15px);font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.72);opacity:0;animation:vsUp .6s ease .95s forwards}
 .vs-tag i{font-style:normal;color:#ff4b58;margin:0 .35em}
 .vs-card{display:flex;align-items:center;justify-content:center;gap:10px;min-width:min(86vw,320px);max-width:92vw;min-height:50px;padding:10px 18px;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);opacity:0;animation:vsUp .6s ease 1.55s forwards;margin-top:4px}
 .vs-card b{font-size:17px;font-weight:800;letter-spacing:-.01em}.vs-card i{font-style:normal;color:#ff4b58;font-weight:900}
 .vs-card span{font-family:'Hind Siliguri','Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:600;color:#ffb0b6}
 .vs-card.on b{animation:vsPop .45s cubic-bezier(.2,.8,.2,1) both}.vs-card.on i{animation:vsPop .3s ease .2s both}.vs-card.on span{animation:vsPop .45s cubic-bezier(.2,.8,.2,1) .32s both}
 @keyframes vsPop{from{opacity:0;transform:translateY(8px) scale(.94)}to{opacity:1;transform:none}}
-.vs-by{margin:6px 0 0;font-size:12.5px;line-height:1.6;color:rgba(255,255,255,.55);opacity:0;animation:vsUp .7s ease 2.1s forwards}
+.vs-by{margin:6px 0 0;font-size:12.5px;line-height:1.6;color:rgba(255,255,255,.55);opacity:0;animation:vsUp .6s ease 1.3s forwards}
 .vs-by b{color:rgba(255,255,255,.88);font-weight:700}
 @keyframes vsUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .vs-bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.08)}
-.vs-bar i{display:block;height:100%;transform-origin:left;background:linear-gradient(90deg,#ff2a3a,#ffb0b6);animation:vsBar 4.2s linear forwards}
+.vs-bar i{display:block;height:100%;transform-origin:left;background:linear-gradient(90deg,#ff2a3a,#ffb0b6);animation:vsBar 2.8s linear forwards}
 @keyframes vsBar{from{transform:scaleX(0)}to{transform:none}}
 .vs-skip{position:absolute;top:calc(14px + env(safe-area-inset-top));right:14px;z-index:2;min-height:40px;padding:8px 16px;border-radius:99px;font:inherit;font-size:13px;font-weight:800;color:rgba(255,255,255,.85);cursor:pointer;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);-webkit-tap-highlight-color:transparent}
 .vs-skip:focus-visible{outline:2px solid #fff;outline-offset:2px}
@@ -2922,3 +2922,72 @@ html.vh-intro,html.vh-intro body{overflow:hidden}
  .h2-ticker{padding:9px 0}.h2-tk{font-size:12.5px}
 }
 @media(prefers-reduced-motion:reduce){.h2-track{animation:none!important;transform:none}.h2-ticker{overflow-x:auto}.h2-logo:after{display:none}}
+
+/* ===== v2.56 — VocabHub hero: Living Vocabulary Studio ===== */
+.hero2{grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);grid-template-areas:"copy stage" "copy strip" "tick tick" "by by";align-items:center}
+.h2-copy{grid-area:copy}.h2-stage{grid-area:stage}.h2-strip{grid-area:strip}.h2-ticker{grid-area:tick}.h2-by{grid-area:by}
+.h2-mob{display:none}.h2-desk{display:inline}
+.hero2 h1 .h2-desk>span,.hero2 h1 .h2-mob>span{display:inline}
+.h2-eyebrow{color:#ff7983}
+.h2-sec{background:rgba(255,255,255,.07)}
+.h2-sec .h2-arr{transition:transform .2s}
+@media(hover:hover){.h2-sec:hover .h2-arr{transform:translateX(3px)}}
+/* floating words (desktop only) */
+.h2-fw{position:absolute;z-index:-1;pointer-events:none;font-weight:800;font-style:italic;letter-spacing:-.02em;color:#fff;opacity:0;white-space:nowrap;font-size:clamp(15px,1.6vw,22px);animation:h2Fw 11s ease-in-out infinite}
+.h2-fw1{left:4%;bottom:14%}.h2-fw2{left:34%;top:7%;animation-delay:2.2s}.h2-fw3{left:52%;bottom:20%;animation-delay:4.4s;color:#ff7983}.h2-fw4{left:20%;bottom:6%;animation-delay:6.6s}.h2-fw5{left:44%;top:30%;animation-delay:8.8s;color:#ff7983}
+@keyframes h2Fw{0%{opacity:0;transform:translateY(14px)}25%,60%{opacity:.14}100%{opacity:0;transform:translateY(-22px)}}
+/* word card + peeking cards */
+.h2-stage{position:relative;min-width:0;padding:0 0 26px;margin-top:6px}
+.h2-peek{position:absolute;left:0;right:0;border-radius:22px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.025));pointer-events:none;overflow:hidden}
+.h2-peek b{position:absolute;left:22px;bottom:7px;font-size:13px;font-weight:800;color:rgba(255,255,255,.4)}
+.h2-peek1{top:0;bottom:0;transform:translateY(13px) scale(.955);opacity:.85}
+.h2-peek2{top:0;bottom:0;transform:translateY(26px) scale(.91);opacity:.5}
+.h2-peek2 b{display:none}
+.h2-wcard{position:relative;z-index:1;display:flex;flex-direction:column;gap:6px;padding:clamp(16px,2.4vw,22px);border-radius:22px;border:1px solid rgba(255,255,255,.18);background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.04));box-shadow:0 24px 60px rgba(0,0,0,.45),0 0 0 1px rgba(255,31,45,.12) inset;color:#fff;overflow:hidden}
+.h2-wcard:before{content:"";position:absolute;right:-30%;top:-40%;width:70%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,31,45,.3),rgba(255,31,45,0) 65%);pointer-events:none}
+.h2-wc-head{display:flex;justify-content:space-between;align-items:center;gap:10px;position:relative}
+.h2-wc-head span{font-size:10px;font-weight:850;letter-spacing:.16em;color:#ff7983}.h2-wc-head b{font-size:10px;font-weight:800;letter-spacing:.12em;color:rgba(255,255,255,.55)}
+.h2-wc-body{position:relative;display:flex;flex-direction:column;gap:2px;margin-top:8px}
+.h2-wc-en{margin:0;font-size:clamp(30px,3.6vw,44px);font-weight:900;letter-spacing:-.04em;line-height:1.05;color:#fff;overflow-wrap:anywhere}
+.h2-wc-ipa{margin:2px 0 0!important;font-size:13px!important;color:rgba(255,255,255,.62)!important}
+.h2-wc-bn{margin:8px 0 0!important;font-family:'Hind Siliguri','Plus Jakarta Sans',sans-serif;font-size:clamp(22px,2.6vw,30px)!important;font-weight:700;line-height:1.25!important;color:#ffb0b6!important;max-width:none!important;overflow-wrap:anywhere}
+.h2-wc-note{margin:4px 0 0!important;font-size:12px!important;color:rgba(255,255,255,.5)!important}
+.h2-wc-foot{display:flex;gap:8px;margin-top:10px;position:relative}
+.h2-wc-btn{-webkit-appearance:none;appearance:none;font-family:inherit;font-size:12.5px;font-weight:800;line-height:1.2;min-height:40px;padding:9px 14px;border-radius:12px;color:#fff;cursor:pointer;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);transition:transform .18s,background .2s,border-color .2s}
+.h2-wc-btn:first-child{flex:1;border-color:transparent;background:linear-gradient(135deg,#ff2a3a,#c3101f)}
+.h2-wc-btn span{display:inline-block;transition:transform .2s}
+.h2-wc-btn:active{transform:scale(.96)}.h2-wc-btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@media(hover:hover){.h2-wc-btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.45)}.h2-wc-btn:first-child:hover span{transform:translate(2px,-2px)}}
+.h2-swap .h2-wcard{animation:h2Card .5s cubic-bezier(.2,.8,.2,1) both}
+.h2-swap .h2-wc-body{animation:h2Word .55s cubic-bezier(.2,.8,.2,1) .05s both}
+@keyframes h2Card{from{transform:translateY(10px) scale(.985);opacity:.6}to{transform:none;opacity:1}}
+@keyframes h2Word{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.h2-stage:not(.h2-swap){animation:h2In .8s cubic-bezier(.2,.8,.2,1) .2s both}
+/* compact progress strip */
+.h2-strip{min-width:0;padding:12px 14px 13px;border-radius:18px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);animation:h2In .8s cubic-bezier(.2,.8,.2,1) .3s both}
+.h2-strip-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.h2-strip-head span{font-size:11.5px;font-weight:800;letter-spacing:.04em;color:rgba(255,255,255,.78);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.h2-strip-head a{font-size:11.5px;font-weight:800;color:#ff9aa2;text-decoration:none;flex:none}
+.h2-strip .h2-chips{margin:0 0 10px}
+.h2-chip-btn{-webkit-appearance:none;appearance:none;font-family:inherit;color:inherit;text-align:left;cursor:pointer;border:1px solid rgba(255,90,98,.45)}
+.h2-gline{display:flex;align-items:center;gap:10px}.h2-gline small{flex:none;font-size:11px;color:rgba(255,255,255,.62)}.h2-gline .h2-bar{flex:1;min-width:0;height:6px}
+/* tablet */
+@media(max-width:900px){
+ .hero2{grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "stage" "strip" "tick" "by"}
+ .h2-stage{max-width:520px}.h2-strip{max-width:520px}
+ .h2-fw{display:none}
+}
+/* mobile: dedicated order — brand, eyebrow, headline, text, full-width CTA, word card, progress */
+@media(max-width:700px){
+ .h2-desk{display:none}.h2-mob{display:inline}
+ .hero2 h1 .h2-mob>span{display:block}
+ .h2-eyebrow{letter-spacing:.14em}
+ .h2-actions{grid-template-columns:minmax(0,1fr);gap:4px}
+ .h2-sec{background:transparent;border-color:transparent;box-shadow:none;min-height:40px;color:#ffb0b6;font-size:13.5px;padding:8px 10px}
+ .h2-stage{max-width:none;padding-bottom:22px}
+ .h2-strip{max-width:none;padding:11px 12px}
+ .h2-wc-en{font-size:34px}.h2-wc-bn{font-size:24px!important}
+ .h2-peek b{font-size:12px}
+}
+@media(max-width:380px){.h2-wc-btn{font-size:12px;padding:9px 10px}.h2-gline small{font-size:10.5px}}
+@media(prefers-reduced-motion:reduce){.h2-fw{display:none}.h2-swap .h2-wcard,.h2-swap .h2-wc-body,.h2-stage,.h2-strip{animation:none!important}}

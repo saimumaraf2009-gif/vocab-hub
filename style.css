@@ -2775,3 +2775,64 @@ main>.page-heading:has(+.analytics-hero),.analytics-hero{animation:anRise .5s cu
 @media (max-width:900px){#pwa-install{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
 @media (prefers-reduced-motion:reduce){#pwa-install{animation:none}}
 @media (display-mode:standalone){#pwa-install{display:none}}
+
+/* ===== v2.51 · Analytics metric cards: compact size + animated quiz-snapshot icons ===== */
+.analytics-stats,.analytics-secondary{gap:8px}
+.analytics-stats>.stat,.analytics-secondary>.stat{min-height:76px;padding:10px 12px 9px;border-radius:14px}
+.analytics-stats>.stat .stat-icon,.analytics-secondary>.stat .stat-icon{width:28px;height:28px;margin-bottom:6px;border-radius:10px}
+.analytics-stats>.stat .stat-icon .ic,.analytics-secondary>.stat .stat-icon .ic{width:17px;height:17px}
+.analytics-stats>.stat b,.analytics-secondary>.stat b{font-size:19px;margin-bottom:3px;letter-spacing:-.04em}
+.analytics-stats>.stat .stat-label,.analytics-secondary>.stat .stat-label{font-size:10px;line-height:1.25}
+.analytics-stats>.stat:hover,.analytics-stats>.stat:focus-within,.analytics-secondary>.stat:hover,.analytics-secondary>.stat:focus-within{transform:translate3d(0,-2px,0)}
+@media(max-width:640px){
+ .analytics-stats,.analytics-secondary{gap:7px}
+ .analytics-stats>.stat,.analytics-secondary>.stat{min-height:68px;padding:9px 10px 8px}
+ .analytics-stats>.stat .stat-icon,.analytics-secondary>.stat .stat-icon{width:25px;height:25px;margin-bottom:5px;border-radius:9px}
+ .analytics-stats>.stat .stat-icon .ic,.analytics-secondary>.stat .stat-icon .ic{width:15px;height:15px}
+ .analytics-stats>.stat b,.analytics-secondary>.stat b{font-size:17px}
+ .analytics-stats>.stat .stat-label,.analytics-secondary>.stat .stat-label{font-size:9.5px}
+}
+
+/* Quiz-end "Learning snapshot": 7 animated icons (Correct, Accuracy, XP, Time, Peak level, Boss, Words recovered) */
+.snap-anim .qz-stat .stat-icon{width:36px;height:36px;margin-bottom:9px;border-radius:12px;color:var(--c);overflow:visible;
+ background:linear-gradient(145deg,color-mix(in srgb,var(--c) 28%,transparent),color-mix(in srgb,var(--c) 8%,transparent));
+ border:1px solid color-mix(in srgb,var(--c) 42%,transparent);
+ box-shadow:0 6px 18px color-mix(in srgb,var(--c) 22%,transparent),inset 0 1px 0 rgba(255,255,255,.14);
+ animation:snPop .5s cubic-bezier(.2,.9,.3,1.3) calc(.3s + var(--i,0)*70ms) backwards,snGlow 3.6s ease-in-out 1.2s infinite}
+.snap-anim .qz-stat .stat-icon:after{border-color:var(--c)}
+.snap-anim .qz-stat .stat-icon .ic{width:22px;height:22px;stroke-width:1.7;overflow:visible}
+.qz-ic *{transform-box:fill-box;transform-origin:50% 50%}
+@keyframes qiRing{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.07);opacity:.6}}
+@keyframes qiSpark{0%,100%{transform:scale(0);opacity:0}30%,60%{transform:scale(1.6);opacity:1}}
+@keyframes qiAim{0%,100%{transform:scale(1)}50%{transform:scale(.62)}}
+@keyframes qiDart{0%,100%{transform:translate(2px,-2px);opacity:.55}45%,70%{transform:translate(0,0);opacity:1}}
+@keyframes qiStar{0%,100%{transform:rotate(0) scale(1)}25%{transform:rotate(-9deg) scale(1.1)}60%{transform:rotate(7deg) scale(1.06)}}
+@keyframes qiTw{0%,100%{transform:scale(.4) rotate(0);opacity:0}40%,65%{transform:scale(1.15) rotate(45deg);opacity:1}}
+@keyframes qiHand{to{transform:rotate(360deg)}}
+@keyframes qiFlag{0%,100%{transform:skewY(0)}50%{transform:skewY(-14deg) scaleX(.82)}}
+@keyframes qiRise{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.2px)}}
+@keyframes qiSw1{0%,100%{transform:rotate(0)}45%,65%{transform:rotate(-14deg)}}
+@keyframes qiSw2{0%,100%{transform:rotate(0)}45%,65%{transform:rotate(14deg)}}
+@keyframes qiCore{0%,100%{transform:scale(1)}50%{transform:scale(1.5)}}
+.qi-ok .qi-ring{animation:qiRing 2.6s ease-in-out infinite}
+.qi-ok .ai-draw{stroke-dasharray:1;stroke-dashoffset:1;animation:aiDraw 3.2s ease-in-out infinite}
+.qi-ok .qi-spk{animation:qiSpark 3.2s ease-in-out infinite}.qi-ok .qi-s2{animation-delay:1.1s}
+.qi-acc .qi-r2{animation:qiAim 2.8s ease-in-out infinite}
+.qi-acc .qi-dot{animation:aiPulse 1.6s ease-in-out infinite}
+.qi-acc .qi-dart{animation:qiDart 2.8s ease-in-out infinite}
+.qi-xp .qi-star{animation:qiStar 3s ease-in-out infinite}
+.qi-xp .qi-tw{animation:qiTw 2.4s ease-in-out infinite}.qi-xp .qi-t2{animation-delay:1.2s}
+.qi-time .qi-hand{transform-origin:50% 100%;animation:qiHand 4s linear infinite}
+.qi-time .qi-hand{transform-box:view-box;transform-origin:12px 13px}
+.qi-peak .qi-mt{animation:qiRise 2.8s ease-in-out infinite}
+.qi-peak .qi-flag{transform-origin:left center;animation:qiFlag 1.6s ease-in-out infinite}
+.qi-boss .qi-sw1{transform-box:view-box;transform-origin:12px 12px;animation:qiSw1 2.4s ease-in-out infinite}
+.qi-boss .qi-sw2{transform-box:view-box;transform-origin:12px 12px;animation:qiSw2 2.4s ease-in-out infinite}
+.qi-rec .qi-spin{animation:aiSpin 4.5s linear infinite}
+.qi-rec .qi-core{animation:qiCore 1.8s ease-in-out infinite}
+.qz-stat:hover .qi-hand{animation-duration:1.4s}.qz-stat:hover .qi-spin{animation-duration:1.6s}
+@media(max-width:640px){.snap-anim .qz-stat .stat-icon{width:32px;height:32px;margin-bottom:7px;border-radius:11px}.snap-anim .qz-stat .stat-icon .ic{width:20px;height:20px}}
+@media(prefers-reduced-motion:reduce){
+ .snap-anim .qz-stat .stat-icon,.qz-ic *{animation:none!important}
+ .qi-ok .ai-draw{stroke-dashoffset:0}.qi-ok .qi-spk,.qi-xp .qi-tw{opacity:0}
+}

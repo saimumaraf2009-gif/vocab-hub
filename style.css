@@ -3321,3 +3321,12 @@ html.nav-collapsed #nav .sidebar-footer{align-items:center}
 @media(max-width:360px){.topbar .xp-chip small{display:none}.topbar .topbar-mobile-brand{font-size:14px}}
 @media(prefers-reduced-motion:reduce){.topbar .top-signin,.topbar .theme-toggle,#nav .nav-group a{transition:none}}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.topbar.glass-bar{background:var(--bg2)}#nav{background:var(--bg2)}}
+
+/* ===== v2.65 · analytics cards use content height, not sibling height =====
+   Prevent short insight cards from stretching to match chart cards in the same grid row. */
+.analytics-columns{align-items:start}
+.analytics-columns>section{align-self:start}
+.analytics-highlight{height:auto;min-height:150px;align-self:start}
+@media(max-width:700px){
+  .analytics-highlight{min-height:125px}
+}

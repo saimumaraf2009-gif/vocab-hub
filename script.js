@@ -584,15 +584,28 @@ function exploreGrid(s){
   {k:'leaderboard',ic:'trophy',t:'Leaderboard',d:'See where you stand in the XP rankings.',m:s.xp+' XP',c:'#ffb84d',cls:'w2d'},
   {k:'profile',ic:'profile',t:'Your profile',d:'Your level, photo and full progress on one page.',m:'Lv '+(l.i+1)+' · '+l.name,c:'#4fe0a0',cls:'w2d'}];
  return`<div class="section-head"><div><span class="eyebrow">EVERYTHING IN ONE PLACE</span><h2>Every VocabHub tab, at a glance</h2></div><span class="soft-pill">${tiles.length} sections</span></div><div class="promo-bento">${tiles.map(p=>`<a class="promo-tile has-art ${p.cls||''}" href="#${p.k}" style="--pc:${p.c};--gc:${p.c}">${HM_ART[p.k]?`<div class="arc-stage hm-stage">${HM_ART[p.k]()}</div>`:''}<span class="pt-top"><span class="pt-ic">${ico(p.ic)}</span><span class="pt-metric">${esc(p.m)}</span></span><b>${p.t}</b><p>${p.d}</p><span class="pt-go">Open ↗</span></a>`).join('')}</div>`}
+/* v2.59 — Hero "Word Orbit" animation (sits above the progress strip) */
+const heroOrbit=()=>{const I={chk:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',fire:'<path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3.2 2-4 .2 1.3.9 2 1.6 2.3C10.3 8.5 10.6 5.5 12 3z"/>',book:'<path d="M4 4h6a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v14a2 2 0 0 1 2-2h6z"/>',star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>'},ic=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[k]}</svg>`,it=(a,inner)=>`<div class="h2o-it" style="--a:${a}deg"><div class="h2o-un1"><div class="h2o-un2">${inner}</div></div></div>`,
+ stars=[[8,18,0],[22,78,1.2],[38,10,2.1],[63,86,.6],[78,16,1.7],[91,70,2.6],[50,94,3.1],[14,44,.9]].map(x=>`<i class="h2o-st" style="left:${x[0]}%;top:${x[1]}%;--d:${x[2]}s"></i>`).join('');
+ return`<div class="h2-orbit" aria-hidden="true"><div class="h2o-head"><span class="h2o-t"><i class="h2o-d"></i>VOCABHUB<em>/</em>LIVE LEARNING</span><span class="h2o-live"><i></i>LIVE WORDS</span></div>
+ <div class="h2o-stage"><span class="h2o-grid"></span>${stars}
+  <svg class="h2o-arcs" viewBox="-200 -125 400 250" preserveAspectRatio="xMidYMid meet"><ellipse class="h2o-ell" rx="168" ry="58" transform="rotate(-16)"/><path class="h2o-arc" d="M-175 95 Q0 -135 175 95"/><g class="h2o-spark"><circle r="9" fill="#ffb84d" opacity=".22"/><circle r="3.4" fill="#ffd9a0"/><animateMotion dur="6.5s" repeatCount="indefinite" path="M-175 95 Q0 -135 175 95"/></g></svg>
+  <div class="h2o-f h2o-f1"><b>Lucid</b><em>সুস্পষ্ট</em></div>
+  <div class="h2o-f h2o-f2"><small>Synonym?</small><div class="h2o-q"><i>A</i><i>B</i><i class="ok">C</i><i>D</i></div></div>
+  <div class="h2o-ring h2o-r2"><span class="h2o-rb"></span>${it(40,'<span class="h2o-ch xp">+25 XP</span>')}${it(160,`<span class="h2o-ch ico bk">${ic('book')}</span>`)}${it(280,`<span class="h2o-ch ico st">${ic('star')}</span>`)}</div>
+  <div class="h2o-ring h2o-r1"><span class="h2o-rb"></span>${it(0,'<span class="h2o-card"><span class="h2o-flip"><b class="h2o-fr">Ephemeral</b><b class="h2o-bkf">ক্ষণস্থায়ী</b></span></span>')}${it(125,`<span class="h2o-ch ico ok">${ic('chk')}</span>`)}${it(240,`<span class="h2o-ch ico fl">${ic('fire')}</span>`)}</div>
+  <div class="h2o-orb"><span class="h2o-aa"><b>Aa</b><b class="bn">অ</b></span></div>
+ </div>
+ <div class="h2o-type"><span>Learn with</span><b class="h2o-w">Games</b><i class="h2o-caret"></i></div></div>`};
 V.dash=()=>{const s=st(),l=lvl(s.xp),g=Math.min(100,Math.round(s.todayC/D.goal*100));
  return`<section class="hero2"><span class="h2-blob h2-b1" aria-hidden="true"></span><span class="h2-blob h2-b2" aria-hidden="true"></span><span class="h2-grid" aria-hidden="true"></span>${[1,2,3,4,5,6].map(n=>`<i class="h2-dot h2-d${n}" aria-hidden="true"></i>`).join('')}${['Ephemeral','Benevolent','Resilient','Lucid','Eloquent'].map((w,i)=>`<span class="h2-fw h2-fw${i+1}" aria-hidden="true">${w}</span>`).join('')}
    <div class="h2-copy"><div class="h2-brand"><span class="h2-logo" aria-hidden="true"><img src="assets/logo.png" alt=""></span><div class="h2-brand-t"><b>Vocab<span>Hub</span></b><small>English → বাংলা vocabulary studio</small></div></div><span class="h2-eyebrow">LEARN · REVISE · MASTER</span>
    <h1><span class="h2-desk"><span>Learn words without</span> <em>boring rote learning...</em></span><span class="h2-mob"><span>Learn words without</span> <em>boring rote learning...</em></span></h1>
    <p><span class="h2-desk">A gamified way to learn English vocabulary through fun games, quizzes and daily challenges.</span><span class="h2-mob">A gamified way to learn English vocabulary through fun games, quizzes and daily challenges.</span></p>
    <div class="h2-actions"><button class="h2-btn h2-pri h2-start" onclick="configureGame('mixed',0)"><i class="h2-bic" aria-hidden="true">${ico('spark')}</i>Start learning</button><button class="h2-btn h2-sec h2-lib" onclick="go('lib')"><i class="h2-bic" aria-hidden="true">${ico('lib')}</i>Explore library</button><button class="h2-btn h2-sec h2-prac" onclick="go('practice')"><i class="h2-bic" aria-hidden="true">${ico('practice')}</i>Practice studio</button><button class="h2-btn h2-sec h2-arc" onclick="go('arcade')"><i class="h2-bic" aria-hidden="true">${ico('arcade')}</i>Arcade</button></div></div>
-   <div class="h2-strip" aria-label="Today's progress"><div class="h2-strip-head"><span>${(()=>{const h=new Date().getHours(),g=h<5?'Late night':h<12?'Good morning':h<17?'Good afternoon':'Good evening',n=(D.name||'').trim().split(/\s+/)[0];return esc(g+(n&&n!=='Learner'?', '+n:''))})()}</span><a href="#analytics">Progress ›</a></div>
+   <div class="h2-side">${heroOrbit()}<div class="h2-strip" aria-label="Today's progress"><div class="h2-strip-head"><span>${(()=>{const h=new Date().getHours(),g=h<5?'Late night':h<12?'Good morning':h<17?'Good afternoon':'Good evening',n=(D.name||'').trim().split(/\s+/)[0];return esc(g+(n&&n!=='Learner'?', '+n:''))})()}</span><a href="#analytics">Progress ›</a></div>
     <div class="h2-chips"><div class="h2-chip" style="--c:#ff8a4c"><span>${SNAP_ICO.streak}</span><b>${s.streak}</b><small>day streak</small></div>${s.due>0?`<button type="button" class="h2-chip h2-chip-btn" style="--c:#ff5a62" onclick="go('revision')" aria-label="Revise ${s.due} words"><span>${SNAP_ICO.revise}</span><b>${s.due}</b><small>to revise ›</small></button>`:`<div class="h2-chip" style="--c:#4fe0a0"><span>${SNAP_ICO.mastered}</span><b>${s.cnt.mastered}</b><small>mastered</small></div>`}<div class="h2-chip" style="--c:#b69cff"><span>${ico("spark")}</span><b>${s.xp.toLocaleString()}</b><small>XP earned</small></div></div>
-    <div class="h2-gline"><small>Daily goal · ${s.todayC}/${D.goal}</small><div class="h2-bar"><i style="width:${Math.max(3,g)}%"></i></div></div></div>
+    <div class="h2-gline"><small>Daily goal · ${s.todayC}/${D.goal}</small><div class="h2-bar"><i style="width:${Math.max(3,g)}%"></i></div></div></div></div>
    ${(()=>{if(!W.length)return'';const base=Math.floor(Date.now()/86400000),step=Math.max(1,Math.floor(W.length/14)),items=Array.from({length:14},(_,i)=>W[(base+i*step)%W.length]).filter(Boolean).map(w=>`<span class="h2-tk"><b>${esc(w.en)}</b><em>${esc(String(w.bn||'').split('/')[0].trim())}</em></span><i aria-hidden="true">✦</i>`).join('');return`<div class="h2-ticker" aria-hidden="true"><div class="h2-track">${items}${items}</div></div>`})()}
    </section>
  ${eftBanner()}${sscBanner()}${admissionBanner()}
@@ -1274,3 +1287,28 @@ save();
 render();
 // Hosted deployments can fetch the project-root vocabulary.json; offline and file:// use the embedded fallback.
 syncRemoteVocabulary({silent:true});
+
+/* v2.59 — Word Orbit behaviour: typewriter, flashcard word swap, pause when off-screen */
+(function(){
+ var main=document.getElementById('main');if(!main)return;
+ var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+ var WORDS=['Games','Quizzes','Flashcards','Daily challenges','Streaks & XP'];
+ var PAIRS=[['Ephemeral','ক্ষণস্থায়ী'],['Benevolent','হিতৈষী'],['Resilient','সহনশীল'],['Lucid','সুস্পষ্ট'],['Eloquent','বাকপটু'],['Candid','স্পষ্টবাদী'],['Tenacious','দৃঢ়প্রতিজ্ঞ']];
+ var io='IntersectionObserver' in window?new IntersectionObserver(function(es){es.forEach(function(e){var el=e.target,off=!e.isIntersecting;el.classList.toggle('h2o-off',off);var sv=el.querySelector('.h2o-arcs');try{if(sv)off?sv.pauseAnimations():sv.unpauseAnimations()}catch(x){}})}):null;
+ function boot(el){
+  if(el.dataset.h2o)return;el.dataset.h2o='1';if(io)io.observe(el);if(reduce)return;
+  var w=el.querySelector('.h2o-w'),fl=el.querySelector('.h2o-flip');
+  if(w){var i=0,j=0,dir=1;w.textContent='';
+   (function tick(){if(!el.isConnected)return;
+    if(el.classList.contains('h2o-off')||document.hidden){setTimeout(tick,600);return}
+    var t=WORDS[i];
+    if(dir>0){j++;w.textContent=t.slice(0,j);if(j>=t.length){dir=-1;setTimeout(tick,1600);return}setTimeout(tick,65+Math.random()*55)}
+    else{j--;w.textContent=t.slice(0,j);if(j<=0){dir=1;i=(i+1)%WORDS.length;setTimeout(tick,320);return}setTimeout(tick,32)}})();}
+  if(fl){var fr=fl.querySelector('.h2o-fr'),bk=fl.querySelector('.h2o-bkf'),k=0;
+   var later=function(){setTimeout(function(){if(fr&&fr.isConnected)fr.textContent=PAIRS[(k+1)%PAIRS.length][0]},3500)};
+   later();
+   fl.addEventListener('animationiteration',function(){k=(k+1)%PAIRS.length;bk.textContent=PAIRS[k][1];later()});}
+ }
+ var scan=function(){main.querySelectorAll('.h2-orbit:not([data-h2o])').forEach(boot)};
+ new MutationObserver(scan).observe(main,{childList:true});scan();
+})();

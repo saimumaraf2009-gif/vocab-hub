@@ -3046,3 +3046,28 @@ html.vh-intro,html.vh-intro body{overflow:hidden}
 }
 @media(max-width:360px){.h2-actions .h2-btn,.h2-actions .h2-sec{font-size:12px;padding:9px 4px;gap:5px}}
 @media(prefers-reduced-motion:reduce){.h2-btn,.h2-btn:after,.h2-btn>span,.h2-arr,.h2-bic,.h2-actions .h2-btn{animation:none!important}.h2-btn:after{display:none}}
+
+/* ===== v2.57b — hero actions: equal 2x2 grid everywhere, one accent colour each ===== */
+.h2-actions{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:400px;margin-top:20px}
+.h2-actions .h2-btn{--bc:#ff5a62;width:100%;min-height:50px;padding:10px 12px;gap:9px;justify-content:flex-start;font-size:14px;border-radius:14px;color:#fff;border:1px solid color-mix(in srgb,var(--bc) 45%,transparent);background:linear-gradient(135deg,color-mix(in srgb,var(--bc) 22%,transparent),color-mix(in srgb,var(--bc) 6%,transparent));box-shadow:none}
+.h2-actions .h2-btn:after{opacity:.35}
+.h2-actions .h2-lib{--bc:#60a5fa}.h2-actions .h2-prac{--bc:#4fe0a0}.h2-actions .h2-arc{--bc:#ffb84d}
+.h2-actions .h2-pri{border-color:transparent;background:linear-gradient(135deg,#ff2a3a,#c3101f);box-shadow:0 10px 28px rgba(255,31,45,.4)}
+.h2-actions .h2-pri:after{opacity:1}
+.h2-actions .h2-bic{width:30px;height:30px;border-radius:10px;color:var(--bc);background:color-mix(in srgb,var(--bc) 20%,transparent);flex:none}
+.h2-actions .h2-pri .h2-bic{color:#fff;background:rgba(255,255,255,.2)}
+.h2-actions .h2-bic .ic{width:17px;height:17px}
+.h2-start .h2-bic{animation:h2Pulse 2.4s ease-in-out infinite}
+.h2-lib .h2-bic{animation:h2Bob 2.8s ease-in-out infinite}
+@keyframes h2Pulse{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.14) rotate(18deg)}}
+@keyframes h2Bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@media(hover:hover){.h2-actions .h2-sec:hover{border-color:var(--bc);background:linear-gradient(135deg,color-mix(in srgb,var(--bc) 34%,transparent),color-mix(in srgb,var(--bc) 10%,transparent));box-shadow:0 8px 22px color-mix(in srgb,var(--bc) 28%,transparent)}}
+@media(max-width:700px){
+ .h2-actions{max-width:none;gap:8px;margin-top:14px}
+ .h2-actions .h2-btn,.h2-actions .h2-sec{min-height:46px;padding:8px 9px;gap:7px;font-size:13px;border-radius:13px;justify-content:flex-start;border:1px solid color-mix(in srgb,var(--bc) 45%,transparent);background:linear-gradient(135deg,color-mix(in srgb,var(--bc) 22%,transparent),color-mix(in srgb,var(--bc) 6%,transparent))}
+ .h2-actions .h2-pri{border-color:transparent;background:linear-gradient(135deg,#ff2a3a,#c3101f)}
+ .h2-actions .h2-bic{width:26px;height:26px;border-radius:9px}
+ .h2-actions .h2-bic .ic{width:15px;height:15px}
+}
+@media(max-width:360px){.h2-actions .h2-btn,.h2-actions .h2-sec{font-size:12px;padding:8px 7px;gap:6px}.h2-actions .h2-bic{width:24px;height:24px}}
+@media(prefers-reduced-motion:reduce){.h2-bic{animation:none!important}}

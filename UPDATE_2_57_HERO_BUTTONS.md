@@ -3,3 +3,4 @@
 - Mobile (<=700px): 2x2 grid, so all four fit in two rows.
 - Today's Discovery hero card and the Word of the day section are smaller.
 - Cache-bust ?v=2.57, service worker v2.57.
+- v2.57b: buttons are an equal 2x2 grid on every screen, each with its own accent colour and animated icon. "Founded & created by" line removed from the hero.

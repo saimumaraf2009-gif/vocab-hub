@@ -2924,8 +2924,8 @@ html.vh-intro,html.vh-intro body{overflow:hidden}
 @media(prefers-reduced-motion:reduce){.h2-track{animation:none!important;transform:none}.h2-ticker{overflow-x:auto}.h2-logo:after{display:none}}
 
 /* ===== v2.56 — VocabHub hero: Living Vocabulary Studio ===== */
-.hero2{grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);grid-template-areas:"copy stage" "copy strip" "tick tick" "by by";align-items:center}
-.h2-copy{grid-area:copy}.h2-stage{grid-area:stage}.h2-strip{grid-area:strip}.h2-ticker{grid-area:tick}.h2-by{grid-area:by}
+.hero2{grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);grid-template-areas:"copy strip" "tick tick";align-items:center}
+.h2-copy{grid-area:copy}.h2-strip{grid-area:strip}.h2-ticker{grid-area:tick}
 .h2-mob{display:none}.h2-desk{display:inline}
 .hero2 h1 .h2-desk>span,.hero2 h1 .h2-mob>span{display:inline}
 .h2-eyebrow{color:#ff7983}
@@ -2973,8 +2973,8 @@ html.vh-intro,html.vh-intro body{overflow:hidden}
 .h2-gline{display:flex;align-items:center;gap:10px}.h2-gline small{flex:none;font-size:11px;color:rgba(255,255,255,.62)}.h2-gline .h2-bar{flex:1;min-width:0;height:6px}
 /* tablet */
 @media(max-width:900px){
- .hero2{grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "stage" "strip" "tick" "by"}
- .h2-stage{max-width:520px}.h2-strip{max-width:520px}
+ .hero2{grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "strip" "tick"}
+ .h2-strip{max-width:520px}
  .h2-fw{display:none}
 }
 /* mobile: dedicated order — brand, eyebrow, headline, text, full-width CTA, word card, progress */
@@ -2984,15 +2984,14 @@ html.vh-intro,html.vh-intro body{overflow:hidden}
  .h2-eyebrow{letter-spacing:.14em}
  .h2-actions{grid-template-columns:minmax(0,1fr);gap:4px}
  .h2-sec{background:transparent;border-color:transparent;box-shadow:none;min-height:40px;color:#ffb0b6;font-size:13.5px;padding:8px 10px}
- .h2-stage{max-width:none;padding-bottom:22px}
  .h2-strip{max-width:none;padding:11px 12px}
  .h2-wc-en{font-size:34px}.h2-wc-bn{font-size:24px!important}
  .h2-peek b{font-size:12px}
 }
 @media(max-width:380px){.h2-wc-btn{font-size:12px;padding:9px 10px}.h2-gline small{font-size:10.5px}}
-@media(prefers-reduced-motion:reduce){.h2-fw{display:none}.h2-swap .h2-wcard,.h2-swap .h2-wc-body,.h2-stage,.h2-strip{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.h2-fw{display:none}.h2-strip{animation:none!important}}
 
-/* ===== v2.57 — hero: 4 animated action buttons (2×2 on mobile) + smaller word card ===== */
+/* ===== v2.58 — hero copy refresh; discovery cards removed ===== */
 .h2-actions{gap:10px}
 .h2-btn{position:relative;overflow:hidden;white-space:nowrap}
 .h2-actions .h2-btn{animation:h2BtnIn .6s cubic-bezier(.2,.8,.2,1) both}

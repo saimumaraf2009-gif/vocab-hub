@@ -1,5 +1,13 @@
 # VocabHub — BCS Vocabulary & separated admission sources
 
+## Latest update — 2.68 · Dashboard smart glimpses
+- Replaced the large Dashboard tab-promotion cards with compact, live preview cards for the same 12 workspace sections.
+- Each preview shows a small, data-backed sample: practice formats, games, current XP level, library words, due revision words, mistakes, mission progress, achievements, analytics, recent sessions and the learner’s own profile/XP.
+- Every card includes a clear **See more** action and links directly to its matching main tab.
+- Added compact desktop grid and a single-column mobile layout, with keyboard focus states and reduced-motion support.
+- Updated the service-worker cache version so installed/offline copies receive the new Dashboard UI.
+- See `UPDATE_2_68_DASHBOARD_SMART_GLIMPSE.md` for implementation and validation details.
+
 ## Latest update — 2.67 · Mistakes recovery & clearer Missions
 - Recovery Rate now appears at the top of Mistakes in an animated progress card.
 - Missions are grouped into daily and weekly goals with clear rules, progress, reset periods and XP claiming. Weekly progress now follows the Sunday–Saturday cycle shown in the UI.

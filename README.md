@@ -1,5 +1,11 @@
 # VocabHub — BCS Vocabulary & separated admission sources
 
+## Latest update — 2.66 · richer learner profile
+- Rebuilt Profile as a learner dashboard with profile completion, level progress, weekly activity, daily target, learning focus, achievement preview and recent sessions.
+- Improved the personal-details and profile-photo editor while keeping profile data local to the current browser.
+- Added responsive desktop/mobile layouts and refreshed the PWA cache version.
+- See `UPDATE_2_66_PROFILE_ENHANCED.md` for details and validation.
+
 ## Latest update — 2.27 · mobile-first UI polish & feedback
 - Added an **Admission Questions** shortcut alongside **Start a session** and **Play word arcade** on the homepage, with responsive sizing for narrow screens.
 - Rebuilt the Analytics activity calendar as a date-labelled monthly calendar with weekday headings, active-day/session/study-time summaries, and graded activity intensity.

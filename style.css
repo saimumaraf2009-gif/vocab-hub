@@ -3138,3 +3138,9 @@ html.vh-intro,html.vh-intro body{overflow:hidden}
 @media(max-width:700px){.h2-side{max-width:none;gap:10px}.h2-orbit{border-radius:18px}.h2o-stage{--h:clamp(184px,54vw,222px)}.h2o-head{padding:9px 12px;font-size:9px}.h2o-type{padding:9px 12px 11px;font-size:15px}}
 @media(max-width:400px){.h2o-f2{display:none}.h2o-f1{left:2%}.h2o-t{letter-spacing:.1em}}
 @media(prefers-reduced-motion:reduce){.h2-orbit,.h2-orbit *,.h2-orbit *:before,.h2-orbit *:after{animation:none!important;transition:none!important}.h2o-aa b.bn,.h2o-spark,.h2o-st,.h2o-caret{display:none}.h2o-flip{transform:none}.h2o-ring{transform:none}}
+
+/* ===== v2.60 — Word Orbit: no card, no header labels, no projectile arc ===== */
+.h2-orbit{border:0;background:none;box-shadow:none;overflow:visible;border-radius:0}
+.h2o-stage{overflow:visible;background:none}
+.h2o-grid,.h2o-arc,.h2o-spark{display:none}
+.h2o-type{border-top:0;padding:4px 0 2px}

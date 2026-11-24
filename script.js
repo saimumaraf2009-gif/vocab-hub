@@ -587,9 +587,8 @@ function exploreGrid(s){
 /* v2.59 — Hero "Word Orbit" animation (sits above the progress strip) */
 const heroOrbit=()=>{const I={chk:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',fire:'<path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3.2 2-4 .2 1.3.9 2 1.6 2.3C10.3 8.5 10.6 5.5 12 3z"/>',book:'<path d="M4 4h6a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v14a2 2 0 0 1 2-2h6z"/>',star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>'},ic=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[k]}</svg>`,it=(a,inner)=>`<div class="h2o-it" style="--a:${a}deg"><div class="h2o-un1"><div class="h2o-un2">${inner}</div></div></div>`,
  stars=[[8,18,0],[22,78,1.2],[38,10,2.1],[63,86,.6],[78,16,1.7],[91,70,2.6],[50,94,3.1],[14,44,.9]].map(x=>`<i class="h2o-st" style="left:${x[0]}%;top:${x[1]}%;--d:${x[2]}s"></i>`).join('');
- return`<div class="h2-orbit" aria-hidden="true"><div class="h2o-head"><span class="h2o-t"><i class="h2o-d"></i>VOCABHUB<em>/</em>LIVE LEARNING</span><span class="h2o-live"><i></i>LIVE WORDS</span></div>
- <div class="h2o-stage"><span class="h2o-grid"></span>${stars}
-  <svg class="h2o-arcs" viewBox="-200 -125 400 250" preserveAspectRatio="xMidYMid meet"><ellipse class="h2o-ell" rx="168" ry="58" transform="rotate(-16)"/><path class="h2o-arc" d="M-175 95 Q0 -135 175 95"/><g class="h2o-spark"><circle r="9" fill="#ffb84d" opacity=".22"/><circle r="3.4" fill="#ffd9a0"/><animateMotion dur="6.5s" repeatCount="indefinite" path="M-175 95 Q0 -135 175 95"/></g></svg>
+ return`<div class="h2-orbit" aria-hidden="true"><div class="h2o-stage"><span class="h2o-grid"></span>${stars}
+  <svg class="h2o-arcs" viewBox="-200 -125 400 250" preserveAspectRatio="xMidYMid meet"><ellipse class="h2o-ell" rx="168" ry="58" transform="rotate(-16)"/></svg>
   <div class="h2o-f h2o-f1"><b>Lucid</b><em>সুস্পষ্ট</em></div>
   <div class="h2o-f h2o-f2"><small>Synonym?</small><div class="h2o-q"><i>A</i><i>B</i><i class="ok">C</i><i>D</i></div></div>
   <div class="h2o-ring h2o-r2"><span class="h2o-rb"></span>${it(40,'<span class="h2o-ch xp">+25 XP</span>')}${it(160,`<span class="h2o-ch ico bk">${ic('book')}</span>`)}${it(280,`<span class="h2o-ch ico st">${ic('star')}</span>`)}</div>

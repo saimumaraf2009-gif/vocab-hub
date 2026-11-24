@@ -3174,3 +3174,29 @@ html.vh-intro,html.vh-intro body{overflow:hidden}
 .h2o-f3{left:1.5%;bottom:3%}.h2o-f4{right:1.5%;bottom:3%}
 @media(max-width:900px){.h2o-stage{--h:clamp(290px,72vw,400px)}}
 @media(max-width:700px){.h2o-stage{--h:clamp(260px,76vw,320px)}.h2o-f1{left:0;top:2%;transform-origin:left top}.h2o-f2{display:none}.h2o-f3,.h2o-f4{display:none}}
+
+/* ===== v2.62 — Collapsible sidebar (desktop) ===== */
+.nav-collapse{display:none}
+@media(min-width:801px){
+ #nav{z-index:45;transition:width .26s cubic-bezier(.2,.8,.2,1),flex-basis .26s cubic-bezier(.2,.8,.2,1),padding .26s}
+ #main{transition:width .26s cubic-bezier(.2,.8,.2,1)}
+ .nav-collapse{display:grid;place-items:center;position:absolute;top:30px;right:-13px;z-index:46;width:26px;height:26px;padding:0;border-radius:50%;cursor:pointer;color:var(--tx);background:var(--el);border:1px solid var(--bd);box-shadow:0 4px 14px rgba(0,0,0,.35);transition:transform .2s,background .2s,border-color .2s,opacity .2s;opacity:.85}
+ .nav-collapse svg{width:14px;height:14px;transition:transform .26s}
+ #nav:hover .nav-collapse,.nav-collapse:focus-visible{opacity:1}
+ .nav-collapse:hover{background:var(--ac);border-color:var(--ac);color:#fff;transform:scale(1.1)}
+ html.nav-collapsed #nav{width:76px;flex-basis:76px;padding-left:12px;padding-right:12px}
+ html.nav-collapsed #main{width:calc(100% - 76px)}
+ html.nav-collapsed .nav-collapse svg{transform:rotate(180deg)}
+ html.nav-collapsed #nav .side-brand{justify-content:center;padding:2px 0 22px}
+ html.nav-collapsed #nav .side-brand>span{display:none}
+ html.nav-collapsed #nav .nav-group{margin:0 0 10px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+ html.nav-collapsed #nav .nav-group:last-child{border-bottom:0}
+ html.nav-collapsed #nav .nav-group>small{display:none}
+ html.nav-collapsed #nav .nav-group a{justify-content:center;padding:8px 0;gap:0}
+ html.nav-collapsed #nav .nav-group a>span:not(.nav-ic){display:none}
+ html.nav-collapsed #nav .side-level{display:none}
+ html.nav-collapsed #nav .sidebar-footer{padding:10px 0 0;align-items:center}
+ html.nav-collapsed #nav .creator-side{justify-content:center;padding:0}
+ html.nav-collapsed #nav .creator-side>div{display:none}
+}
+@media(min-width:801px) and (prefers-reduced-motion:reduce){#nav,#main,.nav-collapse svg{transition:none}}

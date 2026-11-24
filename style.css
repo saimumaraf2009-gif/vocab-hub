@@ -3200,3 +3200,16 @@ html.vh-intro,html.vh-intro body{overflow:hidden}
  html.nav-collapsed #nav .creator-side>div{display:none}
 }
 @media(min-width:801px) and (prefers-reduced-motion:reduce){#nav,#main,.nav-collapse svg{transition:none}}
+
+/* ===== v2.63 — hero ticker removed; animated glow outline on the sidebar level box ===== */
+@media(min-width:901px){.hero2{grid-template-areas:"copy strip"}}
+@media(max-width:900px){.hero2{grid-template-areas:"copy" "strip"}}
+@property --sl-ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+.side-level{position:relative;isolation:isolate;border-color:rgba(255,90,98,.22)}
+.side-level:before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;pointer-events:none;z-index:1;background:conic-gradient(from var(--sl-ang),transparent 0 50%,rgba(255,31,45,.25) 62%,#ff5a62 82%,#ffd0d4 92%,transparent 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:slSpin 3.4s linear infinite}
+.side-level:after{content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;z-index:-1;box-shadow:0 0 12px rgba(255,31,45,.28),inset 0 0 10px rgba(255,31,45,.1);animation:slGlow 2.8s ease-in-out infinite}
+.side-level:hover:after{box-shadow:0 0 18px rgba(255,31,45,.5),inset 0 0 12px rgba(255,31,45,.16)}
+@keyframes slSpin{to{--sl-ang:360deg}}
+@keyframes slGlow{0%,100%{opacity:.55}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.side-level:before,.side-level:after{animation:none}.side-level:after{opacity:.8}}
+.h2-fw1,.h2-fw3,.h2-fw4{display:none}

@@ -3567,3 +3567,36 @@ html.nav-collapsed #nav .sidebar-footer{align-items:center}
   .snap-stats .stat b,.res-snap .profile-stats .stat b{font-size:15px}
   .snap-stats .stat span.stat-label,.res-snap .profile-stats .stat .stat-label{font-size:8.5px}
 }
+
+/* ===== v2.70 · mobile hero centred, full-width buttons, Journey + Daily target in one row ===== */
+@media(max-width:900px){
+  /* centre eyebrow, headline and subtitle */
+  .hero2 .h2-eyebrow{align-self:center;text-align:center}
+  .hero2 h1,.hero2 .h2-copy>p{text-align:center}
+  .hero2 .h2-copy>p{margin-left:auto;margin-right:auto}
+  .h2o-type{justify-content:center;text-align:center}
+  /* buttons: no empty strip on either side, content centred */
+  .hero2{padding-left:10px;padding-right:10px}
+  .hero2 .h2-eyebrow,.hero2 h1,.hero2 .h2-copy>p{padding-left:4px;padding-right:4px}
+  .hero2 .h2-actions{width:100%;max-width:none;margin-left:0;margin-right:0}
+  .hero2 .h2-actions .h2-btn{width:100%;justify-content:center}
+}
+@media(max-width:700px){
+  #main .v-dash{padding-left:0;padding-right:0}
+  /* Your journey + Daily target side by side */
+  #main .dashboard-columns{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  #main .dashboard-columns>.card{min-height:0;min-width:0;padding:11px 10px;border-radius:15px}
+  #main .dashboard-columns .section-head.compact,#main .dashboard-columns .goal-heading{margin:0 0 8px;gap:6px;align-items:center;flex-wrap:nowrap}
+  #main .dashboard-columns .eyebrow{font-size:8px;letter-spacing:.1em;white-space:nowrap}
+  #main .dashboard-columns .level-card h2{font-size:13px;line-height:1.25;margin:2px 0 0}
+  #main .dashboard-columns .level-mark{width:26px;height:26px;flex:none;border-radius:9px}
+  #main .dashboard-columns .level-mark .ic{width:15px;height:15px}
+  #main .dashboard-columns .goal-ring{width:28px;height:28px;flex:none}
+  #main .dashboard-columns .goal-ring b{font-size:8px}
+  #main .dashboard-columns .level-meta{flex-wrap:wrap;gap:1px 6px;font-size:10px;margin-bottom:6px}
+  #main .dashboard-columns .level-meta span{font-size:8px;text-align:left}
+  #main .dashboard-columns .goal-card h2{font-size:21px;margin:0}
+  #main .dashboard-columns .goal-card h2 small{font-size:11px}
+  #main .dashboard-columns .goal-card .sub{font-size:9px;margin:0 0 6px}
+  #main .dashboard-columns .micro{font-size:8px;line-height:1.35;margin:6px 0 0}
+}

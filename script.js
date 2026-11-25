@@ -582,26 +582,81 @@ function exploreGrid(s){
   {k:'leaderboard',ic:'trophy',t:'Leaderboard',d:'See where you stand in the XP rankings.',m:s.xp+' XP',c:'#ffb84d',cls:'w2d'},
   {k:'profile',ic:'profile',t:'Your profile',d:'Your level, photo and full progress on one page.',m:'Lv '+(l.i+1)+' · '+l.name,c:'#4fe0a0',cls:'w2d'}];
  return`<div class="section-head"><div><span class="eyebrow">EVERYTHING IN ONE PLACE</span><h2>Every VocabHub tab, at a glance</h2></div><span class="soft-pill">${tiles.length} sections</span></div><div class="promo-bento">${tiles.map(p=>`<a class="promo-tile has-art ${p.cls||''}" href="#${p.k}" style="--pc:${p.c};--gc:${p.c}">${HM_ART[p.k]?`<div class="arc-stage hm-stage">${HM_ART[p.k]()}</div>`:''}<span class="pt-top"><span class="pt-ic">${ico(p.ic)}</span><span class="pt-metric">${esc(p.m)}</span></span><b>${p.t}</b><p>${p.d}</p><span class="pt-go">Open ↗</span></a>`).join('')}</div>`}
-/* v2.59 — Hero "Word Orbit" animation (sits above the progress strip) */
-const heroOrbit=()=>`<div class="vh-showcase" aria-label="Animated preview of VocabHub learning features">
- <div class="vh-showcase-top"><span class="vh-showcase-brand"><i></i> THE VOCABHUB EXPERIENCE</span><span class="vh-showcase-live"><i></i> LEARNING IN MOTION</span></div>
- <div class="vh-showcase-stage">
-  <div class="vh-showcase-word vh-panel"><div class="vh-panel-kicker"><span>01 / WORD LIBRARY</span><b>WORD OF THE MOMENT</b></div><div class="vh-word-card"><div class="vh-word-front"><small>VERB · /ˈflʌrɪʃ/</small><strong>Flourish</strong><span>to grow or develop successfully</span><i>Tap to reveal meaning</i></div><div class="vh-word-back"><small>বাংলা অর্থ</small><strong>সমৃদ্ধ হওয়া</strong><span>Synonym · thrive, prosper</span><i>Antonym · decline</i></div></div><div class="vh-word-tags"><span>✦ Synonyms</span><span>↔ Antonyms</span><span>◉ Pronunciation</span></div></div>
-  <div class="vh-showcase-practice vh-panel"><div class="vh-panel-kicker"><span>02 / PRACTICE STUDIO</span><b>QUICK CHALLENGE</b></div><p>Choose the closest meaning of <strong>“Vivid”</strong></p><div class="vh-options"><span>A&nbsp; Ordinary</span><span class="vh-option-correct">B&nbsp; Bright <i>✓</i></span><span>C&nbsp; Silent</span><span>D&nbsp; Weak</span></div><div class="vh-feedback"><i>✓</i> Correct answer <b>+10 XP</b></div></div>
-  <div class="vh-showcase-arcade vh-panel"><div class="vh-panel-kicker"><span>03 / ARCADE</span><b>WORD SCRAMBLE</b></div><small>UNSCRAMBLE THIS WORD</small><div class="vh-tiles"><i>R</i><i class="vh-tile-shift">A</i><i>N</i><i class="vh-tile-shift2">E</i><i>T</i><i>G</i></div><div class="vh-arcade-foot"><span>⏱ 00:12</span><b>STREAK × 3</b></div></div>
-  <div class="vh-showcase-progress vh-panel"><div class="vh-panel-kicker"><span>04 / YOUR PROGRESS</span><b>LEVEL UP</b></div><div class="vh-xp-line"><div><small>TOTAL EXPERIENCE</small><strong>1,240 <em>XP</em></strong></div><span class="vh-level-badge">LV 08</span></div><div class="vh-xp-track"><i></i></div><div class="vh-progress-foot"><span>760 XP to next level</span><b>62%</b></div><div class="vh-streak-row"><span>🔥 7 DAY STREAK</span><span>✦ DAILY GOAL COMPLETE</span></div></div>
-  <div class="vh-showcase-center"><span class="vh-center-ring"></span><span class="vh-center-ring vh-center-ring2"></span><div><b>Aa</b><small>অ আ</small></div><i class="vh-center-spark">✦</i></div>
-  <span class="vh-float-chip vh-chip-library">📚&nbsp; Explore words</span><span class="vh-float-chip vh-chip-game">🎮&nbsp; Play & learn</span><span class="vh-float-chip vh-chip-revise">↻&nbsp; Smart revision</span>
- </div>
- <div class="vh-showcase-bottom"><span>LEARN WORDS</span><i></i><span>PRACTISE SMARTER</span><i></i><span>PLAY TO MASTER</span><i></i><span>TRACK YOUR GROWTH</span></div>
+/* v2.71 — Compact, rotating VocabHub tour built from live learner + library data. */
+const heroOrbit=(s,l,g)=>{
+ const pool=(W||[]).filter(w=>w&&w.en&&w.bn);
+ const day=Math.floor(Date.now()/86400000);
+ const pick=(n)=>pool.length?pool[(day+n)%pool.length]:({en:'Discover',bn:'আবিষ্কার করা',syn:['explore']});
+ const word=pick(0),word2=pick(7),word3=pick(19);
+ const syn=(word.syn||[]).find(Boolean)||word2.en||'explore';
+ const distractors=[(word2.syn||[]).find(Boolean)||word2.en,(word3.syn||[]).find(Boolean)||word3.en,'overlook'].filter(Boolean);
+ const options=[syn,...distractors].slice(0,4);
+ while(options.length<4)options.push(['ordinary','uncertain','distant'][options.length-1]||'ordinary');
+ const correctAt=day%4,ordered=new Array(4);
+ ordered[correctAt]={v:options[0],ok:true};
+ let distractorIndex=1;
+ for(let i=0;i<4;i++)if(i!==correctAt)ordered[i]={v:options[distractorIndex++]||'ordinary',ok:false};
+ const rawLetters=Array.from(String(word.en||'VOCAB').replace(/[^a-z]/gi,'').slice(0,6).toUpperCase());
+ const letters=(rawLetters.length>=3?rawLetters:'VOCAB').slice(0,6);
+ const shift=(day%Math.max(1,letters.length-1))+1;
+ const scrambled=letters.slice(shift).concat(letters.slice(0,shift)).reverse();
+ const learned=Number(s.learned)||0,total=pool.length||W.length||0;
+ const xp=Number(s.xp)||0,streak=Number(s.streak)||0,due=Number(s.due)||0;
+ const goal=Number(D.goal)||10,done=Number(s.todayC)||0;
+ const levelName=l.name||'Learner',levelNo=(l.i||0)+1;
+ const pct=Math.max(0,Math.min(100,Number(l.pct)||0));
+ const safeWord=esc(word.en),safeBn=esc(word.bn),safeSyn=esc(syn);
+ const safeWord2=esc(word2.en),safeBn2=esc(word2.bn),safeWord3=esc(word3.en),safeBn3=esc(word3.bn);
+ return`<div class="vh-showcase" data-vh-tour aria-label="A rotating preview of the VocabHub library, practice, arcade and progress">
+  <div class="vh-tour-top"><span class="vh-tour-brand"><i></i> INSIDE VOCABHUB</span><span class="vh-tour-live"><i></i> LIVE TOUR</span></div>
+  <div class="vh-tour-stage">
+   <article class="vh-scene vh-scene-library is-active" data-vh-scene="library" aria-hidden="false">
+    <div class="vh-scene-kicker"><span>01 / WORD LIBRARY</span><b>EXPLORE & DISCOVER</b></div>
+    <div class="vh-searchbar"><span class="vh-search-icon">⌕</span><span>Search your vocabulary</span><b>${total.toLocaleString()} words</b></div>
+    <div class="vh-library-rows">
+     <div class="vh-library-row vh-row-focus"><span class="vh-word-mark">Aa</span><span class="vh-word-meta"><b>${safeWord}</b><small>${safeBn}</small></span><i>↗</i></div>
+     <div class="vh-library-row"><span class="vh-word-mark">Aa</span><span class="vh-word-meta"><b>${safeWord2}</b><small>${safeBn2}</small></span><i>↗</i></div>
+     <div class="vh-library-row"><span class="vh-word-mark">Aa</span><span class="vh-word-meta"><b>${safeWord3}</b><small>${safeBn3}</small></span><i>↗</i></div>
+    </div>
+    <div class="vh-scene-note"><span>WORD PROFILES</span><span>Meaning · Synonyms · Examples</span></div>
+   </article>
+   <article class="vh-scene vh-scene-practice" data-vh-scene="practice" aria-hidden="true">
+    <div class="vh-scene-kicker"><span>02 / PRACTICE STUDIO</span><b>THINK & RECALL</b></div>
+    <div class="vh-question-label"><span>QUICK QUESTION</span><span>+10 XP</span></div>
+    <h3>What is closest to <em>${safeWord}</em>?</h3>
+    <div class="vh-quiz-options">${ordered.map((o,i)=>`<div class="vh-quiz-option${o.ok?' is-correct':''}"><i>${'ABCD'[i]}</i><span>${esc(o.v)}</span>${o.ok?'<b>✓</b>':''}</div>`).join('')}</div>
+    <div class="vh-answer-line"><span><i>✓</i> Correct answer</span><b>${safeSyn}</b></div>
+   </article>
+   <article class="vh-scene vh-scene-arcade" data-vh-scene="arcade" aria-hidden="true">
+    <div class="vh-scene-kicker"><span>03 / WORD ARCADE</span><b>PLAY TO LEARN</b></div>
+    <div class="vh-arcade-heading"><div><small>UNSCRAMBLE THE WORD</small><h3>Ready for a quick round?</h3></div><span class="vh-game-badge">🎮 ${GAME_MODES.length} MODES</span></div>
+    <div class="vh-scramble-tiles">${scrambled.map((ch,i)=>`<i style="--tile:${i}">${esc(ch)}</i>`).join('')}</div>
+    <div class="vh-arcade-foot"><span>⏱ <b>00:12</b> · WORD SCRAMBLE</span><span>🔥 <b>${streak}</b> DAY STREAK</span></div>
+   </article>
+   <article class="vh-scene vh-scene-progress" data-vh-scene="progress" aria-hidden="true">
+    <div class="vh-scene-kicker"><span>04 / YOUR JOURNEY</span><b>SMALL STEPS, REAL GROWTH</b></div>
+    <div class="vh-progress-main"><div><small>TOTAL EXPERIENCE</small><strong>${xp.toLocaleString()} <em>XP</em></strong><span>Level ${levelNo} · ${esc(levelName)}</span></div><b class="vh-level-stamp">LV<br>${String(levelNo).padStart(2,'0')}</b></div>
+    <div class="vh-progress-track"><i style="--progress:${pct}%"></i></div>
+    <div class="vh-progress-meta"><span>${pct}% to next level</span><b>${Math.max(0,100-pct)}% to go</b></div>
+    <div class="vh-progress-stats"><span><b>${learned.toLocaleString()}</b><small>Words learned</small></span><span><b>${done}/${goal}</b><small>Daily target</small></span><span><b>${due}</b><small>To revise</small></span></div>
+   </article>
+  </div>
+  <nav class="vh-tour-nav" aria-label="Choose a VocabHub preview">
+   <button type="button" class="vh-tour-step is-active" data-vh-step="0" aria-label="Show library preview" aria-pressed="true"><span class="vh-tour-step-label">Library</span><i><b></b></i></button>
+   <button type="button" class="vh-tour-step" data-vh-step="1" aria-label="Show practice preview" aria-pressed="false"><span class="vh-tour-step-label">Practice</span><i><b></b></i></button>
+   <button type="button" class="vh-tour-step" data-vh-step="2" aria-label="Show arcade preview" aria-pressed="false"><span class="vh-tour-step-label">Arcade</span><i><b></b></i></button>
+   <button type="button" class="vh-tour-step" data-vh-step="3" aria-label="Show progress preview" aria-pressed="false"><span class="vh-tour-step-label">Progress</span><i><b></b></i></button>
+  </nav>
+  <div class="vh-tour-caption"><span>LEARN</span><i></i><span>PRACTISE</span><i></i><span>PLAY</span><i></i><span>IMPROVE</span></div>
  </div>`
+}
 V.dash=()=>{const s=st(),l=lvl(s.xp),g=Math.min(100,Math.round(s.todayC/D.goal*100));
  return`<section class="hero2"><span class="h2-blob h2-b1" aria-hidden="true"></span><span class="h2-blob h2-b2" aria-hidden="true"></span><span class="h2-grid" aria-hidden="true"></span>${[1,2,3,4,5,6].map(n=>`<i class="h2-dot h2-d${n}" aria-hidden="true"></i>`).join('')}${['Ephemeral','Benevolent','Resilient','Lucid','Eloquent'].map((w,i)=>`<span class="h2-fw h2-fw${i+1}" aria-hidden="true">${w}</span>`).join('')}
    <div class="h2-copy"><div class="h2-brand"><span class="h2-logo" aria-hidden="true"><img src="assets/logo.png" alt=""></span><div class="h2-brand-t"><b>Vocab<span>Hub</span></b><small>English → বাংলা vocabulary studio</small></div></div><span class="h2-eyebrow">LEARN · REVISE · MASTER</span>
    <h1><span class="h2-desk"><span>Learn words beyond</span> <em>boring rote learning...</em></span><span class="h2-mob"><span>Learn words beyond</span> <em>boring rote learning...</em></span></h1>
    <p><span class="h2-desk">A gamified way to learn English vocabulary through fun games, quizzes and daily challenges.</span><span class="h2-mob">A gamified way to learn English vocabulary through fun games, quizzes and daily challenges.</span></p>
    <div class="h2-actions"><button class="h2-btn h2-pri h2-start" onclick="configureGame('mixed',0)"><i class="h2-bic" aria-hidden="true">${ico('spark')}</i>Start learning</button><button class="h2-btn h2-sec h2-lib" onclick="go('lib')"><i class="h2-bic" aria-hidden="true">${ico('lib')}</i>Explore library</button><button class="h2-btn h2-sec h2-prac" onclick="go('practice')"><i class="h2-bic" aria-hidden="true">${ico('practice')}</i>Practice studio</button><button class="h2-btn h2-sec h2-arc" onclick="go('arcade')"><i class="h2-bic" aria-hidden="true">${ico('arcade')}</i>Arcade</button></div></div>
-   <div class="h2-side">${heroOrbit()}</div>
+   <div class="h2-side">${heroOrbit(s,l,g)}</div>
    </section>
  ${eftBanner()}${sscBanner()}${admissionBanner()}
  <div class="home-snap">
@@ -1355,29 +1410,35 @@ render();
 // Hosted deployments can fetch the project-root vocabulary.json; offline and file:// use the embedded fallback.
 syncRemoteVocabulary({silent:true});
 
-/* v2.59 — Word Orbit behaviour: typewriter, flashcard word swap, pause when off-screen */
+/* v2.71 — Full-cycle hero tour controller. It advances only at scene boundaries. */
 (function(){
  var main=document.getElementById('main');if(!main)return;
- var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
- var WORDS=['Games','Quizzes','Flashcards','Daily challenges','Streaks & XP'];
- var PAIRS=[['Ephemeral','ক্ষণস্থায়ী'],['Benevolent','হিতৈষী'],['Resilient','সহনশীল'],['Lucid','সুস্পষ্ট'],['Eloquent','বাকপটু'],['Candid','স্পষ্টবাদী'],['Tenacious','দৃঢ়প্রতিজ্ঞ']];
- var io='IntersectionObserver' in window?new IntersectionObserver(function(es){es.forEach(function(e){var el=e.target,off=!e.isIntersecting;el.classList.toggle('h2o-off',off);var sv=el.querySelector('.h2o-arcs');try{if(sv)off?sv.pauseAnimations():sv.unpauseAnimations()}catch(x){}})}):null;
+ var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  function boot(el){
-  if(el.dataset.h2o)return;el.dataset.h2o='1';if(io)io.observe(el);if(reduce)return;
-  var w=el.querySelector('.h2o-w'),fl=el.querySelector('.h2o-flip');
-  if(w){var i=0,j=0,dir=1;w.textContent='';
-   (function tick(){if(!el.isConnected)return;
-    if(el.classList.contains('h2o-off')||document.hidden){setTimeout(tick,600);return}
-    var t=WORDS[i];
-    if(dir>0){j++;w.textContent=t.slice(0,j);if(j>=t.length){dir=-1;setTimeout(tick,1600);return}setTimeout(tick,65+Math.random()*55)}
-    else{j--;w.textContent=t.slice(0,j);if(j<=0){dir=1;i=(i+1)%WORDS.length;setTimeout(tick,320);return}setTimeout(tick,32)}})();}
-  if(fl){var fr=fl.querySelector('.h2o-fr'),bk=fl.querySelector('.h2o-bkf'),k=0;
-   var later=function(){setTimeout(function(){if(fr&&fr.isConnected)fr.textContent=PAIRS[(k+1)%PAIRS.length][0]},3500)};
-   later();
-   fl.addEventListener('animationiteration',function(){k=(k+1)%PAIRS.length;bk.textContent=PAIRS[k][1];later()});}
+  if(el.dataset.vhTourBound)return;el.dataset.vhTourBound='1';
+  var scenes=Array.prototype.slice.call(el.querySelectorAll('[data-vh-scene]'));
+  var buttons=Array.prototype.slice.call(el.querySelectorAll('[data-vh-step]'));
+  if(!scenes.length||!buttons.length)return;
+  var index=0,timer=0,delay=4600;
+  function paint(next,reset){
+   index=((next%scenes.length)+scenes.length)%scenes.length;
+   if(reset)el.classList.add('vh-tour-reset');
+   scenes.forEach(function(scene,i){var active=i===index;scene.classList.toggle('is-active',active);scene.setAttribute('aria-hidden',active?'false':'true')});
+   buttons.forEach(function(button,i){var active=i===index;button.classList.toggle('is-active',active);button.setAttribute('aria-pressed',active?'true':'false')});
+   if(reset){void el.offsetWidth;el.classList.remove('vh-tour-reset')}
+  }
+  function schedule(){clearTimeout(timer);timer=0;if(reduce||document.hidden||!el.isConnected)return;timer=setTimeout(function(){if(!el.isConnected){clearTimeout(timer);return}paint(index+1);schedule()},delay)}
+  buttons.forEach(function(button){button.addEventListener('click',function(){paint(Number(button.dataset.vhStep)||0);schedule()})});
+  paint(0,true);schedule();
+  function onVisibility(){
+   if(!el.isConnected){document.removeEventListener('visibilitychange',onVisibility);clearTimeout(timer);return}
+   if(document.hidden){clearTimeout(timer);timer=0;return}
+   paint(index+1,true);schedule();
+  }
+  document.addEventListener('visibilitychange',onVisibility);
  }
- var scan=function(){main.querySelectorAll('.h2-orbit:not([data-h2o])').forEach(boot)};
- new MutationObserver(scan).observe(main,{childList:true});scan();
+ var scan=function(){main.querySelectorAll('.vh-showcase[data-vh-tour]:not([data-vh-tour-bound])').forEach(boot)};
+ new MutationObserver(scan).observe(main,{childList:true,subtree:true});scan();
 })();
 
 /* v2.62 — collapsible sidebar (desktop). State is remembered in localStorage (vh_nav_collapsed). */

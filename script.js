@@ -583,19 +583,26 @@ function exploreGrid(s){
   {k:'profile',ic:'profile',t:'Your profile',d:'Your level, photo and full progress on one page.',m:'Lv '+(l.i+1)+' · '+l.name,c:'#4fe0a0',cls:'w2d'}];
  return`<div class="section-head"><div><span class="eyebrow">EVERYTHING IN ONE PLACE</span><h2>Every VocabHub tab, at a glance</h2></div><span class="soft-pill">${tiles.length} sections</span></div><div class="promo-bento">${tiles.map(p=>`<a class="promo-tile has-art ${p.cls||''}" href="#${p.k}" style="--pc:${p.c};--gc:${p.c}">${HM_ART[p.k]?`<div class="arc-stage hm-stage">${HM_ART[p.k]()}</div>`:''}<span class="pt-top"><span class="pt-ic">${ico(p.ic)}</span><span class="pt-metric">${esc(p.m)}</span></span><b>${p.t}</b><p>${p.d}</p><span class="pt-go">Open ↗</span></a>`).join('')}</div>`}
 /* v2.59 — Hero "Word Orbit" animation (sits above the progress strip) */
-const heroOrbit=()=>{const I={chk:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',fire:'<path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3.2 2-4 .2 1.3.9 2 1.6 2.3C10.3 8.5 10.6 5.5 12 3z"/>',book:'<path d="M4 4h6a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v14a2 2 0 0 1 2-2h6z"/>',star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>'},ic=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[k]}</svg>`,it=(a,inner)=>`<div class="h2o-it" style="--a:${a}deg"><div class="h2o-un1"><div class="h2o-un2">${inner}</div></div></div>`,
- stars=[[8,18,0],[22,78,1.2],[38,10,2.1],[63,86,.6],[78,16,1.7],[91,70,2.6],[50,94,3.1],[14,44,.9]].map(x=>`<i class="h2o-st" style="left:${x[0]}%;top:${x[1]}%;--d:${x[2]}s"></i>`).join('');
- return`<div class="h2-orbit" aria-hidden="true"><div class="h2o-stage"><span class="h2o-grid"></span>${stars}
-  <svg class="h2o-arcs" viewBox="-200 -125 400 250" preserveAspectRatio="xMidYMid meet"><ellipse class="h2o-ell" rx="168" ry="58" transform="rotate(-16)"/></svg>
-  <div class="h2o-f h2o-f1"><b>Lucid</b><em>সুস্পষ্ট</em></div>
-  <div class="h2o-f h2o-f3"><small>Daily goal</small><div class="h2o-bar"><i></i></div></div>
-  <div class="h2o-f h2o-f4"><small>Day streak</small><div class="h2o-dots">${[0,1,2,3,4,5,6].map(n=>`<i style="--n:${n}"></i>`).join('')}</div></div>
-  <div class="h2o-f h2o-f2"><small>Synonym?</small><div class="h2o-q"><i>A</i><i>B</i><i class="ok">C</i><i>D</i></div></div>
-  <div class="h2o-ring h2o-r2"><span class="h2o-rb"></span>${it(40,'<span class="h2o-ch xp">+25 XP</span>')}${it(160,`<span class="h2o-ch ico bk">${ic('book')}</span>`)}${it(280,`<span class="h2o-ch ico st">${ic('star')}</span>`)}${it(100,'<span class="h2o-ch ico bn">অ</span>')}</div>
-  <div class="h2o-ring h2o-r1"><span class="h2o-rb"></span>${it(0,'<span class="h2o-card"><span class="h2o-flip"><b class="h2o-fr">Ephemeral</b><b class="h2o-bkf">ক্ষণস্থায়ী</b></span></span>')}${it(125,`<span class="h2o-ch ico ok">${ic('chk')}</span>`)}${it(240,`<span class="h2o-ch ico fl">${ic('fire')}</span>`)}</div>
-  <div class="h2o-orb"><span class="h2o-aa"><b>Aa</b><b class="bn">অ</b></span></div>
+const heroOrbit=()=>`<div class="h2-orbit h2-vocab-scene" aria-hidden="true">
+ <div class="h2v-top"><span><i></i> VOCABULARY IN ACTION</span><b>01 <em>/</em> 04</b></div>
+ <div class="h2v-canvas">
+  <span class="h2v-word h2v-w1">eloquent</span><span class="h2v-word h2v-w2">resilient</span><span class="h2v-word h2v-w3">meticulous</span>
+  <span class="h2v-line h2v-line1"></span><span class="h2v-line h2v-line2"></span>
+  <div class="h2v-card h2v-main-card">
+   <div class="h2v-card-head"><span>WORD PROFILE</span><span class="h2v-level">CORE WORD</span></div>
+   <div class="h2v-word-main">Ephemeral</div>
+   <div class="h2v-pron">/ɪˈfem.ər.əl/ <span>adjective</span></div>
+   <div class="h2v-meaning">ক্ষণস্থায়ী · অল্পস্থায়ী</div>
+   <div class="h2v-card-foot"><span>EXAMPLE</span><p>Fame can be ephemeral.</p></div>
+   <div class="h2v-card-glint"></div>
+  </div>
+  <div class="h2v-mini h2v-syn"><small>SYNONYM</small><b>Fleeting</b><i>সমার্থক</i></div>
+  <div class="h2v-mini h2v-ant"><small>ANTONYM</small><b>Permanent</b><i>বিপরীতার্থক</i></div>
+  <div class="h2v-quiz"><div><small>QUICK CHECK</small><b>Choose the meaning</b></div><span> A </span><span class="h2v-right"> B ✓ </span><span> C </span><span> D </span></div>
+  <div class="h2v-xp">✦ &nbsp;+25 XP</div>
  </div>
- <div class="h2o-type"><span>Learn with</span><b class="h2o-w">Games</b><i class="h2o-caret"></i></div></div>`};
+ <div class="h2v-bottom"><span><i></i> WORD → MEANING → MASTERY</span><b>Learn. Remember. Use.</b></div>
+</div>`;
 V.dash=()=>{const s=st(),l=lvl(s.xp),g=Math.min(100,Math.round(s.todayC/D.goal*100));
  return`<section class="hero2"><span class="h2-blob h2-b1" aria-hidden="true"></span><span class="h2-blob h2-b2" aria-hidden="true"></span><span class="h2-grid" aria-hidden="true"></span>${[1,2,3,4,5,6].map(n=>`<i class="h2-dot h2-d${n}" aria-hidden="true"></i>`).join('')}${['Ephemeral','Benevolent','Resilient','Lucid','Eloquent'].map((w,i)=>`<span class="h2-fw h2-fw${i+1}" aria-hidden="true">${w}</span>`).join('')}
    <div class="h2-copy"><div class="h2-brand"><span class="h2-logo" aria-hidden="true"><img src="assets/logo.png" alt=""></span><div class="h2-brand-t"><b>Vocab<span>Hub</span></b><small>English → বাংলা vocabulary studio</small></div></div><span class="h2-eyebrow">LEARN · REVISE · MASTER</span>

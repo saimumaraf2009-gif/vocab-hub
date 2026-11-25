@@ -3600,3 +3600,66 @@ html.nav-collapsed #nav .sidebar-footer{align-items:center}
   #main .dashboard-columns .goal-card .sub{font-size:9px;margin:0 0 6px}
   #main .dashboard-columns .micro{font-size:8px;line-height:1.35;margin:6px 0 0}
 }
+
+
+/* VocabHub hero refresh: editorial word-learning scene, not a science/orbit motif */
+.h2-vocab-scene{border-color:rgba(255,255,255,.16);background:linear-gradient(150deg,rgba(255,255,255,.085),rgba(255,255,255,.025));}
+.h2-vocab-scene .h2v-top,.h2-vocab-scene .h2v-bottom{height:38px;padding:0 15px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:9px;font-weight:850;letter-spacing:.13em;color:rgba(255,255,255,.62)}
+.h2-vocab-scene .h2v-top{border-bottom:1px solid rgba(255,255,255,.1)}
+.h2-vocab-scene .h2v-top span,.h2-vocab-scene .h2v-bottom span{display:flex;align-items:center;gap:8px}
+.h2-vocab-scene .h2v-top i,.h2-vocab-scene .h2v-bottom i{width:6px;height:6px;border-radius:50%;background:#ff6874;box-shadow:0 0 10px rgba(255,104,116,.7)}
+.h2-vocab-scene .h2v-top b{font-size:10px;color:#ff9ba2}
+.h2-vocab-scene .h2v-top em{font-style:normal;color:rgba(255,255,255,.35)}
+.h2v-canvas{height:clamp(245px,26vw,290px);position:relative;overflow:hidden;display:grid;place-items:center;background:radial-gradient(ellipse at 52% 50%,rgba(255,64,83,.13),transparent 60%),linear-gradient(135deg,rgba(255,255,255,.015),transparent)}
+.h2v-main-card{position:relative;z-index:3;width:min(72%,270px);min-height:178px;padding:15px 17px 13px;border-radius:15px;background:linear-gradient(145deg,#292027,#171319 75%);border:1px solid rgba(255,255,255,.2);box-shadow:0 22px 48px rgba(0,0,0,.42),inset 0 1px rgba(255,255,255,.12);animation:h2vCardIn .8s cubic-bezier(.2,.8,.2,1) both;overflow:hidden}
+.h2v-card-head{display:flex;justify-content:space-between;align-items:center;gap:8px;color:rgba(255,255,255,.52);font-size:8px;font-weight:850;letter-spacing:.14em}
+.h2v-level{padding:4px 7px;border-radius:99px;background:rgba(255,104,116,.13);color:#ff9ba2;font-size:7px;letter-spacing:.1em}
+.h2v-word-main{font-size:clamp(23px,3vw,31px);font-weight:900;letter-spacing:-.06em;color:#fff;margin-top:14px;line-height:1}
+.h2v-pron{font-size:9px;color:rgba(255,255,255,.52);margin-top:6px}
+.h2v-pron span{margin-left:7px;color:#c3a9ff}
+.h2v-meaning{font-family:'Hind Siliguri',sans-serif;font-size:14px;font-weight:700;color:#ff9ba2;margin-top:7px}
+.h2v-card-foot{margin-top:10px;padding-top:8px;border-top:1px solid rgba(255,255,255,.1)}
+.h2v-card-foot span{font-size:7px;letter-spacing:.15em;font-weight:850;color:rgba(255,255,255,.4)}
+.h2v-card-foot p{font-size:10px!important;line-height:1.3!important;color:rgba(255,255,255,.82)!important;margin:3px 0 0!important}
+.h2v-card-glint{position:absolute;inset:-80% auto -80% -45%;width:35%;transform:rotate(24deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);animation:h2vShine 6s ease-in-out infinite}
+.h2v-mini{position:absolute;z-index:4;display:flex;flex-direction:column;gap:3px;padding:9px 11px;border-radius:11px;background:rgba(29,24,32,.94);border:1px solid rgba(255,255,255,.16);box-shadow:0 10px 25px rgba(0,0,0,.25);animation:h2vFloat 5s ease-in-out infinite}
+.h2v-mini small{font-size:7px;font-weight:900;letter-spacing:.13em;color:#ff9ba2}
+.h2v-mini b{font-size:12px;color:#fff;letter-spacing:-.02em}
+.h2v-mini i{font-family:'Hind Siliguri',sans-serif;font-size:9px;font-style:normal;color:rgba(255,255,255,.5)}
+.h2v-syn{left:3%;top:23%;transform:rotate(-5deg)}
+.h2v-ant{right:3%;top:19%;animation-delay:-2.2s;transform:rotate(5deg)}
+.h2v-word{position:absolute;z-index:1;font-size:10px;font-weight:850;color:rgba(255,255,255,.2);letter-spacing:.02em;animation:h2vDrift 8s ease-in-out infinite}
+.h2v-w1{left:8%;bottom:17%}.h2v-w2{right:10%;bottom:13%;animation-delay:-3s}.h2v-w3{left:18%;top:10%;animation-delay:-5s}
+.h2v-line{position:absolute;height:1px;width:38%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);transform:rotate(-28deg)}
+.h2v-line1{left:-3%;top:49%}.h2v-line2{right:-5%;top:56%;transform:rotate(28deg)}
+.h2v-quiz{position:absolute;z-index:5;bottom:8px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:5px;padding:7px 9px;border-radius:10px;background:rgba(12,10,14,.92);border:1px solid rgba(255,255,255,.14);box-shadow:0 8px 20px rgba(0,0,0,.25);white-space:nowrap}
+.h2v-quiz div{display:flex;flex-direction:column;margin-right:5px}
+.h2v-quiz small{font-size:6px;letter-spacing:.13em;color:#ff9ba2;font-weight:900}
+.h2v-quiz b{font-size:8px;color:rgba(255,255,255,.8)}
+.h2v-quiz>span{width:19px;height:19px;display:grid;place-items:center;border-radius:6px;background:rgba(255,255,255,.07);font-size:8px;color:rgba(255,255,255,.65);font-weight:800}
+.h2v-quiz>span.h2v-right{width:auto;padding:0 7px;color:#8df0bd;background:rgba(79,224,160,.13);border:1px solid rgba(79,224,160,.25)}
+.h2v-xp{position:absolute;right:8%;bottom:28%;z-index:5;padding:7px 10px;border-radius:99px;background:rgba(92,70,138,.92);border:1px solid rgba(190,164,255,.35);font-size:10px;font-weight:900;color:#e4d7ff;box-shadow:0 8px 22px rgba(0,0,0,.25);animation:h2vFloat 4s ease-in-out -1s infinite}
+.h2-vocab-scene .h2v-bottom{height:34px;border-top:1px solid rgba(255,255,255,.1);font-size:8px;letter-spacing:.1em}
+.h2-vocab-scene .h2v-bottom b{font-size:9px;letter-spacing:0;color:rgba(255,255,255,.7)}
+@keyframes h2vCardIn{from{opacity:0;transform:translateY(15px) rotateX(8deg) scale(.96)}to{opacity:1;transform:none}}
+@keyframes h2vFloat{0%,100%{translate:0 0}50%{translate:0 -7px}}
+@keyframes h2vDrift{0%,100%{translate:0 0;opacity:.55}50%{translate:9px -8px;opacity:1}}
+@keyframes h2vShine{0%,65%,100%{left:-45%}82%{left:125%}}
+@media(max-width:560px){
+ .h2-vocab-scene{border-radius:17px}
+ .h2v-canvas{height:258px}
+ .h2v-main-card{width:72%;min-height:168px;padding:13px 14px}
+ .h2v-word-main{font-size:25px;margin-top:12px}
+ .h2v-meaning{font-size:12px}
+ .h2v-syn{left:1%;top:20%;padding:7px 8px}
+ .h2v-ant{right:1%;top:18%;padding:7px 8px}
+ .h2v-mini b{font-size:10px}
+ .h2v-mini i{font-size:8px}
+ .h2v-quiz{bottom:7px;gap:4px;padding:6px 7px}
+ .h2v-xp{right:2%;bottom:30%;font-size:9px;padding:6px 8px}
+ .h2-vocab-scene .h2v-bottom{font-size:7px;padding:0 10px}
+ .h2-vocab-scene .h2v-bottom b{font-size:8px}
+}
+@media(prefers-reduced-motion:reduce){
+ .h2-vocab-scene *, .h2-vocab-scene *:before,.h2-vocab-scene *:after{animation:none!important;transition:none!important}
+}

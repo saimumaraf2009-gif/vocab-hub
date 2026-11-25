@@ -583,26 +583,18 @@ function exploreGrid(s){
   {k:'profile',ic:'profile',t:'Your profile',d:'Your level, photo and full progress on one page.',m:'Lv '+(l.i+1)+' · '+l.name,c:'#4fe0a0',cls:'w2d'}];
  return`<div class="section-head"><div><span class="eyebrow">EVERYTHING IN ONE PLACE</span><h2>Every VocabHub tab, at a glance</h2></div><span class="soft-pill">${tiles.length} sections</span></div><div class="promo-bento">${tiles.map(p=>`<a class="promo-tile has-art ${p.cls||''}" href="#${p.k}" style="--pc:${p.c};--gc:${p.c}">${HM_ART[p.k]?`<div class="arc-stage hm-stage">${HM_ART[p.k]()}</div>`:''}<span class="pt-top"><span class="pt-ic">${ico(p.ic)}</span><span class="pt-metric">${esc(p.m)}</span></span><b>${p.t}</b><p>${p.d}</p><span class="pt-go">Open ↗</span></a>`).join('')}</div>`}
 /* v2.59 — Hero "Word Orbit" animation (sits above the progress strip) */
-const heroOrbit=()=>`<div class="h2-orbit h2-vocab-scene" aria-hidden="true">
- <div class="h2v-top"><span><i></i> VOCABULARY IN ACTION</span><b>01 <em>/</em> 04</b></div>
- <div class="h2v-canvas">
-  <span class="h2v-word h2v-w1">eloquent</span><span class="h2v-word h2v-w2">resilient</span><span class="h2v-word h2v-w3">meticulous</span>
-  <span class="h2v-line h2v-line1"></span><span class="h2v-line h2v-line2"></span>
-  <div class="h2v-card h2v-main-card">
-   <div class="h2v-card-head"><span>WORD PROFILE</span><span class="h2v-level">CORE WORD</span></div>
-   <div class="h2v-word-main">Ephemeral</div>
-   <div class="h2v-pron">/ɪˈfem.ər.əl/ <span>adjective</span></div>
-   <div class="h2v-meaning">ক্ষণস্থায়ী · অল্পস্থায়ী</div>
-   <div class="h2v-card-foot"><span>EXAMPLE</span><p>Fame can be ephemeral.</p></div>
-   <div class="h2v-card-glint"></div>
-  </div>
-  <div class="h2v-mini h2v-syn"><small>SYNONYM</small><b>Fleeting</b><i>সমার্থক</i></div>
-  <div class="h2v-mini h2v-ant"><small>ANTONYM</small><b>Permanent</b><i>বিপরীতার্থক</i></div>
-  <div class="h2v-quiz"><div><small>QUICK CHECK</small><b>Choose the meaning</b></div><span> A </span><span class="h2v-right"> B ✓ </span><span> C </span><span> D </span></div>
-  <div class="h2v-xp">✦ &nbsp;+25 XP</div>
+const heroOrbit=()=>`<div class="vh-showcase" aria-label="Animated preview of VocabHub learning features">
+ <div class="vh-showcase-top"><span class="vh-showcase-brand"><i></i> THE VOCABHUB EXPERIENCE</span><span class="vh-showcase-live"><i></i> LEARNING IN MOTION</span></div>
+ <div class="vh-showcase-stage">
+  <div class="vh-showcase-word vh-panel"><div class="vh-panel-kicker"><span>01 / WORD LIBRARY</span><b>WORD OF THE MOMENT</b></div><div class="vh-word-card"><div class="vh-word-front"><small>VERB · /ˈflʌrɪʃ/</small><strong>Flourish</strong><span>to grow or develop successfully</span><i>Tap to reveal meaning</i></div><div class="vh-word-back"><small>বাংলা অর্থ</small><strong>সমৃদ্ধ হওয়া</strong><span>Synonym · thrive, prosper</span><i>Antonym · decline</i></div></div><div class="vh-word-tags"><span>✦ Synonyms</span><span>↔ Antonyms</span><span>◉ Pronunciation</span></div></div>
+  <div class="vh-showcase-practice vh-panel"><div class="vh-panel-kicker"><span>02 / PRACTICE STUDIO</span><b>QUICK CHALLENGE</b></div><p>Choose the closest meaning of <strong>“Vivid”</strong></p><div class="vh-options"><span>A&nbsp; Ordinary</span><span class="vh-option-correct">B&nbsp; Bright <i>✓</i></span><span>C&nbsp; Silent</span><span>D&nbsp; Weak</span></div><div class="vh-feedback"><i>✓</i> Correct answer <b>+10 XP</b></div></div>
+  <div class="vh-showcase-arcade vh-panel"><div class="vh-panel-kicker"><span>03 / ARCADE</span><b>WORD SCRAMBLE</b></div><small>UNSCRAMBLE THIS WORD</small><div class="vh-tiles"><i>R</i><i class="vh-tile-shift">A</i><i>N</i><i class="vh-tile-shift2">E</i><i>T</i><i>G</i></div><div class="vh-arcade-foot"><span>⏱ 00:12</span><b>STREAK × 3</b></div></div>
+  <div class="vh-showcase-progress vh-panel"><div class="vh-panel-kicker"><span>04 / YOUR PROGRESS</span><b>LEVEL UP</b></div><div class="vh-xp-line"><div><small>TOTAL EXPERIENCE</small><strong>1,240 <em>XP</em></strong></div><span class="vh-level-badge">LV 08</span></div><div class="vh-xp-track"><i></i></div><div class="vh-progress-foot"><span>760 XP to next level</span><b>62%</b></div><div class="vh-streak-row"><span>🔥 7 DAY STREAK</span><span>✦ DAILY GOAL COMPLETE</span></div></div>
+  <div class="vh-showcase-center"><span class="vh-center-ring"></span><span class="vh-center-ring vh-center-ring2"></span><div><b>Aa</b><small>অ আ</small></div><i class="vh-center-spark">✦</i></div>
+  <span class="vh-float-chip vh-chip-library">📚&nbsp; Explore words</span><span class="vh-float-chip vh-chip-game">🎮&nbsp; Play & learn</span><span class="vh-float-chip vh-chip-revise">↻&nbsp; Smart revision</span>
  </div>
- <div class="h2v-bottom"><span><i></i> WORD → MEANING → MASTERY</span><b>Learn. Remember. Use.</b></div>
-</div>`;
+ <div class="vh-showcase-bottom"><span>LEARN WORDS</span><i></i><span>PRACTISE SMARTER</span><i></i><span>PLAY TO MASTER</span><i></i><span>TRACK YOUR GROWTH</span></div>
+ </div>`
 V.dash=()=>{const s=st(),l=lvl(s.xp),g=Math.min(100,Math.round(s.todayC/D.goal*100));
  return`<section class="hero2"><span class="h2-blob h2-b1" aria-hidden="true"></span><span class="h2-blob h2-b2" aria-hidden="true"></span><span class="h2-grid" aria-hidden="true"></span>${[1,2,3,4,5,6].map(n=>`<i class="h2-dot h2-d${n}" aria-hidden="true"></i>`).join('')}${['Ephemeral','Benevolent','Resilient','Lucid','Eloquent'].map((w,i)=>`<span class="h2-fw h2-fw${i+1}" aria-hidden="true">${w}</span>`).join('')}
    <div class="h2-copy"><div class="h2-brand"><span class="h2-logo" aria-hidden="true"><img src="assets/logo.png" alt=""></span><div class="h2-brand-t"><b>Vocab<span>Hub</span></b><small>English → বাংলা vocabulary studio</small></div></div><span class="h2-eyebrow">LEARN · REVISE · MASTER</span>

@@ -3532,3 +3532,38 @@ html.nav-collapsed #nav .sidebar-footer{align-items:center}
 @media(max-width:560px){.mist-rate{grid-template-columns:76px minmax(0,1fr);gap:12px;padding:14px;border-radius:17px}.mr-ring{width:76px}.mr-ring-core{inset:5px}.mr-ring-core strong{font-size:22px}.mr-ring-core>span{font-size:6px}.mr-top{align-items:flex-start;flex-direction:column;gap:5px}.mr-status{font-size:8px}.mr-copy h2{font-size:15px}.mr-copy .micro{font-size:9px;margin-bottom:8px}.mr-counts{gap:5px 11px;font-size:8px}.mr-counts b{font-size:10px}.mr-bar{height:6px}.mist-overview .section-head{align-items:flex-start;flex-wrap:wrap}.mist-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.mist-tile .mst-stage{height:72px}.mistake-exam-card{padding:15px!important}.mistake-exam-card .exam-copy{flex-basis:100%}.mistake-exam-card .exam-actions{align-items:stretch}.mistake-exam-card .exam-actions .btn{min-width:0}.mist-row{align-items:flex-start;flex-direction:column}.mist-word{width:100%}.mist-meta{width:100%;justify-content:flex-start}.mission-summary-grid{gap:8px}.mission-summary-card{padding:12px}.mission-summary-card>span{font-size:7px}.mission-summary-card>b{font-size:22px}.mission-intro{padding:15px!important;gap:12px}.mission-rules{display:grid;grid-template-columns:1fr;justify-content:stretch}.mission-rules>span{font-size:8px}.mission-card{padding:16px!important}.mission-card-heading{flex-direction:column;gap:6px}.mission-status{align-self:flex-start}.mission-card-footer{align-items:stretch;flex-direction:column}.mission-card-footer .btn{width:100%;min-height:40px;font-size:11px}.mission-claimed-mark{align-self:flex-start}.mission-group-head h2{font-size:18px}}
 @media(max-width:380px){.mist-rate{grid-template-columns:64px minmax(0,1fr);gap:10px;padding:12px}.mr-ring{width:64px}.mr-ring-core{inset:4px}.mr-ring-core strong{font-size:19px}.mr-ring-core>span{font-size:5.5px}.mr-copy h2{font-size:13px}.mr-counts{flex-direction:column;gap:2px}.mist-tiles{gap:7px}.mist-tile .mst-stage{height:64px}.mission-summary-grid{grid-template-columns:1fr 1fr}.mission-summary-card:last-child{grid-column:1/-1}.mission-card-top{align-items:flex-start}.mission-reward{font-size:8px;padding:5px 7px}.mission-progress-label{font-size:8px}}
 @media(prefers-reduced-motion:reduce){.mist-rate,.mist-rate *,.mist-rate:before,.mission-summary-card,.mission-card,.mission-card .bar i{animation:none!important;transition:none!important}.mr-ring{transform:none}.mr-ring:after{animation:none!important}.mr-bar i{transform:none}.mission-card:hover{transform:none}}
+
+/* ===== v2.69 · mobile hero order, bigger typewriter line, one-row snapshots ===== */
+@media(max-width:900px){
+  /* order: eyebrow → title → subtitle → animation → four buttons */
+  .hero2{display:flex!important;flex-direction:column;gap:0}
+  .hero2>.h2-copy{display:contents}
+  .hero2 .h2-eyebrow{order:1;align-self:flex-start}
+  .hero2 h1{order:2}
+  .hero2 .h2-copy>p{order:3;margin:0 0 12px}
+  .hero2>.h2-side{order:4;width:100%;max-width:none;margin:0 0 4px}
+  .hero2 .h2-actions{order:5;margin-top:12px}
+  /* "Learn with …" line under the animation */
+  .h2o-type{font-size:clamp(21px,6.4vw,26px);padding:10px 0 4px;gap:.4em;flex-wrap:wrap}
+  .h2o-type .h2o-w{font-weight:900}
+}
+@media(max-width:700px){
+  /* Home → Learning snapshot: four tiles in one row */
+  .snap-stats{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important}
+  .snap-stats .stat{min-height:0;padding:10px 4px 9px;border-radius:14px;text-align:center;align-items:center}
+  .snap-stats .stat-icon{width:26px;height:26px;margin:0 auto 6px;border-radius:9px}
+  .snap-stats .stat-icon .ic{width:16px;height:16px}
+  .snap-stats .stat b{font-size:17px;line-height:1.1}
+  .snap-stats .stat span.stat-label,.snap-stats .stat>span:last-child{font-size:9px;line-height:1.2;overflow-wrap:anywhere;letter-spacing:0}
+  /* After quiz → Learning snapshot: one row */
+  .res-snap .profile-stats{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:6px}
+  .res-snap .profile-stats .stat{min-width:0;min-height:0;padding:10px 4px 9px;border-radius:14px;text-align:center;align-items:center}
+  .res-snap .profile-stats .stat-icon{width:26px;height:26px;margin:0 auto 6px;border-radius:9px}
+  .res-snap .profile-stats .stat-icon .ic{width:16px;height:16px}
+  .res-snap .profile-stats .stat b{font-size:16px;line-height:1.1;overflow-wrap:anywhere}
+  .res-snap .profile-stats .stat .stat-label,.res-snap .profile-stats .stat>span:last-child{font-size:9px;line-height:1.2;letter-spacing:0;overflow-wrap:anywhere}
+}
+@media(max-width:360px){
+  .snap-stats .stat b,.res-snap .profile-stats .stat b{font-size:15px}
+  .snap-stats .stat span.stat-label,.res-snap .profile-stats .stat .stat-label{font-size:8.5px}
+}

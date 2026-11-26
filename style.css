@@ -4092,3 +4092,19 @@ html.nav-collapsed #nav .sidebar-footer{align-items:center}
   #mist-body .tab{font-size:9px;padding:7px 3px;gap:3px}
   #mist-body .tab span{font-size:8px;padding:1px 4px}
 }
+
+
+/* v2.76 · intro box now sits under the revision cards */
+.revision-queue-grid+.revision-intro{margin:0 0 16px}
+
+
+/* v2.77 · Smart Revision header: compact one-line counter on mobile */
+@media(max-width:640px){
+  .count-tile.rv-count{
+    display:inline-flex;flex-direction:row;align-items:baseline;justify-content:center;gap:5px;
+    width:auto;min-width:0;height:auto;min-height:0;padding:7px 11px;border-radius:12px;
+    white-space:nowrap;align-self:flex-start;
+  }
+  .count-tile.rv-count b{font-size:18px;line-height:1}
+  .count-tile.rv-count small{font-size:8px;letter-spacing:.08em;line-height:1;margin:0;white-space:nowrap}
+}

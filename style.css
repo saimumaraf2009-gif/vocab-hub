@@ -4108,3 +4108,65 @@ html.nav-collapsed #nav .sidebar-footer{align-items:center}
   .count-tile.rv-count b{font-size:18px;line-height:1}
   .count-tile.rv-count small{font-size:8px;letter-spacing:.08em;line-height:1;margin:0;white-space:nowrap}
 }
+
+/* ===== v2.79 · compact two-column mobile cards for Difficulty Journey and Missions ===== */
+@media(max-width:800px){
+  /* Difficulty Journey: keep two level cards side by side on phones. */
+  .level-journey-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px;
+  }
+  .level-journey-card{
+    min-width:0;
+    padding:11px 10px;
+    border-radius:14px;
+  }
+  .level-journey-card .level-number{font-size:17px}
+  .level-journey-card .level-difficulty{font-size:7px;padding:4px 6px;white-space:nowrap}
+  .level-journey-card h2{font-size:14px;line-height:1.25;margin:6px 0 4px}
+  .level-journey-card>p{font-size:9px;line-height:1.45;overflow-wrap:anywhere}
+  .level-journey-card .level-count-row{gap:5px;margin-top:8px;font-size:8px;flex-wrap:wrap}
+  .level-journey-card .level-count-row b{font-size:16px}
+  .level-journey-card .level-mastered{font-size:7px}
+  .level-journey-card .level-card-actions{
+    display:flex;flex-direction:column;align-items:stretch;gap:5px;margin-top:9px;
+  }
+  .level-journey-card .level-card-actions .btn{
+    flex:1 1 auto;width:100%;min-width:0;min-height:29px;padding:6px 5px;
+    font-size:8px;line-height:1.25;white-space:normal;
+  }
+
+  /* Missions: preserve the two-column layout and tighten each card to fit. */
+  .mission-list{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px}
+  .mission-card{min-width:0;min-height:0;padding:11px!important;gap:8px;border-radius:14px!important}
+  .mission-card-top{align-items:flex-start;gap:5px}
+  .mission-period-tag{font-size:6.5px;letter-spacing:.08em;padding:4px 5px}
+  .mission-reward{font-size:7.5px;white-space:nowrap}
+  .mission-card-heading{flex-direction:column;align-items:flex-start;gap:5px}
+  .mission-card-heading h3{font-size:12px;line-height:1.3;overflow-wrap:anywhere}
+  .mission-status{align-self:flex-start;font-size:7px;padding:3px 6px}
+  .mission-description{min-height:0;font-size:8px;line-height:1.5;overflow-wrap:anywhere}
+  .mission-progress-label{font-size:7.5px;gap:4px}
+  .mission-progress-label>b{font-size:8.5px}
+  .mission-card .bar{height:6px}
+  .mission-card-footer{align-items:stretch;flex-direction:column;gap:6px;margin-top:0}
+  .mission-card-footer>small{font-size:7px;line-height:1.4}
+  .mission-card-footer .btn{width:100%;min-width:0;min-height:30px;padding:6px 5px;font-size:8px;white-space:normal}
+  .mission-claimed-mark{font-size:8px}
+}
+@media(max-width:380px){
+  .level-journey-grid,.mission-list{gap:7px}
+  .level-journey-card{padding:10px 8px}
+  .level-journey-card .level-difficulty{font-size:6.5px;padding:3px 5px}
+  .level-journey-card h2{font-size:13px}
+  .level-journey-card>p{font-size:8px}
+  .level-journey-card .level-mastered{font-size:6.5px}
+  .level-journey-card .level-card-actions .btn{font-size:7.5px}
+  .mission-card{padding:9px!important;gap:7px}
+  .mission-period-tag{font-size:6px;padding:4px}
+  .mission-reward{font-size:7px}
+  .mission-card-heading h3{font-size:11px}
+  .mission-description{font-size:7.5px}
+  .mission-card-footer>small{font-size:6.5px}
+  .mission-card-footer .btn{font-size:7.5px;min-height:28px}
+}

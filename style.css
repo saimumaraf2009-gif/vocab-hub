@@ -4028,3 +4028,52 @@ html.nav-collapsed #nav .sidebar-footer{align-items:center}
   .revision-intro-list{font-size:9px}
   .revision-intro-list b{font-size:9px}
 }
+
+/* ===== v2.75 · mobile fixes: uncut revision art, English-only revision cards, one-row mistake snapshot ===== */
+@media(max-width:640px){
+  /* Revision cards: centre the 220x120 artwork inside the stage so scaling no longer pushes it off the right edge */
+  .revision-queue .rv-stage{height:72px;display:block;position:relative;overflow:hidden}
+  .revision-queue .rv-stage .arc-art{
+    position:absolute;left:50%;top:50%;
+    margin:-60px 0 0 -110px;
+    transform:scale(var(--sc,.56))!important;
+    transform-origin:50% 50%;
+  }
+  .revision-queue .rv-stage .arc-art,
+  .revision-queue:hover .arc-art{--sc:.56}
+  .revision-queue p.rv-desc{display:none}
+  .revision-queue-top .chip{font-size:6.5px;white-space:normal;overflow-wrap:normal;word-break:normal;hyphens:none}
+  .revision-queue h3{min-height:0;font-size:10.5px;margin-bottom:8px}
+  .revision-queue .btn{font-size:8px;min-height:36px;overflow-wrap:normal;word-break:normal}
+  .revision-intro-list{font-size:11px}
+  .revision-intro-list b{font-size:11px}
+  .revision-intro-note{font-size:9px}
+
+  /* Mistake overview: four compact tiles on one line */
+  .mist-overview .mist-tiles{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+  .mist-tiles .mist-tile{border-radius:11px}
+  .mist-tiles .mist-tile .mst-stage{height:38px;min-height:38px;display:block;position:relative}
+  .mist-tiles .mst-art{
+    position:absolute;left:50%;top:50%;
+    margin:-40px 0 0 -60px;
+    transform:scale(.4)!important;
+    transform-origin:50% 50%;
+  }
+  .mist-tiles .mst-tag{display:none}
+  .mist-tiles .mst-body{padding:6px 5px 7px;align-items:center;text-align:center}
+  .mist-tiles .mst-body .stat-icon{display:none}
+  .mist-tiles .mst-body b{font-size:17px;line-height:1.1;margin:0 0 2px}
+  .mist-tiles .mist-tile .stat-label{font-size:8px;line-height:1.2;text-align:center}
+}
+@media(max-width:380px){
+  .revision-queue .rv-stage{height:64px}
+  .revision-queue .rv-stage .arc-art,
+  .revision-queue:hover .arc-art{--sc:.46}
+  .revision-queue-top .chip{font-size:6px}
+  .revision-queue .btn{font-size:7.5px}
+  .mist-overview .mist-tiles{gap:4px}
+  .mist-tiles .mist-tile .mst-stage{height:34px;min-height:34px}
+  .mist-tiles .mst-art{transform:scale(.34)!important}
+  .mist-tiles .mst-body b{font-size:15px}
+  .mist-tiles .mist-tile .stat-label{font-size:7.5px}
+}

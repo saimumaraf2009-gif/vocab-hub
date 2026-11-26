@@ -4207,3 +4207,63 @@ html.nav-collapsed #nav .sidebar-footer{align-items:center}
  .hist-stats>.stat:hover,.hist-stats>.stat:focus-within{transform:none!important;box-shadow:none!important}
  .hist-stats>.stat .stat-icon .ic{transform:none!important}
 }
+
+
+/* ===== v2.81 · profile completion navigation + animated learning metrics =====
+   The completion CTA uses the profile route, then scrolls to the editor anchor.
+   Overview metrics now share the staggered, count-up snapshot treatment. */
+.profile-completion-mini>a.profile-complete-link{
+ display:inline-flex;align-items:center;justify-content:center;gap:5px;
+ padding:7px 11px;border:1px solid color-mix(in srgb,var(--ac2) 34%,var(--bd));
+ border-radius:999px;background:color-mix(in srgb,var(--ac) 8%,var(--card));
+ color:var(--ac2);font-size:13px;line-height:1.2;font-weight:900;letter-spacing:-.015em;
+ white-space:nowrap;text-decoration:none;transition:transform .2s,border-color .2s,background .2s,box-shadow .2s
+}
+@media(hover:hover){.profile-completion-mini>a.profile-complete-link:hover{
+ transform:translateY(-2px);border-color:var(--ac);background:color-mix(in srgb,var(--ac) 13%,var(--card));
+ box-shadow:0 7px 18px color-mix(in srgb,var(--ac) 15%,transparent)
+}}
+.profile-completion-mini>a.profile-complete-link:focus-visible{outline:2px solid var(--ac2);outline-offset:3px}
+.profile-overview-animated .profile-overview-card{
+ --metric-ac:var(--ac2);position:relative;isolation:isolate;overflow:hidden;
+ border-color:color-mix(in srgb,var(--metric-ac) 24%,var(--bd));
+ background-image:linear-gradient(145deg,color-mix(in srgb,var(--metric-ac) 8%,transparent),transparent 70%);
+ animation:snRise .56s cubic-bezier(.2,.8,.2,1) calc(.1s + var(--metric-i,0)*85ms) backwards;
+ transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s,box-shadow .22s
+}
+.profile-overview-animated .profile-overview-card:nth-child(1){--metric-ac:#a78bfa;--metric-i:0}
+.profile-overview-animated .profile-overview-card:nth-child(2){--metric-ac:#4fe0a0;--metric-i:1}
+.profile-overview-animated .profile-overview-card:nth-child(3){--metric-ac:#ffd166;--metric-i:2}
+.profile-overview-animated .profile-overview-card:nth-child(4){--metric-ac:#55c9ff;--metric-i:3}
+.profile-overview-animated .profile-overview-card:before{
+ content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;
+ background:radial-gradient(190px circle at 85% 12%,color-mix(in srgb,var(--metric-ac) 18%,transparent),transparent 70%);
+ transition:opacity .25s
+}
+.profile-overview-animated .profile-overview-card:after{
+ content:"";position:absolute;left:14px;right:14px;bottom:0;height:2px;border-radius:99px;
+ background:linear-gradient(90deg,var(--metric-ac),color-mix(in srgb,var(--metric-ac) 12%,transparent));
+ transform:scaleX(0);transform-origin:left center;
+ animation:metricLine .62s cubic-bezier(.2,.8,.2,1) calc(.25s + var(--metric-i,0)*85ms) backwards
+}
+.profile-overview-animated .profile-overview-card>span{
+ display:inline-block;align-self:flex-start;transform-origin:center;
+ animation:snPop .55s cubic-bezier(.2,.9,.3,1.3) calc(.24s + var(--metric-i,0)*85ms) backwards,
+ metricIconGlow .9s ease-out calc(.55s + var(--metric-i,0)*85ms) both
+}
+.profile-overview-animated .profile-overview-card>b{font-variant-numeric:tabular-nums;position:relative;z-index:1}
+@keyframes metricLine{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes metricIconGlow{0%,100%{filter:drop-shadow(0 0 0 transparent)}55%{filter:drop-shadow(0 3px 8px color-mix(in srgb,var(--metric-ac) 46%,transparent))}}
+@media(hover:hover){
+ .profile-overview-animated .profile-overview-card:hover{transform:translate3d(0,-4px,0);border-color:var(--metric-ac);
+  box-shadow:0 14px 30px color-mix(in srgb,var(--metric-ac) 16%,transparent),0 0 0 1px color-mix(in srgb,var(--metric-ac) 22%,transparent)}
+ .profile-overview-animated .profile-overview-card:hover:before{opacity:1}
+ .profile-overview-animated .profile-overview-card:hover>span{animation-duration:.7s}
+}
+@media(max-width:650px){.profile-completion-mini>a.profile-complete-link{font-size:12px;padding:7px 10px}}
+@media(prefers-reduced-motion:reduce){
+ .profile-completion-mini>a.profile-complete-link,.profile-overview-animated .profile-overview-card,
+ .profile-overview-animated .profile-overview-card:after,.profile-overview-animated .profile-overview-card>span{animation:none!important;transition:none!important}
+ .profile-overview-animated .profile-overview-card:hover{transform:none!important;box-shadow:none!important}
+ .profile-overview-animated .profile-overview-card:before{display:none}
+}

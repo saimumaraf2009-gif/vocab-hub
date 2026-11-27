@@ -4555,3 +4555,29 @@ html.nav-collapsed #nav .sidebar-footer{align-items:center}
  .results-analytics-link{font-size:9px;padding:7px 10px;white-space:nowrap}
 }
 @media(max-width:380px){.results-actions .btn{font-size:8px;padding-inline:2px}.results-mistakes-promo>strong{font-size:7px}}
+
+/* v2.88 — full-word scramble sizing + filled progress scene */
+.vh-letter-field{flex-wrap:nowrap}
+.vh-letter-field.is-long{gap:clamp(5px,1.1vw,10px)}
+.vh-letter-field.is-long>span{font-size:clamp(21px,3.3vw,32px)}
+.vh-letter-field.is-xlong{gap:clamp(3px,.8vw,7px)}
+.vh-letter-field.is-xlong>span{font-size:clamp(18px,2.8vw,27px)}
+.vh-progress-main{margin-bottom:10px}
+.vh-progress-track{margin:0 0 14px;padding:0 2px}
+.vh-progress-track-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px;color:rgba(255,255,255,.38);font-size:7px;font-weight:850;letter-spacing:.14em;white-space:nowrap}
+.vh-progress-track-meta b{color:#ff9ca6;font-size:7px;font-weight:850;letter-spacing:.12em;overflow:hidden;text-overflow:ellipsis}
+.vh-progress-track>i{display:block;height:3px;border-radius:3px;overflow:hidden;background:rgba(255,255,255,.12)}
+.vh-progress-track>i>b{display:block;width:var(--vh-pct,0%);min-width:3px;height:100%;border-radius:3px;background:linear-gradient(90deg,#e83c55,#ff9a9f);box-shadow:0 0 10px rgba(255,83,104,.4);transform:scaleX(0);transform-origin:left}
+.vh-scene.is-active .vh-progress-track>i>b{animation:vhTrackFill 1.2s cubic-bezier(.2,.8,.2,1) .35s forwards}
+.vh-progress-details{margin-top:2px;padding-top:12px;border-top:1px solid rgba(255,255,255,.07)}
+.vh-progress-foot{margin-top:13px}
+@keyframes vhTrackFill{to{transform:scaleX(1)}}
+@media(max-width:560px){
+ .vh-letter-field.is-long>span{font-size:clamp(19px,6vw,26px)}
+ .vh-letter-field.is-xlong>span{font-size:clamp(16px,5.2vw,22px)}
+ .vh-progress-main{margin-bottom:8px}
+ .vh-progress-track{margin-bottom:11px}
+ .vh-progress-details{padding-top:10px}
+ .vh-progress-foot{margin-top:11px}
+}
+@media(prefers-reduced-motion:reduce){.vh-progress-track>i>b{transform:none}}

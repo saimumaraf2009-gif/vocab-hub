@@ -602,11 +602,13 @@ const heroOrbit=(s,l,g)=>{
  ordered[correctAt]={v:options[0]||wordLabel,ok:true};
  let nextOption=1;
  for(let i=0;i<4;i++)if(i!==correctAt)ordered[i]={v:options[nextOption++]||wordLabel,ok:false};
- let letters=Array.from(String(wordLabel).replace(/[^a-z]/gi,'').slice(0,7).toUpperCase());
- if(letters.length<3)letters=Array.from(String(word2&&word2.en||'VOCAB').replace(/[^a-z]/gi,'').slice(0,7).toUpperCase());
+ let letters=Array.from(String(wordLabel).replace(/[^a-z]/gi,'').slice(0,14).toUpperCase());
+ if(letters.length<3)letters=Array.from(String(word2&&word2.en||'VOCAB').replace(/[^a-z]/gi,'').slice(0,14).toUpperCase());
  if(letters.length<3)letters=Array.from('VOCAB');
  const shift=(day%Math.max(1,letters.length-1))+1;
- const scrambled=letters.slice(shift).concat(letters.slice(0,shift)).reverse();
+ let scrambled=letters.slice(shift).concat(letters.slice(0,shift)).reverse();
+ if(scrambled.join('')===letters.join('')&&scrambled.length>2&&scrambled[0]!==scrambled[1]){scrambled=scrambled.slice();[scrambled[0],scrambled[1]]=[scrambled[1],scrambled[0]]}
+ const fieldSize=scrambled.length>=12?' is-xlong':scrambled.length>=9?' is-long':'';
  const learned=Number(s.learned)||0;
  const total=pool.length||W.length||0;
  const xp=Number(s.xp)||0,streak=Number(s.streak)||0;
@@ -646,7 +648,7 @@ const heroOrbit=(s,l,g)=>{
    <article class="vh-scene vh-scene-arcade" data-vh-scene="arcade" aria-hidden="true">
     <div class="vh-scene-kicker"><span>03 / WORD ARCADE</span><b>PLAY TO LEARN</b></div>
     <div class="vh-arcade-copy"><span>UNSCRAMBLE THE LETTERS</span><h3>Find the word within.</h3></div>
-    <div class="vh-letter-field" aria-label="Scrambled letters ${esc(scrambled.join(''))}">${lettersMarkup}</div>
+    <div class="vh-letter-field${fieldSize}" aria-label="Scrambled letters ${esc(scrambled.join(''))}">${lettersMarkup}</div>
     <div class="vh-word-reveal" aria-label="The word is ${safeWord}"><span>WORD FOUND</span><strong>${safeWord}</strong><i aria-hidden="true">✦</i></div>
     <div class="vh-arcade-foot"><span>FOCUS · RECALL · REPEAT</span><b>✦ ${xp.toLocaleString()} XP</b></div>
    </article>
@@ -658,6 +660,10 @@ const heroOrbit=(s,l,g)=>{
       <svg viewBox="0 0 120 120" role="img" aria-label="${pct}% level progress"><circle class="vh-progress-ring-track" cx="60" cy="60" r="49" pathLength="100"/><circle class="vh-progress-ring-fill" cx="60" cy="60" r="49" pathLength="100" style="--vh-offset:${100-pct}"/></svg>
       <span><b>${pct}%</b><small>LEVEL</small></span>
      </div>
+    </div>
+    <div class="vh-progress-track" role="img" aria-label="${pct}% of the way to the next level">
+     <div class="vh-progress-track-meta"><span>LEVEL ${levelNo}</span><b>${l.next?Math.max(0,l.next-xp).toLocaleString()+' XP TO LEVEL '+(levelNo+1):'TOP LEVEL REACHED'}</b><span>${l.next?'LEVEL '+(levelNo+1):'MAX'}</span></div>
+     <i><b style="--vh-pct:${pct}%"></b></i>
     </div>
     <div class="vh-progress-details">
      <span><b>${streak.toLocaleString()}</b><small>DAY STREAK</small></span>

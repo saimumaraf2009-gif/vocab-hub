@@ -4351,3 +4351,99 @@ html.nav-collapsed #nav .sidebar-footer{align-items:center}
  .xp-lv b{font-size:12px}
  .xp-lv small,.xp-lv em{font-size:8.5px}
 }
+
+/* ===== v2.84 — Dashboard tab glances: compact "peek" tiles =====
+   Each tile shows a small window onto the live animated art (the glimpse),
+   a title and the live metric. The whole tile is the link to the full page. */
+.promo-bento{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.promo-tile.w2,.promo-tile.w2d{grid-column:span 1}
+.promo-tile.has-art{min-height:0;padding:0 12px 10px;gap:2px;border-radius:16px}
+.promo-tile.has-art .hm-stage{height:62px;margin:0 -12px 8px;padding-bottom:0}
+.promo-tile.has-art .hm-stage .arc-art{--sc:.58;position:absolute;left:50%;top:50%;margin:-60px 0 0 -110px;transform:scale(var(--sc))!important;transform-origin:50% 50%}
+.promo-tile.has-art:hover .hm-stage .arc-art{--sc:.64}
+/* soft fade at the bottom edge hints that there is more inside */
+.promo-tile.has-art .hm-stage:before{opacity:.6}
+.promo-tile.has-art .hm-stage:after{pointer-events:none}
+.promo-tile.has-art .hm-stage{-webkit-mask-image:linear-gradient(180deg,#000 62%,rgba(0,0,0,.55));mask-image:linear-gradient(180deg,#000 62%,rgba(0,0,0,.55))}
+/* header row: icon + metric are replaced by a single title row with the metric chip */
+.promo-tile.has-art .pt-top{order:2;margin:0;gap:6px;justify-content:flex-start}
+.promo-tile.has-art .pt-ic{display:none}
+.promo-tile.has-art .pt-metric{font-size:10px;padding:2px 8px}
+.promo-tile.has-art > b{order:1;font-size:13px;line-height:1.25}
+.promo-tile.has-art > p{display:none}
+.promo-tile.has-art .pt-go{order:3;margin:0;padding:0;position:absolute;right:11px;bottom:9px;font-size:13px;line-height:1}
+.promo-tile.has-art .pt-go{font-size:0}
+.promo-tile.has-art .pt-go:before{content:"↗";font-size:13px}
+.promo-tile.has-art .pt-top{padding-right:20px}
+.promo-tile.has-art:focus-visible{outline:3px solid var(--pc);outline-offset:3px}
+@media (max-width:1100px){.promo-bento{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){
+ .promo-bento{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+ .promo-tile.has-art{padding:0 8px 8px;border-radius:13px}
+ .promo-tile.has-art .hm-stage{height:48px;margin:0 -8px 6px}
+ .promo-tile.has-art .hm-stage .arc-art{--sc:.44}
+ .promo-tile.has-art:hover .hm-stage .arc-art{--sc:.48}
+ .promo-tile.has-art > b{font-size:11.5px}
+ .promo-tile.has-art .pt-metric{font-size:9px;padding:2px 6px}
+ .promo-tile.has-art .pt-top{padding-right:0}
+ .promo-tile.has-art .pt-go{display:none}
+}
+@media (max-width:380px){.promo-bento{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ===== v2.85 · mobile analytics, mistakes tabs and profile metric polish ===== */
+.analytics-history-link{
+ display:inline-flex;align-items:center;justify-content:center;gap:7px;
+ margin-top:10px;padding:7px 12px;border:1px solid color-mix(in srgb,var(--ac2) 48%,var(--bd));
+ border-radius:999px;background:linear-gradient(110deg,color-mix(in srgb,var(--ac) 16%,var(--card)),color-mix(in srgb,var(--ac2) 7%,var(--card)));
+ color:var(--ac2);font-size:10px;font-weight:900;letter-spacing:-.01em;text-decoration:none;
+ box-shadow:0 5px 16px color-mix(in srgb,var(--ac) 10%,transparent);
+ transition:transform .2s,border-color .2s,box-shadow .2s,background .2s;
+}
+.analytics-history-link b{font-size:14px;line-height:1;transition:transform .2s}
+@keyframes analyticsHistoryGlow{
+ 0%,100%{box-shadow:0 5px 16px color-mix(in srgb,var(--ac) 9%,transparent);border-color:color-mix(in srgb,var(--ac2) 38%,var(--bd))}
+ 50%{box-shadow:0 7px 21px color-mix(in srgb,var(--ac) 20%,transparent);border-color:color-mix(in srgb,var(--ac2) 72%,var(--bd))}
+}
+.analytics-history-link{animation:analyticsHistoryGlow 3s ease-in-out 1s infinite}
+@media(hover:hover){.analytics-history-link:hover{transform:translateY(-2px);animation:none;box-shadow:0 9px 23px color-mix(in srgb,var(--ac) 22%,transparent)}.analytics-history-link:hover b{transform:translate(2px,-2px)}}
+
+.profile-overview-animated .profile-metric-icon{
+ width:34px;height:34px;display:grid;place-items:center;align-self:flex-start;
+ margin:0 0 6px;border:1px solid color-mix(in srgb,var(--metric-ac) 42%,var(--bd));
+ border-radius:11px;color:var(--metric-ac);
+ background:linear-gradient(145deg,color-mix(in srgb,var(--metric-ac) 20%,transparent),color-mix(in srgb,var(--metric-ac) 6%,transparent));
+ box-shadow:0 5px 15px color-mix(in srgb,var(--metric-ac) 15%,transparent);
+}
+.profile-overview-animated .profile-metric-icon .ic{width:22px;height:22px;overflow:visible;stroke-width:1.7}
+.profile-overview-animated .profile-overview-card>strong{position:relative;z-index:1}
+@media(max-width:800px){
+ /* The eight Analytics metrics must remain four across: two rows of four. */
+ #main .analytics-stats{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px;width:100%}
+ #main .analytics-stats>.stat{min-width:0;min-height:63px;padding:7px 4px 6px}
+ #main .analytics-stats>.stat .stat-label{font-size:8px;line-height:1.2;overflow-wrap:anywhere;text-align:center}
+
+ /* Make the Mistakes counter a compact horizontal badge. */
+ .mist-heading .count-tile{display:inline-flex;flex-direction:row;align-items:baseline;justify-content:center;gap:6px;width:auto;min-width:0;height:auto;min-height:0;padding:8px 11px;border-radius:12px;white-space:nowrap;align-self:flex-start}
+ .mist-heading .count-tile b{display:inline;font-size:19px;line-height:1.05}
+ .mist-heading .count-tile small{display:inline;font-size:8px;line-height:1;letter-spacing:.1em;margin:0;white-space:nowrap}
+
+ /* Spread all three Mistakes tabs across the full available mobile width. */
+ #mist-body .tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;max-width:100%;box-sizing:border-box;gap:5px;padding:5px}
+ #mist-body .tab{display:flex;align-items:center;justify-content:center;min-width:0;width:100%;gap:4px;padding:9px 3px;font-size:9px;line-height:1.15;white-space:nowrap}
+ #mist-body .tab span{flex:none;font-size:8px;padding:1px 5px;line-height:1.3}
+}
+@media(max-width:380px){
+ #main .analytics-stats{gap:4px}
+ #main .analytics-stats>.stat{padding:6px 3px 5px;min-height:59px}
+ #main .analytics-stats>.stat .stat-label{font-size:7.5px}
+ #mist-body .tabs{gap:4px;padding:4px}
+ #mist-body .tab{gap:3px;padding:8px 2px;font-size:8px}
+ #mist-body .tab span{font-size:7.5px;padding:1px 4px}
+ .profile-overview-animated .profile-metric-icon{width:29px;height:29px;border-radius:9px;margin-bottom:4px}
+ .profile-overview-animated .profile-metric-icon .ic{width:19px;height:19px}
+}
+@media(prefers-reduced-motion:reduce){
+ .analytics-history-link,.analytics-history-link b{animation:none!important;transition:none!important}
+ .profile-overview-animated .profile-metric-icon .an-ic *,
+ .profile-overview-animated .profile-metric-icon .qz-ic *{animation:none!important}
+}

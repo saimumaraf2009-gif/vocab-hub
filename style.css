@@ -4581,3 +4581,8 @@ html.nav-collapsed #nav .sidebar-footer{align-items:center}
  .vh-progress-foot{margin-top:11px}
 }
 @media(prefers-reduced-motion:reduce){.vh-progress-track>i>b{transform:none}}
+
+/* v2.88 — "Learn with …" typewriter line returns under the hero tour */
+.vh-showcase .h2o-type{display:flex;align-items:baseline;justify-content:center;flex-wrap:nowrap;gap:.4em;margin-top:6px;padding:12px 0 2px;border-top:1px solid rgba(255,255,255,.08);font-size:clamp(18px,2vw,24px);font-weight:600;color:rgba(255,255,255,.82);text-align:center;white-space:nowrap}
+.vh-showcase .h2o-w{min-width:1px;font-weight:900}
+@media(max-width:560px){.vh-showcase .h2o-type{font-size:clamp(19px,5.8vw,24px);padding-top:10px}}

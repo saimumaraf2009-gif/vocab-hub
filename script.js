@@ -679,6 +679,7 @@ const heroOrbit=(s,l,g)=>{
    <button type="button" class="vh-tour-step" data-vh-step="2" aria-label="Show arcade scene" aria-pressed="false"><span>Arcade</span><i aria-hidden="true"><b></b></i></button>
    <button type="button" class="vh-tour-step" data-vh-step="3" aria-label="Show progress scene" aria-pressed="false"><span>Progress</span><i aria-hidden="true"><b></b></i></button>
   </nav>
+  <div class="h2o-type" aria-label="Learn with Quizzes, Games and Flashcards"><span aria-hidden="true">Learn with</span><b class="h2o-w" data-h2o-type aria-hidden="true">Quizzes</b><i class="h2o-caret" aria-hidden="true"></i></div>
  </div>`
  }
 V.dash=()=>{const s=st(),l=lvl(s.xp),g=Math.min(100,Math.round(s.todayC/D.goal*100));
@@ -1514,7 +1515,25 @@ syncRemoteVocabulary({silent:true});
     controllers.set(el,{destroy:function(){if(destroyed)return;destroyed=true;pause();if(intersection)intersection.disconnect();listeners.forEach(function(remove){remove();});}});
    }
 
+   /* v2.88 — "Learn with …" typewriter line under the tour */
+   var typeBooted=new WeakSet(),typeWords=['Quizzes','Games','Flashcards'];
+   function bootType(node){
+    if(typeBooted.has(node))return;typeBooted.add(node);
+    var wi=0,ci=typeWords[0].length,dir=-1,t=0;
+    var rq=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
+    function tick(){
+     t=0;
+     if(!node.isConnected)return;
+     if(document.hidden||(rq&&rq.matches)){t=setTimeout(tick,600);return;}
+     var w=typeWords[wi],wait=70;
+     if(dir>0){ci++;node.textContent=w.slice(0,ci);if(ci>=w.length){dir=-1;wait=1500;}}
+     else{ci--;node.textContent=w.slice(0,Math.max(ci,0));wait=45;if(ci<=0){dir=1;wi=(wi+1)%typeWords.length;wait=260;}}
+     t=setTimeout(tick,wait);
+    }
+    node.textContent=typeWords[0];t=setTimeout(tick,1600);
+   }
    function scan(){
+    main.querySelectorAll('[data-h2o-type]').forEach(bootType);
     main.querySelectorAll('.vh-showcase[data-vh-tour]').forEach(boot);
     controllers.forEach(function(controller,el){if(!el.isConnected||!main.contains(el)){controller.destroy();controllers.delete(el);}});
    }

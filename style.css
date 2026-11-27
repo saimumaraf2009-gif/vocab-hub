@@ -4447,3 +4447,30 @@ html.nav-collapsed #nav .sidebar-footer{align-items:center}
  .profile-overview-animated .profile-metric-icon .an-ic *,
  .profile-overview-animated .profile-metric-icon .qz-ic *{animation:none!important}
 }
+
+
+/* ===== v2.86 · desktop workspace navigation + featured final difficulty card ===== */
+@media(min-width:801px){
+  .level-journey-card:last-child{
+    grid-column:1 / -1;
+    min-height:190px;
+    padding:24px 27px;
+    border:1px solid color-mix(in srgb,var(--level-ac) 58%,var(--bd));
+    background:radial-gradient(ellipse at 92% 8%,color-mix(in srgb,var(--level-ac) 19%,transparent),transparent 48%),linear-gradient(115deg,var(--card),color-mix(in srgb,var(--level-ac) 9%,var(--card)));
+    box-shadow:0 12px 34px color-mix(in srgb,var(--level-ac) 12%,transparent),inset 0 0 0 1px color-mix(in srgb,var(--level-ac) 8%,transparent);
+  }
+  .level-journey-card:last-child .level-number{font-size:28px}
+  .level-journey-card:last-child h2{font-size:22px;margin:9px 0 5px}
+  .level-journey-card:last-child>p{font-size:12px;max-width:760px;line-height:1.65}
+  .level-journey-card:last-child .level-count-row{margin-top:14px}
+  .level-journey-card:last-child .level-card-actions .btn{font-size:11px;padding:10px 15px}
+}
+@media(max-width:800px){
+  .level-journey-card:last-child{
+    grid-column:1 / -1;
+    padding:15px 17px;
+    border:1px solid color-mix(in srgb,var(--level-ac) 58%,var(--bd));
+    background:radial-gradient(ellipse at 94% 8%,color-mix(in srgb,var(--level-ac) 17%,transparent),transparent 52%),linear-gradient(115deg,var(--card),color-mix(in srgb,var(--level-ac) 8%,var(--card)));
+    box-shadow:0 8px 24px color-mix(in srgb,var(--level-ac) 10%,transparent);
+  }
+}

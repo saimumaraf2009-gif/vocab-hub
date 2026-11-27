@@ -4514,3 +4514,44 @@ html.nav-collapsed #nav .sidebar-footer{align-items:center}
 .profile-fields .profile-fav-select:hover{border-color:color-mix(in srgb,var(--ac2) 65%,var(--bd));background-color:color-mix(in srgb,var(--ac2) 5%,var(--el))}
 .profile-fields .profile-fav-select:focus-visible{outline:none;border-color:var(--ac2);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac2) 17%,transparent),0 8px 22px rgba(0,0,0,.1)}
 @media(max-width:520px){.profile-panel-head .profile-highlight-link{padding:8px 10px;font-size:9px;white-space:nowrap}}
+
+/* v2.89 · results actions, mistakes exam promotion, and navigation scroll retention polish */
+.results-analytics-link{
+ display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:9px 13px;border-radius:999px;
+ color:var(--ac2)!important;font-weight:850;text-decoration:none!important;
+ border:1px solid color-mix(in srgb,var(--ac2) 48%,var(--bd));
+ background:linear-gradient(110deg,color-mix(in srgb,var(--ac2) 13%,var(--card)),color-mix(in srgb,var(--ac) 7%,var(--card)));
+ box-shadow:0 5px 18px color-mix(in srgb,var(--ac2) 12%,transparent);
+ transition:transform .2s,box-shadow .2s,border-color .2s;
+}
+.results-analytics-link:hover{transform:translateY(-2px);border-color:var(--ac2);box-shadow:0 8px 24px color-mix(in srgb,var(--ac2) 20%,transparent)}
+.results-mistakes-promo{
+ display:flex;align-items:center;gap:13px;margin:18px 0 13px;padding:15px 17px;border-radius:17px;
+ text-decoration:none;color:var(--tx);border:1px solid color-mix(in srgb,var(--ac) 42%,var(--bd));
+ background:radial-gradient(ellipse at 92% 8%,color-mix(in srgb,var(--ac) 13%,transparent),transparent 52%),linear-gradient(110deg,var(--card),color-mix(in srgb,var(--ac) 6%,var(--card)));
+ box-shadow:0 8px 24px rgba(0,0,0,.08);transition:transform .2s,border-color .2s,box-shadow .2s;
+}
+.results-mistakes-promo:hover{transform:translateY(-2px);border-color:var(--ac2);box-shadow:0 12px 30px var(--glow)}
+.results-mistakes-icon{width:39px;height:39px;display:grid;place-items:center;flex:0 0 auto;border-radius:12px;color:var(--ac2);background:var(--glow);font-size:20px}
+.results-mistakes-promo>span:nth-child(2){display:grid;gap:3px;min-width:0;flex:1}
+.results-mistakes-promo b{font-size:13px}.results-mistakes-promo small{font-size:10px;color:var(--tx2);line-height:1.4}
+.results-mistakes-promo>strong{font-size:10px;color:var(--ac2);white-space:nowrap}
+/* Keep the fifth difficulty card in the regular desktop grid; no oversized special treatment. */
+@media(min-width:801px){
+ .level-journey-card:last-child{grid-column:auto;min-height:0;padding:13px 14px;border:1px solid var(--bd);background:var(--card);box-shadow:0 9px 28px rgba(0,0,0,.055)}
+ .level-journey-card:last-child .level-number{font-size:19px}
+ .level-journey-card:last-child h2{font-size:16px;margin:6px 0 3px}
+ .level-journey-card:last-child>p{font-size:10.5px;max-width:none;line-height:1.5}
+ .level-journey-card:last-child .level-count-row{margin-top:9px}
+ .level-journey-card:last-child .level-card-actions .btn{font-size:9.5px;padding:7px 10px}
+}
+@media(max-width:800px){
+ .results-actions{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:16px}
+ .results-actions .btn{width:100%;min-width:0;min-height:40px;padding:8px 4px;font-size:9px;white-space:nowrap;letter-spacing:-.02em}
+ .results-mistakes-promo{gap:9px;padding:12px 11px;margin:14px 0 11px}
+ .results-mistakes-icon{width:32px;height:32px;border-radius:10px;font-size:17px}
+ .results-mistakes-promo b{font-size:11px}.results-mistakes-promo small{font-size:8px}
+ .results-mistakes-promo>strong{font-size:8px}
+ .results-analytics-link{font-size:9px;padding:7px 10px;white-space:nowrap}
+}
+@media(max-width:380px){.results-actions .btn{font-size:8px;padding-inline:2px}.results-mistakes-promo>strong{font-size:7px}}

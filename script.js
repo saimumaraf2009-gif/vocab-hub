@@ -615,6 +615,9 @@ const heroOrbit=(s,l,g)=>{
  const goal=Math.max(1,Number(D.goal)||10),done=Number(s.todayC)||0;
  const levelName=l.name||'Learner',levelNo=(l.i||0)+1;
  const pct=Math.max(0,Math.min(100,Number(l.pct)||0));
+ let week;try{week=last7()}catch(e){week=[]}
+ if(week.length!==7)week=[0,1,2,3,4,5,6].map(()=>['',0]);
+ const weekMax=Math.max(1,...week.map(d=>Number(d[1])||0)),weekXp=week.reduce((a,d)=>a+(Number(d[1])||0),0);
  const safeWord=esc(wordLabel),safeBn=esc(wordMeaning),safeSyn=esc(String(synonym));
  const relatedMarkup=related.map((value,index)=>`<span class="vh-orbit-word vh-orbit-word-${index+1}" aria-hidden="true">${esc(String(value))}</span>`).join('');
  const lettersMarkup=scrambled.map((ch,i)=>`<span style="--vh-i:${i};--vh-dx:${(i%2?1:-1)*(14+(i%3)*9)}px;--vh-dy:${(i%2?-1:1)*(12+(i%4)*6)}px;--vh-rot:${(i%2?1:-1)*(12+(i%3)*7)}deg">${esc(ch)}</span>`).join('');
@@ -656,6 +659,11 @@ const heroOrbit=(s,l,g)=>{
     <div class="vh-scene-kicker"><span>04 / YOUR PROGRESS</span><b>SMALL STEPS, REAL GROWTH</b></div>
     <div class="vh-progress-main">
      <div class="vh-progress-copy"><span>TOTAL EXPERIENCE</span><strong>${xp.toLocaleString()} <em>XP</em></strong><p>Level ${levelNo} <i>·</i> ${esc(levelName)}</p></div>
+     <div class="vh-progress-spark" role="img" aria-label="XP earned over the last seven days">
+      <span class="vh-spark-label">LAST 7 DAYS</span>
+      <div class="vh-spark-bars">${week.map((d,i)=>`<i class="${d[1]>0?'on':''}${i===6?' today':''}" style="--vh-h:${Math.max(8,Math.round(d[1]/weekMax*100))}%;--vh-b:${i}"></i>`).join('')}</div>
+      <span class="vh-spark-total"><b>+${weekXp.toLocaleString()}</b> XP</span>
+     </div>
      <div class="vh-progress-orb">
       <svg viewBox="0 0 120 120" role="img" aria-label="${pct}% level progress"><circle class="vh-progress-ring-track" cx="60" cy="60" r="49" pathLength="100"/><circle class="vh-progress-ring-fill" cx="60" cy="60" r="49" pathLength="100" style="--vh-offset:${100-pct}"/></svg>
       <span><b>${pct}%</b><small>LEVEL</small></span>

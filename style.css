@@ -4586,3 +4586,19 @@ html.nav-collapsed #nav .sidebar-footer{align-items:center}
 .vh-showcase .h2o-type{display:flex;align-items:baseline;justify-content:center;flex-wrap:nowrap;gap:.4em;margin-top:6px;padding:12px 0 2px;border-top:1px solid rgba(255,255,255,.08);font-size:clamp(18px,2vw,24px);font-weight:600;color:rgba(255,255,255,.82);text-align:center;white-space:nowrap}
 .vh-showcase .h2o-w{min-width:1px;font-weight:900}
 @media(max-width:560px){.vh-showcase .h2o-type{font-size:clamp(19px,5.8vw,24px);padding-top:10px}}
+
+/* v2.90 — fill the gap between XP and the level ring with a 7-day XP sparkline */
+.vh-progress-main{gap:clamp(8px,2.4vw,22px)}
+.vh-progress-spark{flex:1 1 0;min-width:0;max-width:210px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;gap:7px}
+.vh-spark-label{color:rgba(255,255,255,.4);font-size:7px;font-weight:850;letter-spacing:.15em;text-align:center;white-space:nowrap}
+.vh-spark-bars{display:flex;align-items:flex-end;justify-content:center;gap:clamp(4px,.9vw,7px);height:38px}
+.vh-spark-bars>i{flex:1 1 0;max-width:14px;height:var(--vh-h);min-height:3px;border-radius:3px 3px 1px 1px;background:rgba(255,255,255,.14);transform:scaleY(0);transform-origin:bottom}
+.vh-spark-bars>i.on{background:linear-gradient(180deg,#ff9aa3,#e83c55)}
+.vh-spark-bars>i.today{box-shadow:0 0 10px rgba(255,83,104,.45)}
+.vh-scene.is-active .vh-spark-bars>i{animation:vhSparkUp .7s cubic-bezier(.2,.8,.2,1) calc(.25s + var(--vh-b)*.07s) forwards}
+.vh-spark-total{color:rgba(255,255,255,.55);font-size:9px;font-weight:700;text-align:center;white-space:nowrap}
+.vh-spark-total b{color:#ff9ca6;font-weight:850}
+@keyframes vhSparkUp{to{transform:scaleY(1)}}
+@media(max-width:560px){.vh-progress-spark{max-width:120px}.vh-spark-bars{height:32px}.vh-spark-total{font-size:8px}}
+@media(max-width:360px){.vh-progress-spark{display:none}}
+@media(prefers-reduced-motion:reduce){.vh-spark-bars>i{transform:none}}

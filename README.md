@@ -1,17 +1,5 @@
 # VocabHub — BCS Vocabulary & separated admission sources
 
-## Latest update — 2.67 · Mistakes recovery & clearer Missions
-- Recovery Rate now appears at the top of Mistakes in an animated progress card.
-- Missions are grouped into daily and weekly goals with clear rules, progress, reset periods and XP claiming. Weekly progress now follows the Sunday–Saturday cycle shown in the UI.
-- Refined phone layouts for the two sections and added reduced-motion handling.
-- See `UPDATE_2_67_MISTAKES_MISSIONS_MOBILE.md` for implementation and validation details.
-
-## Latest update — 2.66 · richer learner profile
-- Rebuilt Profile as a learner dashboard with profile completion, level progress, weekly activity, daily target, learning focus, achievement preview and recent sessions.
-- Improved the personal-details and profile-photo editor while keeping profile data local to the current browser.
-- Added responsive desktop/mobile layouts and refreshed the PWA cache version.
-- See `UPDATE_2_66_PROFILE_ENHANCED.md` for details and validation.
-
 ## Latest update — 2.27 · mobile-first UI polish & feedback
 - Added an **Admission Questions** shortcut alongside **Start a session** and **Play word arcade** on the homepage, with responsive sizing for narrow screens.
 - Rebuilt the Analytics activity calendar as a date-labelled monthly calendar with weekday headings, active-day/session/study-time summaries, and graded activity intensity.

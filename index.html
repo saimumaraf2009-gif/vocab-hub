@@ -5,58 +5,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="author" content="Moshiur Rahman Araf — Founder &amp; Creator, Intermediate Student, Chittagong College">
 <meta name="theme-color" content="#060607">
-<meta name="application-name" content="VocabHub">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="VocabHub">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="format-detection" content="telephone=no">
-<script>(function(){var d=new Date().toDateString();try{if(sessionStorage.getItem("vh_intro")||localStorage.getItem("vh_intro_day")===d)return;sessionStorage.setItem("vh_intro","1");localStorage.setItem("vh_intro_day",d)}catch(e){}document.documentElement.classList.add("vh-intro")})();</script>
-<script>try{if(localStorage.getItem("vh_nav_collapsed")==="1")document.documentElement.classList.add("nav-collapsed")}catch(e){}</script>
-<link rel="manifest" href="manifest.webmanifest">
-<meta name="description" content="VocabHub — a gamified English vocabulary studio with fun games, quizzes and daily challenges.">
+<meta name="description" content="VocabHub — a focused English-to-Bengali vocabulary studio with smart practice, daily words and spaced revision.">
 <title>VocabHub — Your Personal Vocabulary Studio</title>
 <link rel="icon" type="image/png" href="assets/icons/favicon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=2.98">
+<link rel="stylesheet" href="style.css?v=2.39">
 </head>
 <body>
-<div id="vh-splash" role="presentation">
-<div class="vs-words" aria-hidden="true"></div>
-<div class="vs-glow" aria-hidden="true"></div>
-<div class="vs-core">
-<div class="vs-logo" aria-hidden="true"><svg class="vs-ring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="55"/></svg><img src="assets/logo.png" alt=""></div>
-<div class="vs-name" aria-label="VocabHub"><span style="--i:0">V</span><span style="--i:1">o</span><span style="--i:2">c</span><span style="--i:3">a</span><span style="--i:4">b</span><span class="vs-hub" style="--i:5">H</span><span class="vs-hub" style="--i:6">u</span><span class="vs-hub" style="--i:7">b</span></div>
-<p class="vs-tag">Learn <i>·</i> Revise <i>·</i> Master</p>
-<div class="vs-card" aria-hidden="true"><b class="vs-en"></b><i>→</i><span class="vs-bn"></span></div>
-<p class="vs-by">English → বাংলা vocabulary studio<br><b>by Moshiur Rahman Araf</b></p>
-</div>
-<div class="vs-bar" aria-hidden="true"><i></i></div>
-<button class="vs-skip" type="button">Skip ›</button>
-</div>
-<script>(function(){var el=document.getElementById("vh-splash"),root=document.documentElement;if(!el)return;if(!root.classList.contains("vh-intro")){el.remove();return}
-var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
-var W=[["ephemeral","ক্ষণস্থায়ী"],["benevolent","হিতৈষী"],["resilient","সহনশীল"],["eloquent","বাকপটু"],["meticulous","সূক্ষ্মদর্শী"],["candid","স্পষ্টবাদী"],["tenacious","দৃঢ়প্রতিজ্ঞ"],["lucid","সুস্পষ্ট"],["pragmatic","বাস্তববাদী"],["ambiguous","দ্ব্যর্থক"],["diligent","পরিশ্রমী"],["serene","শান্ত"],["vivid","উজ্জ্বল"],["profound","গভীর"]];
-var box=el.querySelector(".vs-words"),n=window.innerWidth<600?9:15,s="",i;
-var wide=window.innerWidth>=700,L,T;
-for(i=0;i<n;i++){
- if(wide){L=i%2?3+(i*7)%20:72+(i*5)%20;T=6+(i*29)%82}
- else{L=3+(i*31)%72;T=i%2?4+(i*11)%12:80+(i*9)%14}
- s+='<span style="left:'+L+'%;top:'+T+'%;--d:'+((i%7)*.45).toFixed(2)+'s;--t:'+(4.2+(i%4)*.7).toFixed(1)+'s">'+W[i%W.length][0]+"</span>"}
-box.innerHTML=s;
-var card=el.querySelector(".vs-card"),en=el.querySelector(".vs-en"),bn=el.querySelector(".vs-bn"),k=0;
-function show(j){card.classList.remove("on");void card.offsetWidth;en.textContent=W[j][0];bn.textContent=W[j][1];card.classList.add("on")}
-show(0);var iv=setInterval(function(){k=(k+1)%3;show(k)},800);
-var done=false,tm;
-function finish(){if(done)return;done=true;clearInterval(iv);clearTimeout(tm);el.classList.add("out");root.classList.remove("vh-intro");setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el)},800)}
-tm=setTimeout(finish,reduce?1200:2800);
-el.addEventListener("click",finish);
-document.addEventListener("keydown",function(e){if(done)return;if(e.key==="Escape"||e.key==="Enter"||e.key===" ")finish()});
-})();</script>
-<aside id="nav" role="navigation" aria-label="Main"></aside>
+<aside id="nav"></aside>
 <div id="drawer"></div>
 <main id="main"></main>
 <div id="toasts"></div>
@@ -65,7 +23,6 @@ document.addEventListener("keydown",function(e){if(done)return;if(e.key==="Escap
 <script src="ckruet-data.js"></script>
 <script src="du-abcd-data.js"></script>
 <script src="bcs-data.js"></script>
-<script src="script.js?v=2.98"></script>
-<script src="pwa.js"></script>
+<script src="script.js?v=2.39"></script>
 </body>
 </html>

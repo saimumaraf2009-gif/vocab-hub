@@ -1,18 +1,18 @@
-/* VocabHub service worker — v2.90
+/* VocabHub service worker — v2.91
    - Precaches the app shell so the app opens instantly and works offline.
    - Pages: network-first (new versions arrive automatically), cache fallback offline.
    - Static files: stale-while-revalidate.
    - vocabulary.json: network-first with cache fallback (script.js also embeds an offline copy).
    - Google Fonts: runtime cached. */
-const VERSION = 'v2.90';
+const VERSION = 'v2.91';
 const SHELL_CACHE = 'vocabhub-shell-' + VERSION;
 const RUNTIME_CACHE = 'vocabhub-runtime-' + VERSION;
 
 const SHELL = [
   './',
   'index.html',
-  'style.css?v=2.85',
-  'script.js?v=2.85',
+  'style.css?v=2.91',
+  'script.js?v=2.91',
   'iba-data.js',
   'hsc-data.js',
   'ckruet-data.js',

@@ -4602,3 +4602,129 @@ html.nav-collapsed #nav .sidebar-footer{align-items:center}
 @media(max-width:560px){.vh-progress-spark{max-width:120px}.vh-spark-bars{height:32px}.vh-spark-total{font-size:8px}}
 @media(max-width:360px){.vh-progress-spark{display:none}}
 @media(prefers-reduced-motion:reduce){.vh-spark-bars>i{transform:none}}
+
+
+/* ===== v2.91 · mobile analytics pair, clearer answers & compact status chips ===== */
+/* The two difficulty charts share a row on phones instead of stacking. */
+@media(max-width:700px){
+  .analytics-mastery-columns{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    align-items:stretch;
+    gap:8px;
+    margin:15px 0;
+  }
+  .analytics-mastery-columns>section{
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+  }
+  .analytics-mastery-columns>section>h2{
+    min-height:31px;
+    margin:0 0 7px;
+    font-size:clamp(10px,2.8vw,12px);
+    line-height:1.25;
+    overflow-wrap:anywhere;
+  }
+  .analytics-mastery-columns>section>.card{
+    flex:1 1 auto;
+    min-width:0;
+    min-height:185px;
+    padding:10px 8px;
+    border-radius:12px;
+  }
+  .analytics-mastery-columns .chart-bars{
+    gap:12px;
+    padding:8px 1px 5px;
+  }
+  .analytics-mastery-columns .chart-bar-top{
+    gap:4px;
+    margin-bottom:4px;
+    font-size:8px;
+  }
+  .analytics-mastery-columns .chart-bar-top b{font-size:8px}
+  .analytics-mastery-columns .chart-bar-track{height:6px}
+  .analytics-mastery-columns .difficulty-analytics{gap:11px}
+  .analytics-mastery-columns .difficulty-row>div:first-child{gap:4px;margin-bottom:4px}
+  .analytics-mastery-columns .difficulty-row b{font-size:8px}
+  .analytics-mastery-columns .difficulty-row span{font-size:7px}
+  .analytics-mastery-columns .difficulty-row>small{font-size:7px;margin-top:2px}
+  .analytics-mastery-columns .difficulty-row .ach-progress{height:6px}
+
+  /* Four key score cards in the first row; keep Time spent centred below. */
+  .hist-stats{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px}
+  .hist-stats>.stat:nth-child(5){grid-column:2 / span 2}
+  .hist-stats>.stat{min-width:0;padding:7px 4px 6px}
+  .hist-stats>.stat .stat-label{font-size:7.5px;line-height:1.2}
+
+  /* Move the revision status chips to the right and remove their small icons. */
+  .revision-queue-top{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:flex-end;
+    width:100%;
+    margin:0 0 6px;
+  }
+  .revision-queue-icon{display:none!important}
+  .revision-queue-top .chip{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    align-self:flex-end;
+    max-width:100%;
+    margin-left:auto;
+    padding:4px 6px;
+    font-size:6.5px;
+    line-height:1.15;
+    text-align:right;
+    white-space:nowrap;
+  }
+}
+
+/* Make the revealed correct choice obvious in every multiple-choice round. */
+.opt.ok{
+  font-size:15px;
+  font-weight:900;
+  line-height:1.45;
+  border-width:2px;
+  color:var(--ok);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ok) 18%,transparent),0 5px 18px color-mix(in srgb,var(--ok) 10%,transparent);
+}
+.feedback-answer{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:3px;
+  margin:10px 0 9px;
+  padding:10px 12px;
+  border:1px solid color-mix(in srgb,var(--ok) 34%,var(--bd));
+  border-radius:12px;
+  background:color-mix(in srgb,var(--ok) 9%,var(--card));
+  line-height:1.4;
+}
+.feedback-answer small{
+  color:var(--ok);
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.14em;
+}
+.feedback-answer b{
+  color:var(--tx);
+  font-size:clamp(16px,2.2vw,19px);
+  font-weight:900;
+  line-height:1.4;
+  overflow-wrap:anywhere;
+}
+@media(max-width:380px){
+  .analytics-mastery-columns{gap:6px}
+  .analytics-mastery-columns>section>h2{font-size:10px}
+  .analytics-mastery-columns>section>.card{padding:9px 6px;min-height:178px}
+  .analytics-mastery-columns .chart-bar-top{font-size:7.5px}
+  .analytics-mastery-columns .chart-bar-top b{font-size:7.5px}
+  .analytics-mastery-columns .difficulty-row b{font-size:7.5px}
+  .analytics-mastery-columns .difficulty-row span{font-size:6.5px}
+  .hist-stats{gap:5px}
+  .hist-stats>.stat .stat-label{font-size:7px}
+  .feedback-answer{padding:9px 10px}
+  .opt.ok{font-size:14px}
+}

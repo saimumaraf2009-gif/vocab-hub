@@ -4604,194 +4604,102 @@ html.nav-collapsed #nav .sidebar-footer{align-items:center}
 @media(prefers-reduced-motion:reduce){.vh-spark-bars>i{transform:none}}
 
 
-/* ===== v2.91 · mobile analytics pair, clearer answers & compact status chips ===== */
-/* The two difficulty charts share a row on phones instead of stacking. */
-@media(max-width:700px){
-  .analytics-mastery-columns{
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    align-items:stretch;
-    gap:8px;
-    margin:15px 0;
-  }
-  .analytics-mastery-columns>section{
-    display:flex;
-    flex-direction:column;
-    min-width:0;
-  }
-  .analytics-mastery-columns>section>h2{
-    min-height:31px;
-    margin:0 0 7px;
-    font-size:clamp(10px,2.8vw,12px);
-    line-height:1.25;
-    overflow-wrap:anywhere;
-  }
-  .analytics-mastery-columns>section>.card{
-    flex:1 1 auto;
-    min-width:0;
-    min-height:185px;
-    padding:10px 8px;
-    border-radius:12px;
-  }
-  .analytics-mastery-columns .chart-bars{
-    gap:12px;
-    padding:8px 1px 5px;
-  }
-  .analytics-mastery-columns .chart-bar-top{
-    gap:4px;
-    margin-bottom:4px;
-    font-size:8px;
-  }
-  .analytics-mastery-columns .chart-bar-top b{font-size:8px}
-  .analytics-mastery-columns .chart-bar-track{height:6px}
-  .analytics-mastery-columns .difficulty-analytics{gap:11px}
-  .analytics-mastery-columns .difficulty-row>div:first-child{gap:4px;margin-bottom:4px}
-  .analytics-mastery-columns .difficulty-row b{font-size:8px}
-  .analytics-mastery-columns .difficulty-row span{font-size:7px}
-  .analytics-mastery-columns .difficulty-row>small{font-size:7px;margin-top:2px}
-  .analytics-mastery-columns .difficulty-row .ach-progress{height:6px}
-
-  /* Four key score cards in the first row; keep Time spent centred below. */
-  .hist-stats{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px}
-  .hist-stats>.stat:nth-child(5){grid-column:2 / span 2}
-  .hist-stats>.stat{min-width:0;padding:7px 4px 6px}
-  .hist-stats>.stat .stat-label{font-size:7.5px;line-height:1.2}
-
-  /* Move the revision status chips to the right and remove their small icons. */
-  .revision-queue-top{
-    display:flex;
-    flex-direction:row;
-    align-items:center;
-    justify-content:flex-end;
-    width:100%;
-    margin:0 0 6px;
-  }
-  .revision-queue-icon{display:none!important}
-  .revision-queue-top .chip{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    align-self:flex-end;
-    max-width:100%;
-    margin-left:auto;
-    padding:4px 6px;
-    font-size:6.5px;
-    line-height:1.15;
-    text-align:right;
-    white-space:nowrap;
-  }
+/* ===== v2.92 · clearer Mistakes Exam CTA, TF feedback & calmer profile metrics ===== */
+/* A prominent, unmistakable next step after every completed session. */
+.results-mistakes-promo{
+ position:relative;isolation:isolate;overflow:hidden;display:grid;
+ grid-template-columns:46px minmax(0,1fr) auto;align-items:center;gap:14px;
+ margin:19px 0 14px;padding:17px 19px;border-radius:18px;
+ border:1.5px solid color-mix(in srgb,var(--ac2) 64%,var(--bd));
+ background:radial-gradient(ellipse at 94% 0,color-mix(in srgb,var(--ac2) 20%,transparent),transparent 48%),
+            linear-gradient(112deg,color-mix(in srgb,var(--ac) 13%,var(--card)),color-mix(in srgb,var(--ac2) 9%,var(--card)) 72%);
+ box-shadow:0 8px 24px color-mix(in srgb,var(--ac2) 12%,transparent),inset 0 0 0 1px color-mix(in srgb,var(--ac2) 8%,transparent);
+ color:var(--tx);text-decoration:none;transition:transform .2s,border-color .2s,box-shadow .2s;
+}
+.results-mistakes-promo:before{content:"";position:absolute;z-index:-1;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--ac2),var(--ac));}
+.results-mistakes-icon{width:44px;height:44px;display:grid;place-items:center;border-radius:14px;
+ color:var(--ac2);font-size:22px;background:color-mix(in srgb,var(--ac2) 17%,var(--card));
+ border:1px solid color-mix(in srgb,var(--ac2) 42%,var(--bd));box-shadow:0 5px 16px color-mix(in srgb,var(--ac2) 13%,transparent)}
+.results-mistakes-copy{display:grid;gap:4px;min-width:0}
+.results-mistakes-kicker{font-size:8px;font-weight:950;letter-spacing:.16em;color:var(--ac2)}
+.results-mistakes-copy>b{font-size:16px;line-height:1.2;letter-spacing:-.025em;color:var(--tx)}
+.results-mistakes-copy>small:last-child{font-size:10px;line-height:1.5;color:var(--tx2)}
+.results-mistakes-action{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:38px;padding:8px 13px;
+ border:1px solid color-mix(in srgb,var(--ac2) 62%,var(--bd));border-radius:11px;
+ background:color-mix(in srgb,var(--ac2) 13%,var(--card));color:var(--ac2);font-size:10px;font-weight:950;white-space:nowrap}
+.results-mistakes-action i{font-size:15px;font-style:normal;line-height:1}
+@media(hover:hover){.results-mistakes-promo:hover{transform:translateY(-2px);border-color:var(--ac2);box-shadow:0 13px 30px color-mix(in srgb,var(--ac2) 20%,transparent)}.results-mistakes-promo:hover .results-mistakes-action{background:color-mix(in srgb,var(--ac2) 22%,var(--card))}}
+@media(max-width:800px){
+ .results-mistakes-promo{grid-template-columns:38px minmax(0,1fr);gap:9px 11px;padding:13px 12px;margin:14px 0 11px;border-radius:15px}
+ .results-mistakes-icon{width:36px;height:36px;border-radius:11px;font-size:18px}
+ .results-mistakes-kicker{font-size:7px;letter-spacing:.13em}
+ .results-mistakes-copy>b{font-size:13px}
+ .results-mistakes-copy>small:last-child{font-size:9px}
+ .results-mistakes-action{grid-column:2;justify-self:start;min-height:32px;padding:6px 10px;font-size:9px}
 }
 
-/* Make the revealed correct choice obvious in every multiple-choice round. */
-.opt.ok{
-  font-size:15px;
-  font-weight:900;
-  line-height:1.45;
-  border-width:2px;
-  color:var(--ok);
-  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ok) 18%,transparent),0 5px 18px color-mix(in srgb,var(--ok) 10%,transparent);
-}
-.feedback-answer{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  gap:3px;
-  margin:10px 0 9px;
-  padding:10px 12px;
-  border:1px solid color-mix(in srgb,var(--ok) 34%,var(--bd));
-  border-radius:12px;
-  background:color-mix(in srgb,var(--ok) 9%,var(--card));
-  line-height:1.4;
-}
-.feedback-answer small{
-  color:var(--ok);
-  font-size:8px;
-  font-weight:900;
-  letter-spacing:.14em;
-}
-.feedback-answer b{
-  color:var(--tx);
-  font-size:clamp(16px,2.2vw,19px);
-  font-weight:900;
-  line-height:1.4;
-  overflow-wrap:anywhere;
+/* A wrong True / False answer pauses briefly so the learner can read why. */
+.tf-blitz-feedback{display:flex;align-items:flex-start;gap:11px;margin-top:12px;padding:12px 13px;border-radius:13px;
+ border:1px solid color-mix(in srgb,var(--er) 48%,var(--bd));
+ background:linear-gradient(115deg,color-mix(in srgb,var(--er) 12%,var(--card)),color-mix(in srgb,var(--wa) 7%,var(--card)));
+ color:var(--tx);animation:tfFeedbackIn .22s ease-out both}
+.tf-blitz-feedback-mark{width:27px;height:27px;display:grid;place-items:center;flex:0 0 auto;border-radius:9px;
+ background:color-mix(in srgb,var(--er) 18%,var(--card));color:var(--er);font-size:16px;font-weight:950}
+.tf-blitz-feedback-copy{display:grid;gap:4px;min-width:0}
+.tf-blitz-feedback-copy>strong{font-size:11px;line-height:1.35;color:var(--er)}
+.tf-blitz-feedback-copy>p{margin:0;font-size:10px;line-height:1.55;color:var(--tx2)}
+.tf-blitz-feedback-copy>p b{color:var(--tx);font-weight:900}
+.tf-blitz-feedback-copy>small{font-size:8px;color:var(--tx2);opacity:.8}
+.tf-card .opt.ok{opacity:1!important;border-color:color-mix(in srgb,var(--ok) 75%,var(--bd))!important;background:color-mix(in srgb,var(--ok) 14%,var(--card))!important;color:var(--ok)!important}
+.tf-card .opt.no{opacity:1!important;border-color:color-mix(in srgb,var(--er) 72%,var(--bd))!important;background:color-mix(in srgb,var(--er) 12%,var(--card))!important;color:var(--er)!important}
+@keyframes tfFeedbackIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* Keep the four remaining Exam History metrics in one clean row on mobile. */
+.hist-stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:800px){
+ .hist-stats{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px}
+ .hist-stats>.stat{min-width:0;min-height:66px;padding:7px 4px 6px;justify-content:center}
+ .hist-stats>.stat .stat-label{font-size:8px;line-height:1.2;overflow-wrap:anywhere;text-align:center}
+ .hist-stats>.stat b{font-size:14px;line-height:1.05;white-space:nowrap}
+ .hist-stats>.stat .stat-icon{width:20px;height:20px;margin-bottom:3px}
 }
 @media(max-width:380px){
-  .analytics-mastery-columns{gap:6px}
-  .analytics-mastery-columns>section>h2{font-size:10px}
-  .analytics-mastery-columns>section>.card{padding:9px 6px;min-height:178px}
-  .analytics-mastery-columns .chart-bar-top{font-size:7.5px}
-  .analytics-mastery-columns .chart-bar-top b{font-size:7.5px}
-  .analytics-mastery-columns .difficulty-row b{font-size:7.5px}
-  .analytics-mastery-columns .difficulty-row span{font-size:6.5px}
-  .hist-stats{gap:5px}
-  .hist-stats>.stat .stat-label{font-size:7px}
-  .feedback-answer{padding:9px 10px}
-  .opt.ok{font-size:14px}
+ .hist-stats{gap:4px}
+ .hist-stats>.stat{padding:6px 2px 5px;min-height:62px}
+ .hist-stats>.stat .stat-label{font-size:7px}
+ .hist-stats>.stat b{font-size:12px}
 }
 
-
-/* ===== v2.92 · Practice & Arcade: two cards per row on mobile =====
-   The card artwork is a fixed 220x120 scene, so on a half-width card it is
-   centred and scaled in proportion to the card width (no clipping, no
-   overflow). Every animation inside the artwork is left untouched.
-   Admission cards (.adm-grid) are not affected. */
-@media(max-width:520px){
-  .arc-grid:not(.adm-grid){grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:6px 0 16px}
-  .arc-grid:not(.adm-grid)>.arc-card{min-width:0;border-radius:16px!important}
-
-  /* artwork: centred in the stage, scaled to fit */
-  .arc-grid:not(.adm-grid) .arc-stage{display:block;flex:none;height:100px;overflow:hidden}
-  .arc-grid:not(.adm-grid) .arc-stage .arc-art{position:absolute;left:50%;top:50%;margin:-60px 0 0 -110px;--sc:.64}
-  .arc-grid:not(.adm-grid) .arc-card:hover .arc-stage .arc-art{--sc:.64}
-
-  /* body: compact type, tags stacked so nothing is cut off */
-  .arc-grid:not(.adm-grid) .arc-body{padding:9px 9px 10px}
-  .arc-grid:not(.adm-grid) .arc-tags{flex-direction:column;align-items:flex-start;gap:5px;margin-bottom:7px}
-  .arc-grid:not(.adm-grid) .arc-mode{max-width:100%;padding:3px 6px;font-size:7px;letter-spacing:.09em;overflow:hidden;text-overflow:ellipsis}
-  .arc-grid:not(.adm-grid) .arc-diff,
-  .arc-grid:not(.adm-grid) .arc-diff.prc-right{font-size:7px;letter-spacing:.09em;white-space:normal;line-height:1.3}
-  .arc-grid:not(.adm-grid) .arc-diff i{width:6px;height:6px}
-  .arc-grid:not(.adm-grid) .arc-diff span{margin-left:3px}
-  .arc-grid:not(.adm-grid) .arc-body h3{margin:0 0 3px;font-size:12.5px;line-height:1.3;overflow-wrap:break-word}
-  .arc-grid:not(.adm-grid) .arc-body .sub{margin:0 0 9px;font-size:10px;line-height:1.45;overflow-wrap:break-word}
-  .arc-grid:not(.adm-grid) .arc-play{gap:6px;padding:8px 6px;border-radius:10px;font-size:9.5px;letter-spacing:.14em}
-  .arc-grid:not(.adm-grid) .arc-play svg{width:10px;height:10px}
-
-  /* Practice: question-type map keeps two cards per row on every phone */
-  .grid.mode-grid.iba-map{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-  .iba-map .prc-type-card{padding:10px;border-radius:14px}
-  .iba-map .prc-strip{height:40px;margin-bottom:9px;gap:5px;font-size:10.5px}
-  .iba-map .prc-strip em{font-size:13px}
-  .iba-map .prc-strip .ln{width:26px}
-  .iba-map .prc-strip .ln.s{width:17px}
-  .iba-map .prc-type-card .mode-icon{width:30px;height:30px;margin-bottom:8px;border-radius:10px}
-  .iba-map .prc-type-card .mode-icon svg{width:16px;height:16px}
-  .iba-map .prc-type-card>b{font-size:12.5px;line-height:1.3}
-  .iba-map .prc-type-card .sub{font-size:10px;line-height:1.45}
-  .iba-map .prc-type-card .iba-where{font-size:9.5px;line-height:1.55;margin-bottom:9px}
-  .iba-map .prc-type-card .btn.pri{width:100%;justify-content:center;padding:8px 6px;font-size:11px}
+/* Calm, consistent profile metrics: aligned card heights and subtle motion, no bouncing. */
+.profile-overview-grid.profile-overview-v266{align-items:stretch;grid-auto-rows:minmax(116px,1fr);gap:11px}
+.profile-overview-animated .profile-overview-card{
+ min-width:0;min-height:116px;height:100%;justify-content:center;gap:6px;
+ animation:profileMetricIn .42s ease-out calc(var(--metric-i,0)*65ms) both,
+            profileMetricGlow 5.8s ease-in-out calc(.8s + var(--metric-i,0)*120ms) infinite;
+ transition:border-color .22s,box-shadow .22s;transform:none;will-change:auto;
 }
-
-/* artwork scale follows the real card width wherever the browser supports it */
-@supports (container-type:inline-size) and (transform:scale(tan(atan2(10px,5px)))){
-  @media(max-width:520px){
-    .arc-grid:not(.adm-grid) .arc-stage{container-type:inline-size;height:auto;aspect-ratio:25/14}
-    .arc-grid:not(.adm-grid) .arc-stage .arc-art{--fit:tan(atan2(88cqw,220px));--sc:var(--fit)}
-    .arc-grid:not(.adm-grid) .arc-card:hover .arc-stage .arc-art{--sc:var(--fit)}
-  }
+.profile-overview-animated .profile-overview-card>span{
+ transform:none;transform-origin:center;will-change:auto;
+ animation:profileMetricIconIn .4s ease-out calc(.12s + var(--metric-i,0)*65ms) both,
+            profileMetricIconBreath 4.8s ease-in-out calc(.8s + var(--metric-i,0)*120ms) infinite;
 }
-@media(max-width:340px){
-  .arc-grid:not(.adm-grid){gap:8px}
-  .arc-grid:not(.adm-grid) .arc-body{padding:8px 8px 9px}
-  .arc-grid:not(.adm-grid) .arc-body h3{font-size:12px}
-  .arc-grid:not(.adm-grid) .arc-body .sub{font-size:9.5px}
+.profile-overview-animated .profile-overview-card:after{
+ transform:scaleX(1);background-size:100% 100%;
+ animation:metricLine .48s ease-out calc(.15s + var(--metric-i,0)*65ms) both;
 }
-
-
-/* ===== v2.93 · Install app: menu entry + banner colours ===== */
-.drawer-install{display:grid;grid-template-columns:34px 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;width:100%;padding:10px 12px;border-radius:14px;border:1px solid color-mix(in srgb,var(--ac,#ff4652) 38%,var(--bd));background:color-mix(in srgb,var(--ac,#ff4652) 10%,transparent);color:var(--tx);text-align:left;cursor:pointer;font:inherit}
-.drawer-install span{grid-row:1/3;display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#ff4652,#d3101f);color:#fff;font-size:17px;font-weight:800}
-.drawer-install b{font-size:13px;font-weight:800;line-height:1.25}
-.drawer-install em{font-style:normal;font-size:10.5px;color:var(--tx2);line-height:1.3}
-.drawer-install:active{transform:scale(.98)}
-#pwa-install .pwa-go{background:linear-gradient(135deg,#ff4652,#d3101f)}
+.profile-overview-animated .profile-overview-card>b{white-space:nowrap;font-variant-numeric:tabular-nums;line-height:1.12}
+@keyframes profileMetricIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes profileMetricIconIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+@keyframes profileMetricGlow{
+ 0%,100%{border-color:color-mix(in srgb,var(--metric-ac) 25%,var(--bd));box-shadow:0 7px 22px rgba(0,0,0,.055)}
+ 50%{border-color:color-mix(in srgb,var(--metric-ac) 39%,var(--bd));box-shadow:0 9px 24px rgba(0,0,0,.07),0 0 0 1px color-mix(in srgb,var(--metric-ac) 7%,transparent)}
+}
+@keyframes profileMetricIconBreath{0%,100%{filter:drop-shadow(0 0 0 transparent)}50%{filter:drop-shadow(0 2px 4px color-mix(in srgb,var(--metric-ac) 22%,transparent))}}
+@media(hover:hover){.profile-overview-animated .profile-overview-card:hover{transform:translateY(-2px);border-color:var(--metric-ac);box-shadow:0 10px 23px color-mix(in srgb,var(--metric-ac) 12%,transparent)}}
+@media(max-width:800px){.profile-overview-grid.profile-overview-v266{grid-auto-rows:minmax(104px,1fr);gap:8px}.profile-overview-animated .profile-overview-card{min-height:104px;padding:12px}}
+@media(max-width:380px){.profile-overview-grid.profile-overview-v266{gap:5px}.profile-overview-animated .profile-overview-card{padding:9px 6px}.profile-overview-animated .profile-overview-card>b{font-size:18px}}
+@media(prefers-reduced-motion:reduce){
+ .results-mistakes-promo,.tf-blitz-feedback,.profile-overview-animated .profile-overview-card,
+ .profile-overview-animated .profile-overview-card>span,.profile-overview-animated .profile-overview-card:after{animation:none!important;transition:none!important}
+ .profile-overview-animated .profile-overview-card:hover{transform:none!important}
+}

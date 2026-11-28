@@ -4872,3 +4872,13 @@ a.side-brand:focus-visible,.topbar-home:focus-visible{outline:2px solid var(--ac
 .xp-ladder-grid>.xp-lv.xp-done em{color:var(--ok);font-weight:800}
 .xp-ladder-grid>.xp-lv.xp-legend.xp-done:after{right:16px;top:16px}
 @media(max-width:600px){.xp-ladder-grid>.xp-lv.xp-done:after{right:8px;top:8px;width:18px;height:18px;font-size:10px}}
+
+/* v2.98 — Desktop density: Chrome 100% zoom now looks like the 75% zoom layout.
+   Mobile/tablet (<1000px) is untouched. Vertical viewport units are compensated
+   so the sidebar and full-height layers still fill the screen. */
+@media(min-width:1000px){
+  html{zoom:.75}
+  body{min-height:calc(100vh / .75)}
+  #nav{height:calc(100vh / .75)}
+  .word-dialog{max-height:min(calc(90vh / .75),940px)}
+}

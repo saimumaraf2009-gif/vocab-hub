@@ -4703,3 +4703,58 @@ html.nav-collapsed #nav .sidebar-footer{align-items:center}
  .profile-overview-animated .profile-overview-card>span,.profile-overview-animated .profile-overview-card:after{animation:none!important;transition:none!important}
  .profile-overview-animated .profile-overview-card:hover{transform:none!important}
 }
+
+/* ===== v2.93 · True / False Blitz stopwatch + duration choice boxes ===== */
+.time-choices .count-choice{min-height:46px;gap:1px}
+.time-choices .count-choice b{font-size:15px;font-variant-numeric:tabular-nums}
+.time-choices .count-choice small{font-size:9.5px;white-space:nowrap}
+
+.tf-watch{--tw:var(--ac);position:relative;display:flex;align-items:center;gap:14px;margin:6px 0 12px;padding:10px 16px 14px 12px;border-radius:16px;
+ border:1px solid var(--bd);background:linear-gradient(120deg,color-mix(in srgb,var(--tw) 9%,var(--card)),var(--card));overflow:hidden;transition:border-color .25s,background .25s}
+.tf-watch-dial{position:relative;width:58px;height:58px;flex:0 0 auto;margin-top:6px}
+.tf-watch-dial svg{width:100%;height:100%;display:block;overflow:visible}
+.tf-watch-crown{position:absolute;left:50%;top:-6px;width:12px;height:7px;margin-left:-6px;border-radius:3px 3px 1px 1px;background:var(--tx2);opacity:.85}
+.tf-watch-crown:after{content:"";position:absolute;left:50%;top:-3px;width:6px;height:3px;margin-left:-3px;border-radius:2px;background:var(--tx2)}
+.tf-watch-face{fill:var(--el);stroke:var(--bd);stroke-width:1.4}
+.tf-watch-track{fill:none;stroke:color-mix(in srgb,var(--tx2) 22%,transparent);stroke-width:3}
+.tf-watch-arc{fill:none;stroke:var(--tw);stroke-width:3;stroke-linecap:round;transition:stroke .25s}
+.tf-watch-ticks line{stroke:var(--tx2);stroke-width:1;opacity:.7}
+#tf-watch-hand line{stroke:var(--tw);stroke-width:1.8;stroke-linecap:round;transition:stroke .25s}
+.tf-watch-pin{fill:var(--tw);transition:fill .25s}
+.tf-watch-copy{display:grid;gap:1px;min-width:0}
+.tf-watch-copy small{font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--tx2)}
+.tf-watch-copy b{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:clamp(28px,8vw,36px);line-height:1.05;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--tx);transition:color .25s}
+.tf-watch-bar{position:absolute;left:0;right:0;bottom:0;height:4px;background:color-mix(in srgb,var(--tx2) 16%,transparent)}
+.tf-watch-bar i{display:block;height:100%;background:var(--tw);border-radius:0 4px 4px 0;transition:background .25s}
+
+.tf-watch.warn{--tw:var(--wa)}
+.tf-watch.urgent,.tf-watch.done{--tw:var(--er)}
+.tf-watch.urgent{border-color:color-mix(in srgb,var(--er) 55%,var(--bd))}
+.tf-watch.urgent .tf-watch-copy b{color:var(--er);animation:tfWatchBeat 1s ease-in-out infinite}
+.tf-watch.urgent .tf-watch-dial{animation:tfWatchBeat 1s ease-in-out infinite}
+.tf-watch.done{border-color:var(--er);background:linear-gradient(120deg,color-mix(in srgb,var(--er) 16%,var(--card)),var(--card))}
+.tf-watch.done .tf-watch-copy b{color:var(--er);animation:tfWatchBlink .5s steps(1) infinite}
+.tf-watch.done .tf-watch-dial{animation:tfWatchRing .5s linear 3}
+@keyframes tfWatchBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+@keyframes tfWatchBlink{50%{opacity:.25}}
+@keyframes tfWatchRing{0%,100%{transform:rotate(0)}20%{transform:rotate(-9deg)}40%{transform:rotate(8deg)}60%{transform:rotate(-6deg)}80%{transform:rotate(5deg)}}
+
+.tf-timeup{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:20px;background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:tfTimeupFade .22s ease-out both}
+.tf-timeup-card{display:grid;justify-items:center;gap:6px;min-width:min(280px,88vw);padding:24px 28px 22px;border-radius:22px;text-align:center;
+ border:1px solid color-mix(in srgb,var(--er) 55%,var(--bd));background:linear-gradient(160deg,color-mix(in srgb,var(--er) 14%,var(--card)),var(--card));
+ box-shadow:0 24px 70px rgba(0,0,0,.45);animation:tfTimeupPop .42s cubic-bezier(.2,.9,.25,1.25) both}
+.tf-timeup-dial{width:76px;height:76px;animation:tfWatchRing .5s linear 3 .1s}
+.tf-timeup-dial svg{width:100%;height:100%;overflow:visible}
+.tf-timeup-dial circle:first-child{fill:var(--el);stroke:var(--er);stroke-width:3}
+.tf-timeup-dial line{stroke:var(--er);stroke-width:2.4;stroke-linecap:round}
+.tf-timeup-dial circle:last-child{fill:var(--er)}
+.tf-timeup-card>b{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:34px;font-weight:800;color:var(--er);letter-spacing:-.02em;animation:tfWatchBlink .5s steps(1) infinite}
+.tf-timeup-card>strong{font-size:22px;font-weight:900;color:var(--tx)}
+.tf-timeup-card>span{font-size:13px;color:var(--tx2)}
+@keyframes tfTimeupFade{from{opacity:0}to{opacity:1}}
+@keyframes tfTimeupPop{from{opacity:0;transform:scale(.8) translateY(10px)}to{opacity:1;transform:none}}
+@media(max-width:480px){.tf-watch{gap:12px;padding:9px 14px 13px 10px}.tf-watch-dial{width:52px;height:52px}}
+@media(prefers-reduced-motion:reduce){
+ .tf-watch.urgent .tf-watch-copy b,.tf-watch.urgent .tf-watch-dial,.tf-watch.done .tf-watch-copy b,.tf-watch.done .tf-watch-dial,
+ .tf-timeup,.tf-timeup-card,.tf-timeup-dial,.tf-timeup-card>b{animation:none!important}
+}

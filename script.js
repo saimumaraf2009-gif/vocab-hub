@@ -201,7 +201,7 @@ function configureGame(mode,duration=0){
  const old=$('#game-setup');if(old)old.remove();
  const timed=T(mode),pairs=mode==='match'||mode==='mem',game=GAME_MODES.includes(mode);
  const special=mode==='daily'||mode==='ladder'||mode==='boss';
- const defaults=timed?[30,60,120]:mode==='mem'?[3,4,6,8]:mode==='match'?[3,5,8,10,12]:special?(mode==='daily'?[3,5,10,20]:mode==='boss'?[3,10,15,20]:[3,5,10,15]):[3,5,10,20,30];
+ const defaults=timed?(mode==='tf'?[15,30,60,120]:[30,60,120]):mode==='mem'?[3,4,6,8]:mode==='match'?[3,5,8,10,12]:special?(mode==='daily'?[3,5,10,20]:mode==='boss'?[3,10,15,20]:[3,5,10,15]):[3,5,10,20,30];
  const prefCount=mode==='mem'?6:pairs?8:mode==='daily'?5:mode==='boss'?10:mode==='ladder'?15:(defaults.includes(N)?N:10);
  const def=timed?(duration||60):(defaults.includes(N)?N:prefCount);
  const secOpts=VOCAB_SECTIONS.map(x=>({v:x.id,t:x.name,s:x.id==='all'?'সব সেকশনের শব্দ':''}));
@@ -231,14 +231,14 @@ function configureGame(mode,duration=0){
     max=all.length;
    }
   }
-  let chosenCount=timed?def:(+$('#setup-count')?.value||def);
+  let chosenCount=timed?(defaults.includes(+$('#setup-count')?.value)?+$('#setup-count').value:(defaults.includes(def)?def:60)):(+$('#setup-count')?.value||def);
   if(!timed&&chosenCount!==999&&chosenCount>max)chosenCount=max||1;
   const levelOpts=DIFFICULTIES.map(l=>{const c=levelAvailable(sec,un,l.id),disabled=c===0||(!timed&&chosenCount!==999&&c<chosenCount);return{v:l.id,t:l.name,s:c+' words',disabled}});
   const levelWrap=$('#setup-level-wrap');
   if(levelWrap){levelWrap.innerHTML=countChoiceHTML('setup-level',levelOpts,selected,'Difficulty level','level-choices');$('#setup-level').addEventListener('change',update)}
   const countWrap=$('#setup-count-wrap');
   if(countWrap){
-   if(timed)countWrap.innerHTML=ddHTML('setup-count',defaults.map(n=>({v:n,t:n+' seconds'})),chosenCount);
+   if(timed)countWrap.innerHTML=countChoiceHTML('setup-count',defaults.map(n=>({v:n,t:String(n),s:'seconds'})),chosenCount,'Challenge duration','time-choices');
    else countWrap.innerHTML=countChoiceHTML('setup-count',questionCountOptions(max,defaults),chosenCount);
    $('#setup-count').addEventListener('change',update);
   }
@@ -312,11 +312,46 @@ function start(mode,o={}){clearTimeout(S&&S.feedbackTimer);const n=Math.max(1,Ma
  if(mode=='flash'){S.ws=o.due?pick(n,w=>isDue(D.p[w.id])):pick(n,null,S.key);if(!S.ws.length)return toast('Nothing due right now — great job!');S.n=S.ws.length;S.rev=0;go('play');return}
  if(mode=='mem'){const k=Math.min(n,W.length);S.ws=pick(k,null,S.key);if(!S.ws.length)return toast('এই সেকশনে শব্দ পাওয়া যায়নি।');S.cards=sh(S.ws.flatMap(w=>[{id:w.id,w,side:'en'},{id:w.id,w,side:'bn'}]));S.open=[];S.matched=new Set();S.missed=new Set();S.moves=0;S.lock=0;S.n=S.ws.length;go('play');return}
  const types=MODES[mode],mix=mode=='mixed';let qs=[];
- if(T(mode)){const seen=new Set(D.seen[S.key]||[]);let fr=W.filter(w=>!seen.has(w.id));if(!fr.length){D.seen[S.key]=[];fr=W}const ws=sh(fr);for(let i=0;i<300;i++)qs.push(mk(ws[i%ws.length],types[Math.random()*types.length|0]));S.n=0;S.end=Date.now()+o.dur*1000;S.iv=setInterval(tick,250)}
+ if(T(mode)){const seen=new Set(D.seen[S.key]||[]);let fr=W.filter(w=>!seen.has(w.id));if(!fr.length){D.seen[S.key]=[];fr=W}const ws=sh(fr);for(let i=0;i<300;i++)qs.push(mk(ws[i%ws.length],types[Math.random()*types.length|0]));S.n=0;S.end=Date.now()+o.dur*1000;S.iv=setInterval(tick,250);if(mode==='tf'){S.total=o.dur*1000;S.raf=requestAnimationFrame(()=>tfWatchLoop(S))}}
  else{const ws=pick(n,w=>mix||types.some(t=>OK[t](w)),S.key);if(!ws.length){return toast('এই ফরম্যাটে উপযোগী কোনো প্রশ্ন পাওয়া যায়নি।')}
   qs=ws.map(w=>{const el=types.filter(t=>OK[t](w));return mk(w,el[Math.random()*el.length|0])});S.n=qs.length}
  S.qs=qs;go('play')}
-function tick(){const e=$('#tm');if(!e)return;const l=Math.max(0,Math.ceil((S.end-Date.now())/1000));e.textContent=l+'s';if(l<=0)finish()}
+/* ---------- True / False Blitz stopwatch ---------- */
+const TF_RING=2*Math.PI*21;
+function tfWatchFmt(ms){ms=Math.max(0,ms);const m=Math.floor(ms/60000),sec=Math.floor(ms/1000)%60,t=Math.floor(ms%1000/100);return String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0')+'.'+t}
+function tfWatchHTML(sess){
+ const total=sess.total||60000,rem=Math.max(0,sess.end-Date.now()),frac=Math.min(1,rem/total),state=rem<=0?'done':rem<=5000?'urgent':rem<=10000?'warn':'';
+ let ticks='';for(let i=0;i<12;i++){ticks+=`<line x1="26" y1="${i%3?7.5:6}" x2="26" y2="${i%3?9.5:10}" transform="rotate(${i*30} 26 26)"/>`}
+ return`<div class="tf-watch ${state}" id="tf-watch" role="timer" aria-label="Time left"><div class="tf-watch-dial"><i class="tf-watch-crown"></i><svg viewBox="0 0 52 52" aria-hidden="true"><circle class="tf-watch-face" cx="26" cy="26" r="24"/><circle class="tf-watch-track" cx="26" cy="26" r="21"/><circle class="tf-watch-arc" id="tf-watch-arc" cx="26" cy="26" r="21" transform="rotate(-90 26 26)" style="stroke-dasharray:${TF_RING.toFixed(2)};stroke-dashoffset:${(TF_RING*(1-frac)).toFixed(2)}"/><g class="tf-watch-ticks">${ticks}</g><g id="tf-watch-hand" style="transform-origin:26px 26px;transform:rotate(${((1-frac)*360).toFixed(1)}deg)"><line x1="26" y1="26" x2="26" y2="9.5"/></g><circle class="tf-watch-pin" cx="26" cy="26" r="2.2"/></svg></div><div class="tf-watch-copy"><small>TIME LEFT</small><b id="tf-watch-time">${tfWatchFmt(rem)}</b></div><div class="tf-watch-bar" aria-hidden="true"><i id="tf-watch-bar" style="width:${(frac*100).toFixed(2)}%"></i></div></div>`}
+function tfWatchPaint(sess){
+ if(!S||S!==sess||sess.fin||sess.done_)return;
+ const box=document.getElementById('tf-watch');if(!box)return;
+ const total=sess.total||60000,rem=Math.max(0,sess.end-Date.now()),frac=Math.min(1,rem/total);
+ const arc=document.getElementById('tf-watch-arc'),hand=document.getElementById('tf-watch-hand'),txt=document.getElementById('tf-watch-time'),bar=document.getElementById('tf-watch-bar');
+ if(arc)arc.style.strokeDashoffset=(TF_RING*(1-frac)).toFixed(2);
+ if(hand)hand.style.transform='rotate('+((1-frac)*360).toFixed(1)+'deg)';
+ if(txt)txt.textContent=tfWatchFmt(rem);
+ if(bar)bar.style.width=(frac*100).toFixed(2)+'%';
+ box.classList.toggle('warn',rem>5000&&rem<=10000);box.classList.toggle('urgent',rem>0&&rem<=5000);
+ if(rem<=0)tfTimeUp(sess)}
+function tfWatchLoop(sess){if(!S||S!==sess||sess.fin||sess.done_||sess.timeUp)return;tfWatchPaint(sess);if(sess.timeUp)return;sess.raf=requestAnimationFrame(()=>tfWatchLoop(sess))}
+function playTimeUpSound(){if(D.sound===false)return;try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const ctx=new C();[0,.17,.34].forEach(d=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type='square';o.frequency.value=1320;g.gain.setValueAtTime(.0001,ctx.currentTime+d);g.gain.exponentialRampToValueAtTime(.07,ctx.currentTime+d+.01);g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+d+.11);o.connect(g);g.connect(ctx.destination);o.start(ctx.currentTime+d);o.stop(ctx.currentTime+d+.12)});setTimeout(()=>ctx.close(),700)}catch(e){}}
+function tfTimeUp(sess){
+ if(!S||S!==sess||sess.timeUp||sess.fin||sess.done_)return;
+ sess.timeUp=1;sess.fb=1;clearInterval(sess.iv);clearTimeout(sess.feedbackTimer);sess.feedbackTimer=0;if(sess.raf){cancelAnimationFrame(sess.raf);sess.raf=0}
+ const box=document.getElementById('tf-watch');
+ if(box){box.classList.remove('warn','urgent');box.classList.add('done');
+  const t=document.getElementById('tf-watch-time');if(t)t.textContent=tfWatchFmt(0);
+  const a=document.getElementById('tf-watch-arc');if(a)a.style.strokeDashoffset=TF_RING.toFixed(2);
+  const h=document.getElementById('tf-watch-hand');if(h)h.style.transform='rotate(360deg)';
+  const b=document.getElementById('tf-watch-bar');if(b)b.style.width='0%'}
+ document.querySelectorAll('.tf-card .opt').forEach(b=>{b.disabled=true});
+ playTimeUpSound();
+ const o=document.createElement('div');o.className='tf-timeup';o.setAttribute('role','alert');
+ o.innerHTML=`<div class="tf-timeup-card"><div class="tf-timeup-dial"><svg viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="21"/><line x1="26" y1="26" x2="26" y2="9.5"/><circle cx="26" cy="26" r="2.2"/></svg></div><b>00:00.0</b><strong>Time’s up!</strong><span>${sess.c} correct · ${sess.att||0} answered</span></div>`;
+ document.body.append(o);
+ sess.endTimer=setTimeout(()=>{if(S===sess)finish()},1600)}
+function tick(){if(S&&S.mode==='tf'){tfWatchPaint(S);return}const e=$('#tm');if(!e)return;const l=Math.max(0,Math.ceil((S.end-Date.now())/1000));e.textContent=l+'s';if(l<=0)finish()}
 function playAnswerSound(ok){
  if(D.sound===false)return;
  try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const ctx=new C(),osc=ctx.createOscillator(),gain=ctx.createGain();osc.type='sine';osc.frequency.setValueAtTime(ok?740:220,ctx.currentTime);if(ok)osc.frequency.exponentialRampToValueAtTime(1040,ctx.currentTime+.12);else osc.frequency.exponentialRampToValueAtTime(150,ctx.currentTime+.18);gain.gain.setValueAtTime(.0001,ctx.currentTime);gain.gain.exponentialRampToValueAtTime(.12,ctx.currentTime+.015);gain.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+(ok?.19:.25));osc.connect(gain);gain.connect(ctx.destination);osc.start();osc.stop(ctx.currentTime+(ok?.2:.26));osc.onended=()=>ctx.close()}catch(e){}
@@ -341,7 +376,7 @@ const fbHTML=(ok,q)=>{const answerText=typeof q==='string'?q:(q.ans||q.show||'')
 function submitTyped(){const q=S.qs[S.i];if(S.fb)return;const v=$('#in').value.trim().toLowerCase().replace(/\s+/g,' ');if(!v)return;const ok=q.ans.includes(v);answer(ok);S.fb=1;$('#in').disabled=true;$('#fb').outerHTML=fbHTML(ok,q)}
 function hint(){S.hinted=1;$('#hint').textContent='Hint: '+S.qs[S.i].hint}
 function next(){S.i++;S.fb=0;S.hinted=0;if(S.mode=='ladder'&&S.i<S.n&&S.qs.length<=S.i)S.qs.push(ladderQ());(S.i>=(S.mode=='ladder'?S.n:S.qs.length)||S.lives===0)?finish():render()}
-function finish(){if(!S||S.done_)return;S.done_=1;clearInterval(S.iv);clearTimeout(S.feedbackTimer);S.feedbackTimer=0;const b4=lvl(st().xp).i;
+function finish(){if(!S||S.done_)return;S.done_=1;clearInterval(S.iv);clearTimeout(S.feedbackTimer);S.feedbackTimer=0;if(S.raf){cancelAnimationFrame(S.raf);S.raf=0}clearTimeout(S.endTimer);const _tu=document.querySelector('.tf-timeup');if(_tu)_tu.remove();const b4=lvl(st().xp).i;
  if(T(S.mode))S.xp=Math.min(25,S.c*2);if(S.mode=='boss'&&S.lives>0)S.xp+=15;if(S.mode=='daily'){const dk=dayOf(Date.now());if(!D.daily[dk])S.xp+=15;D.daily[dk]={c:S.c,n:S.n,t:Date.now()}}if(S.lad)S.level=S.lad.peak;
  const n=T(S.mode)?S.att||0:S.n;D.ses.push({t:Date.now(),mode:S.mode,n,c:S.c,xp:S.xp,ms:Date.now()-S.t0,r:S.r,lv:S.level||0,bad:[...new Set(S.bad.map(w=>w.id))].slice(0,25)});save();
  const a=lvl(st().xp).i;if(a>b4)toast('⬆ Level up! You are now '+LN[a]);checkAch();save();S.fin=1;render()}
@@ -1214,7 +1249,7 @@ V.play=()=>{if(!S)return'<p>No session.</p>';if(S.fin){const a=T(S.mode)?S.att:S
  if(S.mode=='mem')return memHTML();
  if(S.mode=='match'){return`<h1>Word Matching</h1><p class="sub">Tap an English word, then its meaning. ${S.done.size}/${S.ws.length} · <span class="session-xp" title="XP earned this game">✦ <b id="sxp">${S.xp||0}</b> XP earned</span></p><div class="m"><div>${S.L.map((w,i)=>`<button class="btn opt ${S.done.has(w.id)?'dn':''} ${S.sel&&S.sel.id==w.id?'sel':''}" onclick="matchClick('L',${i})">${esc(w.en)}</button>`).join('')}</div><div>${S.R.map((w,i)=>`<button class="btn opt bn ${S.done.has(w.id)?'dn':''}" onclick="matchClick('R',${i})">${esc(short(w.bn))}</button>`).join('')}</div></div>`}
  if(S.mode=='flash'){const w=S.ws[S.i];return`<h1>Flashcard Recall</h1><p class="sub">${S.i+1} / ${S.ws.length} · <span class="session-xp" title="XP earned this game">✦ <b id="sxp">${S.xp||0}</b> XP earned</span></p><div class="card flashcard-review-card"><div class="big">${esc(w.en)}</div>${S.rev?`<div class="big bn" style="font-size:24px">${esc(w.bn)}</div>${w.ex?'<p class="sub">'+esc(w.ex)+'</p>':''}<div class="row flash-actions"><button class="btn pri flash-action-btn flash-know" onclick="flashAns(1)">✓ I know this</button><button class="btn flash-action-btn flash-practice" onclick="flashAns(0)">↻ Need more practice</button></div>`:'<div class="row flash-actions"><button class="btn pri flash-reveal-btn" onclick="S.rev=1;render()">Reveal meaning</button></div>'}</div>`}
- const q=S.qs[S.i];return`<h1>${T(S.mode)?(S.mode=='tf'?'True / False Blitz':S.mode=='ibasprint'?'IBA Speed Sprint':'Speed Challenge')+' · <span id="tm">'+Math.max(0,Math.ceil((S.end-Date.now())/1000))+'s</span>':'Question '+(S.i+1)+' / '+(S.n||S.qs.length)}</h1><p class="sub">${q.t=='syn'||q.t=='ant'?`<strong class="syn-ant-instruction">${esc(q.sub||'')}</strong><span class="syn-ant-meta"> · ${S.c} correct${hudExtra()} · </span>`:`${esc(q.sub||'')} · ${S.c} correct${hudExtra()} · `}<span class="session-xp" title="XP earned this game">✦ <b id="sxp">${S.xp||0}</b> XP earned</span></p>${!T(S.mode)?`<div class="bar"><i style="width:${S.i/(S.n||S.qs.length)*100}%"></i></div>`:''}<div class="card ${q.t=='tf'?'tf-card':''}"><div class="big ${q.bn?'bn':''} ${q.long?'long':''}">${esc(q.prompt)}</div>${q.letters?scrHTML(q):q.t=='hang'?hgHTML(q):q.opts?q.opts.map((o,i)=>`<button class="btn opt ${/[\u0980-\u09FF]/.test(o)?'bn':''}" onclick="pickOpt(${i})">${esc(o)}</button>`).join(''):`<div class="row"><input id="in" autocomplete="off" autofocus placeholder="Type your answer" onkeydown="if(event.key=='Enter')submitTyped()"><button class="btn pri" onclick="submitTyped()">Check</button><button class="btn" onclick="hint()">Hint</button></div><p class="sub" id="hint"></p>`}<div id="fb"></div></div>`};
+ const q=S.qs[S.i];return`<h1>${S.mode=='tf'?'True / False Blitz':T(S.mode)?(S.mode=='ibasprint'?'IBA Speed Sprint':'Speed Challenge')+' · <span id="tm">'+Math.max(0,Math.ceil((S.end-Date.now())/1000))+'s</span>':'Question '+(S.i+1)+' / '+(S.n||S.qs.length)}</h1>${S.mode=='tf'?tfWatchHTML(S):''}<p class="sub">${q.t=='syn'||q.t=='ant'?`<strong class="syn-ant-instruction">${esc(q.sub||'')}</strong><span class="syn-ant-meta"> · ${S.c} correct${hudExtra()} · </span>`:`${esc(q.sub||'')} · ${S.c} correct${hudExtra()} · `}<span class="session-xp" title="XP earned this game">✦ <b id="sxp">${S.xp||0}</b> XP earned</span></p>${!T(S.mode)?`<div class="bar"><i style="width:${S.i/(S.n||S.qs.length)*100}%"></i></div>`:''}<div class="card ${q.t=='tf'?'tf-card':''}"><div class="big ${q.bn?'bn':''} ${q.long?'long':''}">${esc(q.prompt)}</div>${q.letters?scrHTML(q):q.t=='hang'?hgHTML(q):q.opts?q.opts.map((o,i)=>`<button class="btn opt ${/[\u0980-\u09FF]/.test(o)?'bn':''}" onclick="pickOpt(${i})">${esc(o)}</button>`).join(''):`<div class="row"><input id="in" autocomplete="off" autofocus placeholder="Type your answer" onkeydown="if(event.key=='Enter')submitTyped()"><button class="btn pri" onclick="submitTyped()">Check</button><button class="btn" onclick="hint()">Hint</button></div><p class="sub" id="hint"></p>`}<div id="fb"></div></div>`};
 const PAGES=[['dash','Dashboard','dash'],['levels','Levels','levels'],['lib','Library','lib'],['practice','Practice','practice'],['arcade','Arcade','arcade'],['admission','Admission QB','library'],['revision','Revision','revision'],['mistakes','Mistakes','mistakes'],['missions','Missions','missions'],['achievements','Achievements','achievements'],['analytics','Analytics','analytics'],['history','History','history'],['leaderboard','Leaderboard','trophy'],['profile','Profile','profile'],['settings','Settings','settings'],['admin','Word manager','admin'],['feedback','Feedback','feedback'],['about','About VocabHub','about']];
 const PRIMARY=['dash','practice','arcade','lib','profile'];
 const MOBILE_MORE=['levels','admission','revision','mistakes','missions','achievements','analytics','history','leaderboard','settings','admin','feedback','about'];
@@ -1322,7 +1357,7 @@ const ARC_ART={
 };
 const ARC_META={
  typing:{c:'#ffb84d',m:'BUILD · SOLO',d:1},mem:{c:'#a78bfa',m:'PAIRS · PUZZLE',d:1},scramble:{c:'#ff8a4c',m:'UNSCRAMBLE',d:2},
- hang:{c:'#ff4d5e',m:'6 LIVES',d:2},tf:{c:'#3ddc97',m:'BLITZ · 60s',d:1},odd:{c:'#38bdf8',m:'LOGIC · SPOT IT',d:2},
+ hang:{c:'#ff4d5e',m:'6 LIVES',d:2},tf:{c:'#3ddc97',m:'BLITZ · 15–120s',d:1},odd:{c:'#38bdf8',m:'LOGIC · SPOT IT',d:2},
  sent:{c:'#7c8cff',m:'SENTENCE BUILD',d:3},ladder:{c:'#facc15',m:'LEVEL 1 → 5',d:2},speed:{c:'#ff5a36',m:'TIMED · 30/60/120s',d:2},
  daily:{c:'#ff5fa2',m:'DAILY · +15 XP',d:2},boss:{c:'#ef233c',m:'BOSS · 3 LIVES',d:3},ibaodd:{c:'#2dd4bf',m:'EXAM · RADAR',d:3},
  ibasprint:{c:'#a3e635',m:'EXAM · TIMED',d:3}

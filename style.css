@@ -4786,3 +4786,12 @@ html.nav-collapsed #nav .sidebar-footer{align-items:center}
   .arc-grid:not(.adm-grid) .arc-body h3{font-size:12px}
   .arc-grid:not(.adm-grid) .arc-body .sub{font-size:9.5px}
 }
+
+
+/* ===== v2.93 · Install app: menu entry + banner colours ===== */
+.drawer-install{display:grid;grid-template-columns:34px 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;width:100%;padding:10px 12px;border-radius:14px;border:1px solid color-mix(in srgb,var(--ac,#ff4652) 38%,var(--bd));background:color-mix(in srgb,var(--ac,#ff4652) 10%,transparent);color:var(--tx);text-align:left;cursor:pointer;font:inherit}
+.drawer-install span{grid-row:1/3;display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#ff4652,#d3101f);color:#fff;font-size:17px;font-weight:800}
+.drawer-install b{font-size:13px;font-weight:800;line-height:1.25}
+.drawer-install em{font-style:normal;font-size:10.5px;color:var(--tx2);line-height:1.3}
+.drawer-install:active{transform:scale(.98)}
+#pwa-install .pwa-go{background:linear-gradient(135deg,#ff4652,#d3101f)}
